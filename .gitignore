@@ -32,3 +32,14 @@ scraper/legacy/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Hadoop Local Binaries
+hadoop/
+
+# ETL Local Test Data & Warehouses
+backend/tests/test_data/
+backend/app/spark-warehouse/
+
+# JVM Logs
+hs_err_pid*.log
+replay_pid*.log
