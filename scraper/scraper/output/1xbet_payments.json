@@ -1,0 +1,30 @@
+[
+    {
+        "schema_version": "1.1",
+        "scraper_version": "1.0.0",
+        "source_platform": "1xbet",
+        "extraction_status": "success",
+        "extraction_method": "playwright_sync",
+        "site": "1xbet",
+        "page_type": "deposit_page",
+        "payment_type": "upi",
+        "payment_name": "UPI Fast",
+        "currency": "INR",
+        "country": "IN",
+        "bonus_name": null,
+        "support_type": "live_chat",
+        "support_value": null,
+        "status": "active",
+        "source_url": "https://1xlite-12947.pro/en/office/recharge/",
+        "scraped_at": "2026-07-26T08:25:03Z",
+        "extracted_data": {
+            "upi_id": "merchant.pay@okaxis",
+            "bank_account": null,
+            "ifsc_code": null,
+            "payee_name": "OneXBet Solutions Private Limited",
+            "min_deposit": "500",
+            "max_deposit": "50000",
+            "limit_info": "Limits: Min 500 INR / Max 50,000 INR"
+        }
+    }
+]
