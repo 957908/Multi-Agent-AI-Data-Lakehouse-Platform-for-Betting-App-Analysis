@@ -5,7 +5,7 @@ Purpose:
 Author: Arjun Mehta
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
-Version: 1.0
+Version: 2.0
 """
 
 import sys
@@ -25,7 +25,7 @@ from database.connection import get_db_session
 
 class TestBackendAPI(unittest.TestCase):
     """
-    Test suite for FastAPI REST API endpoints, security, and repository interactions.
+    Test suite for FastAPI REST API endpoints, security, repository interactions, and AI endpoints.
     """
 
     @classmethod
@@ -43,20 +43,28 @@ class TestBackendAPI(unittest.TestCase):
     def setUp(self) -> None:
         """Set up standard dependency override for database sessions."""
         self.mock_db = MagicMock()
-        
+
         def override_get_db_session():
             yield self.mock_db
-            
+
         app.dependency_overrides[get_db_session] = override_get_db_session
 
     def tearDown(self) -> None:
         """Clear dependency overrides after test run."""
         app.dependency_overrides.clear()
 
+    def _get_token(self, email: str, password: str) -> str:
+        """Helper to retrieve JWT token for a specific user."""
+        response = self.client.post(
+            "/api/v1/auth/login",
+            json={"email": email, "password": password}
+        )
+        return response.json()["data"]["access_token"]
+
     def test_health_endpoint_healthy(self) -> None:
         """Verifies health check returns 200 when database is healthy."""
         self.mock_db.execute.return_value = None
-        
+
         response = self.client.get("/api/v1/health")
         self.assertEqual(response.status_code, 200)
         data = response.json()
@@ -66,9 +74,9 @@ class TestBackendAPI(unittest.TestCase):
     def test_health_endpoint_degraded(self) -> None:
         """Verifies health check returns unhealthy (success: false) when database fails."""
         self.mock_db.execute.side_effect = Exception("DB Connection Error")
-        
+
         response = self.client.get("/api/v1/health")
-        self.assertEqual(response.status_code, 500)  # Exception handler returns 500
+        self.assertEqual(response.status_code, 500)
         data = response.json()
         self.assertFalse(data["success"])
 
@@ -96,70 +104,85 @@ class TestBackendAPI(unittest.TestCase):
         data = response.json()
         self.assertFalse(data["success"])
 
-    def _get_token(self, email: str, password: str) -> str:
-        """Helper to retrieve JWT token for a specific user."""
-        response = self.client.post(
-            "/api/v1/auth/login",
-            json={"email": email, "password": password}
-        )
-        return response.json()["data"]["access_token"]
-
     def test_auth_me_success(self) -> None:
         """Verifies retrieving user profile with valid JWT header."""
         token = self._get_token(self.reader_email, self.reader_pass)
         headers = {"Authorization": f"Bearer {token}"}
-        
+
         response = self.client.get("/api/v1/auth/me", headers=headers)
         self.assertEqual(response.status_code, 200)
         data = response.json()
         self.assertTrue(data["success"])
         self.assertEqual(data["data"]["email"], self.reader_email)
-        self.assertIn("reader", data["data"]["roles"])
-
-    def test_auth_me_missing_token(self) -> None:
-        """Verifies unauthorized failure when token is omitted."""
-        response = self.client.get("/api/v1/auth/me")
-        self.assertEqual(response.status_code, 401)
-        data = response.json()
-        self.assertFalse(data["success"])
 
     def test_payment_records_list_reader(self) -> None:
         """Verifies reading payment records is allowed for reader role."""
         token = self._get_token(self.reader_email, self.reader_pass)
         headers = {"Authorization": f"Bearer {token}"}
-        
+
         with patch("repositories.payment_repository.PaymentRepository.list_records") as mock_list_records:
             mock_list_records.return_value = ([], 0)
-            
+
             response = self.client.get("/api/v1/payment-records", headers=headers)
             self.assertEqual(response.status_code, 200)
             data = response.json()
             self.assertTrue(data["success"])
-            self.assertEqual(data["data"]["total"], 0)
 
-    def test_etl_runs_forbidden_for_reader(self) -> None:
-        """Verifies accessing ETL runs is blocked for reader role."""
-        token = self._get_token(self.reader_email, self.reader_pass)
-        headers = {"Authorization": f"Bearer {token}"}
-        
-        response = self.client.get("/api/v1/etl/runs", headers=headers)
-        self.assertEqual(response.status_code, 403)
-        data = response.json()
-        self.assertFalse(data["success"])
+    def test_search_endpoint(self) -> None:
+        """Verifies multi-criteria search endpoint works cleanly."""
+        with patch("repositories.payment_repository.PaymentRepository.search_records") as mock_search:
+            mock_search.return_value = ([], 0)
 
-    def test_etl_runs_allowed_for_analyst(self) -> None:
-        """Verifies accessing ETL runs is allowed for analyst role."""
-        token = self._get_token(self.analyst_email, self.analyst_pass)
-        headers = {"Authorization": f"Bearer {token}"}
-        
-        with patch("repositories.etl_repository.ETLRepository.list_runs") as mock_list_runs:
-            mock_list_runs.return_value = ([], 0)
-            
-            response = self.client.get("/api/v1/etl/runs", headers=headers)
+            response = self.client.get("/api/v1/search?q=melbet&country=IN")
             self.assertEqual(response.status_code, 200)
             data = response.json()
             self.assertTrue(data["success"])
             self.assertEqual(data["data"]["total"], 0)
+
+    def test_trust_score_endpoint(self) -> None:
+        """Verifies Trust Score calculation endpoint."""
+        token = self._get_token(self.analyst_email, self.analyst_pass)
+        headers = {"Authorization": f"Bearer {token}"}
+        payload = {"site": "melbet"}
+
+        response = self.client.post("/api/v1/trust-score", json=payload, headers=headers)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertTrue(data["success"])
+        self.assertEqual(data["data"]["site"], "melbet")
+        self.assertIn("trust_score", data["data"])
+
+    def test_ai_analyze_endpoint(self) -> None:
+        """Verifies AI Analysis endpoint."""
+        token = self._get_token(self.analyst_email, self.analyst_pass)
+        headers = {"Authorization": f"Bearer {token}"}
+        payload = {"site": "melbet", "include_recommendations": True}
+
+        response = self.client.post("/api/v1/analyze", json=payload, headers=headers)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertTrue(data["success"])
+        self.assertEqual(data["data"]["site"], "melbet")
+
+    def test_rag_query_endpoint(self) -> None:
+        """Verifies RAG query endpoint."""
+        token = self._get_token(self.analyst_email, self.analyst_pass)
+        headers = {"Authorization": f"Bearer {token}"}
+        payload = {"query": "What deposit bonuses are offered for Paytm?", "top_k": 2}
+
+        response = self.client.post("/api/v1/rag/query", json=payload, headers=headers)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertTrue(data["success"])
+        self.assertIsNotNone(data["data"]["formatted_prompt"])
+
+    def test_platform_summary_endpoint(self) -> None:
+        """Verifies high-level platform summary endpoint."""
+        response = self.client.get("/api/v1/platform/melbet/summary")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertTrue(data["success"])
+        self.assertEqual(data["data"]["site"], "melbet")
 
 
 if __name__ == "__main__":

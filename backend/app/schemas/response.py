@@ -5,7 +5,7 @@ Purpose:
 Author: Arjun Mehta
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
-Version: 1.0
+Version: 2.0
 """
 
 from typing import Generic, TypeVar, Optional

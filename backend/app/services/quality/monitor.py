@@ -1,0 +1,149 @@
+"""
+File: monitor.py
+Purpose:
+    Monitors data quality parameters (completeness, accuracy, uniqueness) 
+    and generates markdown execution summaries.
+Author: Priya Iyer
+Company: SentinelX Labs
+Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
+Version: 1.0
+"""
+
+import json
+import logging
+from pathlib import Path
+from datetime import datetime
+from typing import Dict, Any, List
+from config.settings import settings
+
+logger = logging.getLogger("backend.services.quality.monitor")
+
+
+class QualityMonitor:
+    """
+    Maintains data quality rules, calculates validation metrics,
+    and formats diagnostic logs and pipeline reports.
+    """
+
+    def __init__(self, run_path_key: str) -> None:
+        """
+        Initializes QualityMonitor with a directory identifier (e.g. YYYY-MM-DD/HH-MM).
+        """
+        self.run_path_key = run_path_key
+        # output/reports/etl/YYYY-MM-DD/HH-MM
+        self.report_dir = Path(settings.REPORTS_DIR) / run_path_key
+        self.report_dir.mkdir(parents=True, exist_ok=True)
+
+    def calculate_metrics(
+        self,
+        total_raw: int,
+        valid_count: int,
+        duplicate_count: int,
+        inserted_count: int,
+        invalid_records: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """
+        Calculates rates for completeness, validity, and uniqueness.
+        """
+        failed_count = len(invalid_records)
+        
+        validity_rate = (valid_count / total_raw * 100.0) if total_raw > 0 else 100.0
+        uniqueness_rate = (100.0 - (duplicate_count / valid_count * 100.0)) if valid_count > 0 else 100.0
+        success_rate = (inserted_count / total_raw * 100.0) if total_raw > 0 else 100.0
+
+        # Calculate field completeness on validated records (e.g., optional fields presence)
+        metrics = {
+            "execution_date": datetime.now().isoformat(),
+            "run_path": self.run_path_key,
+            "counts": {
+                "total_raw": total_raw,
+                "valid": valid_count,
+                "duplicates_removed": duplicate_count,
+                "inserted_curated": inserted_count,
+                "failed_validation": failed_count
+            },
+            "rates": {
+                "validity_pct": round(validity_rate, 2),
+                "uniqueness_pct": round(uniqueness_rate, 2),
+                "success_pct": round(success_rate, 2)
+            },
+            "overall_quality_score": round((validity_rate * 0.6 + uniqueness_rate * 0.4), 2)
+        }
+        
+        return metrics
+
+    def generate_report(self, metrics: Dict[str, Any], invalid_records: List[Dict[str, Any]]) -> str:
+        """
+        Generates a markdown data quality and execution report.
+        Returns the path of the written file.
+        """
+        self.report_dir.mkdir(parents=True, exist_ok=True)
+        report_path = self.report_dir / "etl_quality_report.md"
+        logger.info(f"Writing ETL quality report to: {report_path}")
+
+        # Extract invalid records error summary
+        failed_summaries = []
+        for rec in invalid_records[:15]:  # Cap at top 15 for report readability
+            failed_summaries.append(
+                f"| {rec.get('site', 'Unknown')} | {rec.get('payment_name', 'Unknown')} | {rec.get('__validation_errors__', 'Unknown')} |"
+            )
+        
+        failed_section = "\n".join(failed_summaries) if failed_summaries else "| None | - | - |"
+
+        markdown_content = f"""# 📊 SentinelX Trust AI - ETL Data Quality Report
+
+## Run Context
+- **Run Identifier**: `{self.run_path_key}`
+- **Execution Timestamp**: `{metrics["execution_date"]}`
+- **Overall Data Quality Score**: **{metrics["overall_quality_score"]}/100**
+
+---
+
+## 📈 Processing Pipeline Summary
+
+| Metric | Record Count | Percentage |
+| :--- | :---: | :---: |
+| **Total Ingested Raw** | {metrics["counts"]["total_raw"]} | 100.0% |
+| **Validation Passed** | {metrics["counts"]["valid"]} | {metrics["rates"]["validity_pct"]}% |
+| **Validation Failed (DLQ)** | {metrics["counts"]["failed_validation"]} | {round(100.0 - metrics["rates"]["validity_pct"], 2)}% |
+| **Duplicates Filtered** | {metrics["counts"]["duplicates_removed"]} | - |
+| **Loaded to PostgreSQL** | {metrics["counts"]["inserted_curated"]} | {metrics["rates"]["success_pct"]}% |
+
+---
+
+## 🛡️ Data Quality Parameters
+
+### 1. Validity Rate: **{metrics["rates"]["validity_pct"]}%**
+*Percentage of raw scraping items matching the PaymentRecord data contract.*
+
+### 2. Uniqueness Rate: **{metrics["rates"]["uniqueness_pct"]}%**
+*Percentage of non-duplicate entries processed during this run.*
+
+### 3. Pipeline Ingestion Success Rate: **{metrics["rates"]["success_pct"]}%**
+*Percentage of total ingested raw records successfully committed to PostgreSQL.*
+
+---
+
+## 🚨 Validation Error Samples (Top 15 Rejections)
+
+| Site | Payment Name | Error Details |
+| :--- | :--- | :--- |
+{failed_section}
+
+---
+*Report generated by QualityMonitor service. SentinelX Labs Confidential.*
+"""
+
+        try:
+            with open(report_path, "w", encoding="utf-8") as f:
+                f.write(markdown_content)
+            
+            # Also write json metrics snapshot for downstream dashboarding
+            json_path = self.report_dir / "etl_metrics.json"
+            with open(json_path, "w", encoding="utf-8") as jf:
+                json.dump(metrics, jf, indent=4)
+                
+            return str(report_path)
+        except Exception as e:
+            logger.error(f"Failed to write ETL quality report: {str(e)}")
+            raise
