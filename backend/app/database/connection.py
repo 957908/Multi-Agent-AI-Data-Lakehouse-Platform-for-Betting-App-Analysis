@@ -50,3 +50,15 @@ def get_db() -> Generator[Session, None, None]:
         raise
     finally:
         session.close()
+
+
+def get_db_session() -> Generator[Session, None, None]:
+    """
+    FastAPI dependency that yields a database session.
+    Avoids using @contextmanager decorator directly to prevent Python 3.13 compatibility issues.
+    """
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()

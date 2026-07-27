@@ -37,7 +37,24 @@ class Settings(BaseSettings):
 
     # Logging
     LOG_LEVEL: str = "INFO"
+    # JWT & Role Authentication Configuration
+    JWT_SECRET_KEY: str = "sentinelx_super_secure_jwt_secret_key_123"
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
+    ADMIN_EMAIL: str = "admin@sentinelx.com"
+    ADMIN_PASSWORD: str = "AdminPassword123"
+    ANALYST_EMAIL: str = "analyst@sentinelx.com"
+    ANALYST_PASSWORD: str = "AnalystPassword123"
+    READER_EMAIL: str = "reader@sentinelx.com"
+    READER_PASSWORD: str = "ReaderPassword123"
+
+    # AI Intelligence & Trust Engine Configuration
+    TRUST_WEIGHT_COMPLETENESS: float = 25.0
+    TRUST_WEIGHT_DIVERSITY: float = 30.0
+    TRUST_WEIGHT_QUALITY: float = 25.0
+    TRUST_WEIGHT_FOOTPRINT: float = 20.0
+    PROMPT_TEMPLATES_DIR: str = str(BASE_DIR / "backend" / "app" / "services" / "ai" / "prompts")
     # Load configuration from the root .env
     model_config = SettingsConfigDict(
         env_file=str(BASE_DIR / ".env"),

@@ -1,0 +1,215 @@
+[
+    {
+        "date": "2026-07-26",
+        "time": "14-48",
+        "sites_processed": [
+            "onexbet",
+            "melbet",
+            "10cric",
+            "22xbet"
+        ],
+        "total_methods": 0,
+        "validation_passes": 0,
+        "validation_failures": 0,
+        "duplicate_count": 0,
+        "completeness_percentage": 0.0,
+        "utf8_compliant": true,
+        "site_breakdowns": {
+            "onexbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Locator.wait_for: Error: strict mode violation: locator(\"#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']\") resolved to 2 elements:\n    1) <input value=\"\" type=\"text\" id=\"username\" aria-label=\"\" name=\"username\" data-v-35d2baee=\"\" data-v-f794c157=\"\" autocomplete=\"username\" class=\"auth-form-extended-fields__input ui-field__input\"/> aka locator(\"#username\")\n    2) <input value=\"91\" type=\"text\" maxlength=\"3\" placeholder=\"xxx\" data-v-9aab136c=\"\" data-v-82557fd3=\"\" pattern=\"[\\d\\-,.]*\" inputmode=\"decimal\" class=\"ui-dropdown-phone-codes__field\"/> aka get_by_placeholder(\"xxx\")\n\nCall log:\n  - waiting for locator(\"#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']\") to be visible\n    - locator resolved to hidden <input value=\"\" type=\"text\" id=\"username\" aria-label=\"\" name=\"username\" data-v-35d2baee=\"\" data-v-f794c157=\"\" autocomplete=\"username\" class=\"auth-form-extended-fields__input ui-field__input\"/>\n",
+                "duration_ms": 10751,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "melbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/\nCall log:\n  - navigating to \"https://melbet.com/\", waiting until \"load\"\n",
+                "duration_ms": 24567,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "10cric": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/\nCall log:\n  - navigating to \"https://10cric247.com/\", waiting until \"load\"\n",
+                "duration_ms": 24704,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "22xbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/\nCall log:\n  - navigating to \"https://22play.com/\", waiting until \"load\"\n",
+                "duration_ms": 4617,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            }
+        },
+        "total_duration_ms": 64641
+    },
+    {
+        "date": "2026-07-26",
+        "time": "14-51",
+        "sites_processed": [
+            "onexbet",
+            "melbet",
+            "10cric",
+            "22xbet"
+        ],
+        "total_methods": 0,
+        "validation_passes": 0,
+        "validation_failures": 0,
+        "duplicate_count": 0,
+        "completeness_percentage": 0.0,
+        "utf8_compliant": true,
+        "site_breakdowns": {
+            "onexbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: 'charmap' codec can't encode character '\\u26a0' in position 1: character maps to <undefined>",
+                "duration_ms": 14146,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "melbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/\nCall log:\n  - navigating to \"https://melbet.com/\", waiting until \"load\"\n",
+                "duration_ms": 24576,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "10cric": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/\nCall log:\n  - navigating to \"https://10cric247.com/\", waiting until \"load\"\n",
+                "duration_ms": 24574,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "22xbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/\nCall log:\n  - navigating to \"https://22play.com/\", waiting until \"load\"\n",
+                "duration_ms": 4073,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            }
+        },
+        "total_duration_ms": 67370
+    },
+    {
+        "date": "2026-07-26",
+        "time": "14-53",
+        "sites_processed": [
+            "onexbet",
+            "melbet",
+            "10cric",
+            "22xbet"
+        ],
+        "total_methods": 0,
+        "validation_passes": 0,
+        "validation_failures": 0,
+        "duplicate_count": 0,
+        "completeness_percentage": 0.0,
+        "utf8_compliant": true,
+        "site_breakdowns": {
+            "onexbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Locator.wait_for: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator(\".deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid\") to be visible\n",
+                "duration_ms": 99561,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "melbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/\nCall log:\n  - navigating to \"https://melbet.com/\", waiting until \"load\"\n",
+                "duration_ms": 24596,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "10cric": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/\nCall log:\n  - navigating to \"https://10cric247.com/\", waiting until \"load\"\n",
+                "duration_ms": 24735,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            },
+            "22xbet": {
+                "total": 0,
+                "passes": 0,
+                "failures": 0,
+                "duplicates": 0,
+                "retries": 0,
+                "dismissals": 0,
+                "status": "failed",
+                "failure_reason": "Execution Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/\nCall log:\n  - navigating to \"https://22play.com/\", waiting until \"load\"\n",
+                "duration_ms": 4208,
+                "navigation_ms": 0,
+                "discovery_ms": 0
+            }
+        },
+        "total_duration_ms": 153102
+    }
+]

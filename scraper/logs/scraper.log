@@ -1,0 +1,1221 @@
+2026-07-26 13:36:14,862 - scraper - INFO - Logging initialized. Level=INFO, File=logs\scraper.log
+2026-07-26 13:36:14,863 - scraper.main - INFO - Starting SentinelX Trust AI Data Acquisition Pipeline...
+2026-07-26 13:36:14,864 - scraper.main - INFO - --- Starting scraping run for site: onexbet ---
+2026-07-26 13:36:14,864 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.onexbet
+2026-07-26 13:36:14,867 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:36:14,867 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:36:16,967 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:36:16,968 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:36:16,970 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 13:36:16,971 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:36:17,004 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:36:17,280 - scraper.adapters.factory - INFO - Factory resolving adapter for: onexbet
+2026-07-26 13:36:17,280 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: onexbet
+2026-07-26 13:36:17,280 - scraper.adapters.base_adapter - INFO - Opening home page for onexbet: https://1xlite-12947.pro/en
+2026-07-26 13:36:21,650 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: homepage
+2026-07-26 13:36:21,651 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_homepage_20260726_133621.png
+2026-07-26 13:36:22,034 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:36:22,035 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_homepage_20260726_133622.html
+2026-07-26 13:36:22,098 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:36:22,099 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:36:24,192 - scraper.adapters.onexbet.adapter - INFO - Session verified automatically (authenticated state elements visible).
+2026-07-26 13:36:24,192 - scraper.adapters.onexbet.adapter - INFO - Navigating to 1xBet deposit panel...
+2026-07-26 13:36:24,193 - scraper.core.navigation - INFO - Initialized NavigationManager.
+2026-07-26 13:36:24,193 - scraper.core.navigation - INFO - Locating and clicking deposit button: a.deposit-button, button.deposit-btn, .deposit
+2026-07-26 13:36:34,216 - scraper.core.navigation - ERROR - Failed to navigate via deposit button: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit") to be visible
+
+2026-07-26 13:36:34,216 - scraper.adapters.onexbet.adapter - WARNING - Interactive deposit navigation failed: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit") to be visible
+. Loading fallback URL.
+2026-07-26 13:36:34,216 - scraper.core.navigation - INFO - Navigating page to URL: https://1xlite-12947.pro/en/office/recharge/
+2026-07-26 13:36:36,026 - scraper.core.navigation - INFO - Navigation complete.
+2026-07-26 13:36:36,026 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_portal_fallback
+2026-07-26 13:36:36,027 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_portal_fallback_20260726_133636.png
+2026-07-26 13:36:36,778 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:36:36,778 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_portal_fallback_20260726_133636.html
+2026-07-26 13:36:36,797 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:36:36,798 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_page
+2026-07-26 13:36:36,798 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_page_20260726_133636.png
+2026-07-26 13:36:37,534 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:36:37,535 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_page_20260726_133637.html
+2026-07-26 13:36:37,566 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:36:37,566 - scraper.adapters.onexbet.adapter - INFO - Discovering payment methods...
+2026-07-26 13:36:37,566 - scraper.adapters.base_adapter - INFO - Waiting for payment container: .deposit-page, .deposit-page__main, .deposit__content
+2026-07-26 13:36:52,582 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'onexbet': Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content") to be visible
+
+2026-07-26 13:36:52,582 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_onexbet_20260726_133652.html
+2026-07-26 13:36:52,609 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:36:52,610 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_onexbet_20260726_133652.png
+2026-07-26 13:36:53,357 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:36:53,358 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:36:53,358 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:36:53,406 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:36:55,109 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:36:55,148 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:36:55,149 - scraper.main - ERROR - Gracefully skipped site 'onexbet' due to fatal execution failure: Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content") to be visible
+
+2026-07-26 13:36:55,149 - scraper.main - INFO - --- Starting scraping run for site: melbet ---
+2026-07-26 13:36:55,150 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.melbet
+2026-07-26 13:36:55,152 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:36:55,152 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:36:56,226 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:36:56,228 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:36:56,229 - scraper.core.session - INFO - Session check for melbet: exists=False
+2026-07-26 13:36:56,230 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:36:56,263 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:36:56,475 - scraper.adapters.factory - INFO - Factory resolving adapter for: melbet
+2026-07-26 13:36:56,475 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: melbet
+2026-07-26 13:36:56,475 - scraper.adapters.base_adapter - INFO - Opening home page for melbet: https://melbet.com
+2026-07-26 13:37:17,904 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'melbet': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 13:37:17,905 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_melbet_20260726_133717.html
+2026-07-26 13:37:17,913 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 13:37:17,914 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_melbet_20260726_133717.png
+2026-07-26 13:37:18,104 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:37:18,104 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:37:18,104 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:37:18,123 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:37:19,781 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:37:19,804 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:37:19,804 - scraper.main - ERROR - Gracefully skipped site 'melbet' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 13:37:19,804 - scraper.main - INFO - --- Starting scraping run for site: 10cric ---
+2026-07-26 13:37:19,805 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.10cric
+2026-07-26 13:37:19,805 - scraper.main - ERROR - Failed to load selector dictionary for site '10cric': No module named 'config.selectors.10cric'
+2026-07-26 13:37:19,805 - scraper.main - INFO - --- Starting scraping run for site: 22xbet ---
+2026-07-26 13:37:19,805 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.22xbet
+2026-07-26 13:37:19,805 - scraper.main - ERROR - Failed to load selector dictionary for site '22xbet': No module named 'config.selectors.22xbet'
+2026-07-26 13:37:19,807 - scraper.core.reporter - INFO - Generating reports for execution: 2026-07-26/13-36
+2026-07-26 13:37:19,809 - scraper.core.reporter - INFO - Saved dataset statistics report: output\reports\2026-07-26\13-36\dataset_stats_report.md
+2026-07-26 13:37:19,810 - scraper.core.reporter - INFO - Saved data quality report: output\reports\2026-07-26\13-36\data_quality_report.md
+2026-07-26 13:37:19,810 - scraper.main - INFO - Reports successfully generated:
+Stats: output\reports\2026-07-26\13-36\dataset_stats_report.md
+Quality: output\reports\2026-07-26\13-36\data_quality_report.md
+2026-07-26 13:37:19,811 - scraper.main - INFO - Pipeline execution sequence finished.
+2026-07-26 13:37:43,135 - scraper - INFO - Logging initialized. Level=INFO, File=logs\scraper.log
+2026-07-26 13:37:43,136 - scraper.main - INFO - Starting SentinelX Trust AI Data Acquisition Pipeline...
+2026-07-26 13:37:43,137 - scraper.main - INFO - --- Starting scraping run for site: onexbet ---
+2026-07-26 13:37:43,137 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.onexbet
+2026-07-26 13:37:43,139 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:37:43,140 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:37:44,198 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:37:44,199 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:37:44,200 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 13:37:44,200 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:37:44,229 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:37:44,450 - scraper.adapters.factory - INFO - Factory resolving adapter for: onexbet
+2026-07-26 13:37:44,450 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: onexbet
+2026-07-26 13:37:44,451 - scraper.adapters.base_adapter - INFO - Opening home page for onexbet: https://1xlite-12947.pro/en
+2026-07-26 13:37:46,382 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: homepage
+2026-07-26 13:37:46,383 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_homepage_20260726_133746.png
+2026-07-26 13:37:46,743 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:37:46,744 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_homepage_20260726_133746.html
+2026-07-26 13:37:46,810 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:37:46,811 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:37:48,858 - scraper.adapters.onexbet.adapter - INFO - Session verified automatically (authenticated state elements visible).
+2026-07-26 13:37:48,858 - scraper.adapters.onexbet.adapter - INFO - Navigating to 1xBet deposit panel...
+2026-07-26 13:37:48,858 - scraper.core.navigation - INFO - Initialized NavigationManager.
+2026-07-26 13:37:48,858 - scraper.core.navigation - INFO - Locating and clicking deposit button: a.deposit-button, button.deposit-btn, .deposit
+2026-07-26 13:37:58,868 - scraper.core.navigation - ERROR - Failed to navigate via deposit button: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit") to be visible
+
+2026-07-26 13:37:58,868 - scraper.adapters.onexbet.adapter - WARNING - Interactive deposit navigation failed: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit") to be visible
+. Loading fallback URL.
+2026-07-26 13:37:58,869 - scraper.core.navigation - INFO - Navigating page to URL: https://1xlite-12947.pro/en/office/recharge/
+2026-07-26 13:38:00,133 - scraper.core.navigation - INFO - Navigation complete.
+2026-07-26 13:38:00,133 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_portal_fallback
+2026-07-26 13:38:00,133 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_portal_fallback_20260726_133800.png
+2026-07-26 13:38:00,899 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:38:00,900 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_portal_fallback_20260726_133800.html
+2026-07-26 13:38:00,918 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:38:00,918 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_page
+2026-07-26 13:38:00,919 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_page_20260726_133800.png
+2026-07-26 13:38:01,689 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:38:01,689 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_page_20260726_133801.html
+2026-07-26 13:38:01,719 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:38:01,719 - scraper.adapters.onexbet.adapter - INFO - Discovering payment methods...
+2026-07-26 13:38:01,719 - scraper.adapters.base_adapter - INFO - Waiting for payment container: .deposit-page, .deposit-page__main, .deposit__content
+2026-07-26 13:38:16,729 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'onexbet': Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content") to be visible
+
+2026-07-26 13:38:16,730 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_onexbet_20260726_133816.html
+2026-07-26 13:38:16,753 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:38:16,753 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_onexbet_20260726_133816.png
+2026-07-26 13:38:17,476 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:38:17,476 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:38:17,476 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:38:17,514 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:38:19,269 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:38:19,297 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:38:19,297 - scraper.main - ERROR - Gracefully skipped site 'onexbet' due to fatal execution failure: Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content") to be visible
+
+2026-07-26 13:38:19,297 - scraper.main - INFO - --- Starting scraping run for site: melbet ---
+2026-07-26 13:38:19,298 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.melbet
+2026-07-26 13:38:19,299 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:38:19,299 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:38:20,414 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:38:20,415 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:38:20,415 - scraper.core.session - INFO - Session check for melbet: exists=False
+2026-07-26 13:38:20,415 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:38:20,445 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:38:20,707 - scraper.adapters.factory - INFO - Factory resolving adapter for: melbet
+2026-07-26 13:38:20,708 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: melbet
+2026-07-26 13:38:20,708 - scraper.adapters.base_adapter - INFO - Opening home page for melbet: https://melbet.com
+2026-07-26 13:38:42,116 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'melbet': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 13:38:42,117 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_melbet_20260726_133842.html
+2026-07-26 13:38:42,127 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 13:38:42,128 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_melbet_20260726_133842.png
+2026-07-26 13:38:42,322 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:38:42,322 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:38:42,322 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:38:42,340 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:38:43,978 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:38:44,001 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:38:44,001 - scraper.main - ERROR - Gracefully skipped site 'melbet' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 13:38:44,001 - scraper.main - INFO - --- Starting scraping run for site: 10cric ---
+2026-07-26 13:38:44,002 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.tencric
+2026-07-26 13:38:44,005 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:38:44,005 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:38:45,075 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:38:45,077 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:38:45,078 - scraper.core.session - INFO - Session check for 10cric: exists=False
+2026-07-26 13:38:45,078 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:38:45,111 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:38:45,346 - scraper.adapters.factory - INFO - Factory resolving adapter for: 10cric
+2026-07-26 13:38:45,346 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 10cric
+2026-07-26 13:38:45,346 - scraper.adapters.base_adapter - INFO - Opening home page for 10cric: https://10cric247.com
+2026-07-26 13:39:06,465 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '10cric': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 13:39:06,465 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_10cric_20260726_133906.html
+2026-07-26 13:39:06,474 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 13:39:06,475 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_10cric_20260726_133906.png
+2026-07-26 13:39:06,697 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:39:06,697 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:39:06,697 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:39:06,715 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:39:08,375 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:39:08,398 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:39:08,398 - scraper.main - ERROR - Gracefully skipped site '10cric' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 13:39:08,398 - scraper.main - INFO - --- Starting scraping run for site: 22xbet ---
+2026-07-26 13:39:08,398 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.twentytwoxbet
+2026-07-26 13:39:08,404 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:39:08,404 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:39:09,441 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:39:09,442 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:39:09,443 - scraper.core.session - INFO - Session check for 22xbet: exists=False
+2026-07-26 13:39:09,443 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:39:09,474 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:39:09,688 - scraper.adapters.factory - INFO - Factory resolving adapter for: 22xbet
+2026-07-26 13:39:09,688 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 22xbet
+2026-07-26 13:39:09,688 - scraper.adapters.base_adapter - INFO - Opening home page for 22xbet: https://22play.com
+2026-07-26 13:39:10,833 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '22xbet': Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 13:39:10,833 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_22xbet_20260726_133910.html
+2026-07-26 13:39:10,848 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 13:39:10,849 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_22xbet_20260726_133910.png
+2026-07-26 13:39:11,017 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:39:11,018 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:39:11,018 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:39:11,035 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:39:12,010 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:39:12,039 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:39:12,039 - scraper.main - ERROR - Gracefully skipped site '22xbet' due to fatal execution failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 13:39:12,040 - scraper.core.reporter - INFO - Generating reports for execution: 2026-07-26/13-37
+2026-07-26 13:39:12,041 - scraper.core.reporter - INFO - Saved dataset statistics report: output\reports\2026-07-26\13-37\dataset_stats_report.md
+2026-07-26 13:39:12,042 - scraper.core.reporter - INFO - Saved data quality report: output\reports\2026-07-26\13-37\data_quality_report.md
+2026-07-26 13:39:12,042 - scraper.main - INFO - Reports successfully generated:
+Stats: output\reports\2026-07-26\13-37\dataset_stats_report.md
+Quality: output\reports\2026-07-26\13-37\data_quality_report.md
+2026-07-26 13:39:12,042 - scraper.main - INFO - Pipeline execution sequence finished.
+2026-07-26 13:40:08,828 - scraper - INFO - Logging initialized. Level=INFO, File=logs\scraper.log
+2026-07-26 13:40:08,829 - scraper.main - INFO - Starting SentinelX Trust AI Data Acquisition Pipeline...
+2026-07-26 13:40:08,831 - scraper.main - INFO - --- Starting scraping run for site: onexbet ---
+2026-07-26 13:40:08,831 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.onexbet
+2026-07-26 13:40:08,834 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:40:08,834 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:40:09,852 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:40:09,854 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:40:09,854 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 13:40:09,854 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:40:09,885 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:40:10,101 - scraper.adapters.factory - INFO - Factory resolving adapter for: onexbet
+2026-07-26 13:40:10,101 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: onexbet
+2026-07-26 13:40:10,101 - scraper.adapters.base_adapter - INFO - Opening home page for onexbet: https://1xlite-12947.pro/en
+2026-07-26 13:40:15,761 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: homepage
+2026-07-26 13:40:15,762 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_homepage_20260726_134015.png
+2026-07-26 13:40:16,557 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:40:16,558 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_homepage_20260726_134016.html
+2026-07-26 13:40:16,620 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:40:16,621 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:40:18,679 - scraper.adapters.onexbet.adapter - INFO - Session verified automatically (authenticated state elements visible).
+2026-07-26 13:40:18,679 - scraper.adapters.onexbet.adapter - INFO - Navigating to 1xBet deposit panel...
+2026-07-26 13:40:18,679 - scraper.core.navigation - INFO - Initialized NavigationManager.
+2026-07-26 13:40:18,679 - scraper.core.navigation - INFO - Locating and clicking deposit button: a.deposit-button, button.deposit-btn, .deposit
+2026-07-26 13:40:28,686 - scraper.core.navigation - ERROR - Failed to navigate via deposit button: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit") to be visible
+
+2026-07-26 13:40:28,686 - scraper.adapters.onexbet.adapter - WARNING - Interactive deposit navigation failed: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit") to be visible
+. Loading fallback URL.
+2026-07-26 13:40:28,686 - scraper.core.navigation - INFO - Navigating page to URL: https://1xlite-12947.pro/en/office/recharge/
+2026-07-26 13:40:29,941 - scraper.core.navigation - INFO - Navigation complete.
+2026-07-26 13:40:29,942 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_portal_fallback
+2026-07-26 13:40:29,942 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_portal_fallback_20260726_134029.png
+2026-07-26 13:40:30,709 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:40:30,710 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_portal_fallback_20260726_134030.html
+2026-07-26 13:40:30,728 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:40:30,729 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_page
+2026-07-26 13:40:30,729 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_page_20260726_134030.png
+2026-07-26 13:40:31,486 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:40:31,487 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_page_20260726_134031.html
+2026-07-26 13:40:31,515 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:40:31,515 - scraper.adapters.onexbet.adapter - INFO - Discovering payment methods...
+2026-07-26 13:40:31,515 - scraper.adapters.base_adapter - INFO - Waiting for payment container: .deposit-page, .deposit-page__main, .deposit__content
+2026-07-26 13:40:46,524 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'onexbet': Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content") to be visible
+
+2026-07-26 13:40:46,525 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_onexbet_20260726_134046.html
+2026-07-26 13:40:46,545 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 13:40:46,546 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_onexbet_20260726_134046.png
+2026-07-26 13:40:47,254 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:40:47,254 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:40:47,254 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:40:47,292 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:40:48,964 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:40:48,990 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:40:48,990 - scraper.main - ERROR - Gracefully skipped site 'onexbet' due to fatal execution failure: Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content") to be visible
+
+2026-07-26 13:40:48,991 - scraper.main - INFO - --- Starting scraping run for site: melbet ---
+2026-07-26 13:40:48,991 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.melbet
+2026-07-26 13:40:48,992 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:40:48,993 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:40:50,063 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:40:50,064 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:40:50,064 - scraper.core.session - INFO - Session check for melbet: exists=False
+2026-07-26 13:40:50,065 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:40:50,093 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:40:50,309 - scraper.adapters.factory - INFO - Factory resolving adapter for: melbet
+2026-07-26 13:40:50,309 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: melbet
+2026-07-26 13:40:50,309 - scraper.adapters.base_adapter - INFO - Opening home page for melbet: https://melbet.com
+2026-07-26 13:41:11,711 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'melbet': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 13:41:11,712 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_melbet_20260726_134111.html
+2026-07-26 13:41:11,722 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 13:41:11,722 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_melbet_20260726_134111.png
+2026-07-26 13:41:11,925 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:41:11,926 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:41:11,926 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:41:11,943 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:41:13,580 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:41:13,602 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:41:13,602 - scraper.main - ERROR - Gracefully skipped site 'melbet' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 13:41:13,603 - scraper.main - INFO - --- Starting scraping run for site: 10cric ---
+2026-07-26 13:41:13,603 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.tencric
+2026-07-26 13:41:13,605 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:41:13,605 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:41:14,590 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:41:14,592 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:41:14,592 - scraper.core.session - INFO - Session check for 10cric: exists=False
+2026-07-26 13:41:14,592 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:41:14,622 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:41:14,838 - scraper.adapters.factory - INFO - Factory resolving adapter for: 10cric
+2026-07-26 13:41:14,838 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 10cric
+2026-07-26 13:41:14,838 - scraper.adapters.base_adapter - INFO - Opening home page for 10cric: https://10cric247.com
+2026-07-26 13:41:36,239 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '10cric': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 13:41:36,240 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_10cric_20260726_134136.html
+2026-07-26 13:41:36,249 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 13:41:36,250 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_10cric_20260726_134136.png
+2026-07-26 13:41:36,444 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:41:36,444 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:41:36,445 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:41:36,463 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:41:38,162 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:41:38,185 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:41:38,185 - scraper.main - ERROR - Gracefully skipped site '10cric' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 13:41:38,185 - scraper.main - INFO - --- Starting scraping run for site: 22xbet ---
+2026-07-26 13:41:38,185 - scraper.main - INFO - Dynamically loading selectors configuration: config.selectors.twentytwoxbet
+2026-07-26 13:41:38,187 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 13:41:38,187 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 13:41:39,234 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 13:41:39,235 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 13:41:39,235 - scraper.core.session - INFO - Session check for 22xbet: exists=False
+2026-07-26 13:41:39,235 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 13:41:39,267 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 13:41:39,476 - scraper.adapters.factory - INFO - Factory resolving adapter for: 22xbet
+2026-07-26 13:41:39,476 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 22xbet
+2026-07-26 13:41:39,476 - scraper.adapters.base_adapter - INFO - Opening home page for 22xbet: https://22play.com
+2026-07-26 13:41:40,459 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '22xbet': Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 13:41:40,460 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_22xbet_20260726_134140.html
+2026-07-26 13:41:40,470 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 13:41:40,471 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_22xbet_20260726_134140.png
+2026-07-26 13:41:40,659 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 13:41:40,659 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 13:41:40,659 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 13:41:40,678 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 13:41:41,675 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 13:41:41,704 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 13:41:41,704 - scraper.main - ERROR - Gracefully skipped site '22xbet' due to fatal execution failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 13:41:41,705 - scraper.core.reporter - INFO - Generating reports for execution: 2026-07-26/13-40
+2026-07-26 13:41:41,706 - scraper.core.reporter - INFO - Saved dataset statistics report: output\reports\2026-07-26\13-40\dataset_stats_report.md
+2026-07-26 13:41:41,707 - scraper.core.reporter - INFO - Saved data quality report: output\reports\2026-07-26\13-40\data_quality_report.md
+2026-07-26 13:41:41,707 - scraper.main - INFO - Reports successfully generated:
+Stats: output\reports\2026-07-26\13-40\dataset_stats_report.md
+Quality: output\reports\2026-07-26\13-40\data_quality_report.md
+2026-07-26 13:41:41,707 - scraper.main - INFO - Pipeline execution sequence finished.
+2026-07-26 14:27:51,401 - scraper - INFO - Logging initialized. Level=INFO, File=logs\scraper.log
+2026-07-26 14:27:51,402 - scraper.main - INFO - Starting SentinelX Trust AI Data Acquisition Pipeline...
+2026-07-26 14:27:51,403 - scraper.main - INFO - --- Starting scraping run for site: onexbet ---
+2026-07-26 14:27:51,405 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:27:51,405 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:27:52,595 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:27:52,597 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:27:52,598 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 14:27:52,598 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:27:52,628 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:27:52,853 - scraper.adapters.factory - INFO - Factory resolving adapter for: onexbet
+2026-07-26 14:27:52,853 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: onexbet
+2026-07-26 14:27:52,853 - scraper.adapters.base_adapter - INFO - Opening home page for onexbet: https://1xlite-12947.pro/en
+2026-07-26 14:27:56,097 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: homepage
+2026-07-26 14:27:56,098 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_homepage_20260726_142756.png
+2026-07-26 14:27:56,467 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:27:56,467 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_homepage_20260726_142756.html
+2026-07-26 14:27:56,551 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:27:56,551 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:27:58,674 - scraper.adapters.onexbet.adapter - INFO - Session verified automatically (authenticated state elements visible).
+2026-07-26 14:27:58,674 - scraper.adapters.onexbet.adapter - INFO - Navigating to 1xBet deposit panel...
+2026-07-26 14:27:58,674 - scraper.core.navigation - INFO - Initialized NavigationManager.
+2026-07-26 14:27:58,674 - scraper.core.navigation - INFO - Locating and clicking deposit button: a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link
+2026-07-26 14:28:08,708 - scraper.core.navigation - ERROR - Failed to navigate via deposit button: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link") to be visible
+
+2026-07-26 14:28:08,708 - scraper.adapters.onexbet.adapter - WARNING - Interactive deposit navigation failed: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link") to be visible
+. Loading fallback URL.
+2026-07-26 14:28:08,708 - scraper.core.navigation - INFO - Navigating page to URL: https://1xlite-12947.pro/en/office/recharge/
+2026-07-26 14:28:09,979 - scraper.core.navigation - INFO - Navigation complete.
+2026-07-26 14:28:09,979 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_portal_fallback
+2026-07-26 14:28:09,980 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_portal_fallback_20260726_142809.png
+2026-07-26 14:28:10,691 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:28:10,692 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_portal_fallback_20260726_142810.html
+2026-07-26 14:28:10,706 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:28:10,706 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_page
+2026-07-26 14:28:10,707 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_page_20260726_142810.png
+2026-07-26 14:28:11,440 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:28:11,441 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_page_20260726_142811.html
+2026-07-26 14:28:11,482 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:28:11,482 - scraper.adapters.onexbet.adapter - INFO - Discovering payment methods...
+2026-07-26 14:28:11,482 - scraper.adapters.base_adapter - INFO - Waiting for payment container: .deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid
+2026-07-26 14:28:26,488 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'onexbet': Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid") to be visible
+
+2026-07-26 14:28:26,489 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_onexbet_20260726_142826.html
+2026-07-26 14:28:26,511 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:28:26,512 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_onexbet_20260726_142826.png
+2026-07-26 14:28:27,156 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:28:27,157 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:28:27,157 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:28:27,190 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:28:28,950 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:28:28,978 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:28:28,978 - scraper.main - ERROR - Gracefully skipped site 'onexbet' due to fatal execution failure: Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid") to be visible
+
+2026-07-26 14:28:28,978 - scraper.main - INFO - --- Starting scraping run for site: melbet ---
+2026-07-26 14:28:28,980 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:28:28,980 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:28:30,002 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:28:30,003 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:28:30,003 - scraper.core.session - INFO - Session check for melbet: exists=False
+2026-07-26 14:28:30,004 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:28:30,036 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:28:30,322 - scraper.adapters.factory - INFO - Factory resolving adapter for: melbet
+2026-07-26 14:28:30,322 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: melbet
+2026-07-26 14:28:30,323 - scraper.adapters.base_adapter - INFO - Opening home page for melbet: https://melbet.com
+2026-07-26 14:28:51,777 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'melbet': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:28:51,778 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_melbet_20260726_142851.html
+2026-07-26 14:28:51,787 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:28:51,787 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_melbet_20260726_142851.png
+2026-07-26 14:28:51,982 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:28:51,983 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:28:51,983 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:28:52,002 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:28:53,654 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:28:53,682 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:28:53,682 - scraper.main - ERROR - Gracefully skipped site 'melbet' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:28:53,683 - scraper.main - INFO - --- Starting scraping run for site: 10cric ---
+2026-07-26 14:28:53,696 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:28:53,696 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:28:54,683 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:28:54,684 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:28:54,685 - scraper.core.session - INFO - Session check for 10cric: exists=False
+2026-07-26 14:28:54,685 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:28:54,716 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:28:54,970 - scraper.adapters.factory - INFO - Factory resolving adapter for: 10cric
+2026-07-26 14:28:54,970 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 10cric
+2026-07-26 14:28:54,970 - scraper.adapters.base_adapter - INFO - Opening home page for 10cric: https://10cric247.com
+2026-07-26 14:29:16,390 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '10cric': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:29:16,391 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_10cric_20260726_142916.html
+2026-07-26 14:29:16,399 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:29:16,400 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_10cric_20260726_142916.png
+2026-07-26 14:29:16,595 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:29:16,595 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:29:16,595 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:29:16,613 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:29:18,240 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:29:18,262 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:29:18,262 - scraper.main - ERROR - Gracefully skipped site '10cric' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:29:18,263 - scraper.main - INFO - --- Starting scraping run for site: 22xbet ---
+2026-07-26 14:29:18,266 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:29:18,267 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:29:19,240 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:29:19,241 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:29:19,241 - scraper.core.session - INFO - Session check for 22xbet: exists=False
+2026-07-26 14:29:19,242 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:29:19,269 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:29:19,489 - scraper.adapters.factory - INFO - Factory resolving adapter for: 22xbet
+2026-07-26 14:29:19,489 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 22xbet
+2026-07-26 14:29:19,489 - scraper.adapters.base_adapter - INFO - Opening home page for 22xbet: https://22play.com
+2026-07-26 14:29:21,664 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '22xbet': Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:29:21,665 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_22xbet_20260726_142921.html
+2026-07-26 14:29:21,677 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:29:21,678 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_22xbet_20260726_142921.png
+2026-07-26 14:29:21,848 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:29:21,848 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:29:21,848 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:29:21,864 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:29:22,821 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:29:22,846 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:29:22,846 - scraper.main - ERROR - Gracefully skipped site '22xbet' due to fatal execution failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:29:22,847 - scraper.core.reporter - INFO - Generating reports for execution: 2026-07-26/14-27
+2026-07-26 14:29:22,849 - scraper.core.reporter - INFO - Saved dataset statistics report: output\reports\2026-07-26\14-27\dataset_stats_report.md
+2026-07-26 14:29:22,850 - scraper.core.reporter - INFO - Saved data quality report: output\reports\2026-07-26\14-27\data_quality_report.md
+2026-07-26 14:29:22,851 - scraper.main - INFO - Reports successfully generated:
+Stats: output\reports\2026-07-26\14-27\dataset_stats_report.md
+Quality: output\reports\2026-07-26\14-27\data_quality_report.md
+2026-07-26 14:29:22,851 - scraper.main - INFO - Pipeline execution sequence finished.
+2026-07-26 14:29:37,220 - scraper - INFO - Logging initialized. Level=INFO, File=logs\scraper.log
+2026-07-26 14:29:37,220 - scraper.main - INFO - Starting SentinelX Trust AI Data Acquisition Pipeline...
+2026-07-26 14:29:37,221 - scraper.main - INFO - --- Starting scraping run for site: onexbet ---
+2026-07-26 14:29:37,224 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:29:37,224 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:29:38,228 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:29:38,230 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:29:38,230 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 14:29:38,231 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:29:38,260 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:29:38,474 - scraper.adapters.factory - INFO - Factory resolving adapter for: onexbet
+2026-07-26 14:29:38,475 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: onexbet
+2026-07-26 14:29:38,475 - scraper.adapters.base_adapter - INFO - Opening home page for onexbet: https://1xlite-12947.pro/en
+2026-07-26 14:29:40,212 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: homepage
+2026-07-26 14:29:40,213 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_homepage_20260726_142940.png
+2026-07-26 14:29:40,552 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:29:40,552 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_homepage_20260726_142940.html
+2026-07-26 14:29:40,613 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:29:40,613 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:29:42,767 - scraper.adapters.onexbet.adapter - INFO - Session verified automatically (authenticated state elements visible).
+2026-07-26 14:29:42,767 - scraper.adapters.onexbet.adapter - INFO - Navigating to 1xBet deposit panel...
+2026-07-26 14:29:42,767 - scraper.core.navigation - INFO - Initialized NavigationManager.
+2026-07-26 14:29:42,767 - scraper.core.navigation - INFO - Locating and clicking deposit button: a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link
+2026-07-26 14:29:52,778 - scraper.core.navigation - ERROR - Failed to navigate via deposit button: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link") to be visible
+
+2026-07-26 14:29:52,779 - scraper.adapters.onexbet.adapter - WARNING - Interactive deposit navigation failed: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link") to be visible
+. Loading fallback URL.
+2026-07-26 14:29:52,779 - scraper.core.navigation - INFO - Navigating page to URL: https://1xlite-12947.pro/en/office/recharge/
+2026-07-26 14:30:01,525 - scraper.core.navigation - INFO - Navigation complete.
+2026-07-26 14:30:01,525 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_portal_fallback
+2026-07-26 14:30:01,525 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_portal_fallback_20260726_143001.png
+2026-07-26 14:30:02,297 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:30:02,298 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_portal_fallback_20260726_143002.html
+2026-07-26 14:30:02,319 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:30:02,319 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_page
+2026-07-26 14:30:02,320 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_page_20260726_143002.png
+2026-07-26 14:30:03,065 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:30:03,066 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_page_20260726_143003.html
+2026-07-26 14:30:03,093 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:30:03,094 - scraper.adapters.onexbet.adapter - INFO - Discovering payment methods...
+2026-07-26 14:30:03,094 - scraper.adapters.base_adapter - INFO - Waiting for payment container: .deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid
+2026-07-26 14:30:18,106 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'onexbet': Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid") to be visible
+
+2026-07-26 14:30:18,107 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_onexbet_20260726_143018.html
+2026-07-26 14:30:18,130 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:30:18,131 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_onexbet_20260726_143018.png
+2026-07-26 14:30:18,789 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:30:18,789 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:30:18,790 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:30:18,833 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:30:20,595 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:30:20,621 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:30:20,622 - scraper.main - ERROR - Gracefully skipped site 'onexbet' due to fatal execution failure: Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid") to be visible
+
+2026-07-26 14:30:20,622 - scraper.main - INFO - --- Starting scraping run for site: melbet ---
+2026-07-26 14:30:20,623 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:30:20,624 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:30:21,645 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:30:21,647 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:30:21,647 - scraper.core.session - INFO - Session check for melbet: exists=False
+2026-07-26 14:30:21,647 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:30:21,682 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:30:21,949 - scraper.adapters.factory - INFO - Factory resolving adapter for: melbet
+2026-07-26 14:30:21,950 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: melbet
+2026-07-26 14:30:21,950 - scraper.adapters.base_adapter - INFO - Opening home page for melbet: https://melbet.com
+2026-07-26 14:30:43,367 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'melbet': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:30:43,368 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_melbet_20260726_143043.html
+2026-07-26 14:30:43,378 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:30:43,379 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_melbet_20260726_143043.png
+2026-07-26 14:30:43,590 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:30:43,590 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:30:43,590 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:30:43,608 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:30:45,246 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:30:45,267 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:30:45,268 - scraper.main - ERROR - Gracefully skipped site 'melbet' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:30:45,268 - scraper.main - INFO - --- Starting scraping run for site: 10cric ---
+2026-07-26 14:30:45,269 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:30:45,270 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:30:46,260 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:30:46,261 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:30:46,261 - scraper.core.session - INFO - Session check for 10cric: exists=False
+2026-07-26 14:30:46,261 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:30:46,291 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:30:46,501 - scraper.adapters.factory - INFO - Factory resolving adapter for: 10cric
+2026-07-26 14:30:46,501 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 10cric
+2026-07-26 14:30:46,501 - scraper.adapters.base_adapter - INFO - Opening home page for 10cric: https://10cric247.com
+2026-07-26 14:31:07,912 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '10cric': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:31:07,913 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_10cric_20260726_143107.html
+2026-07-26 14:31:07,922 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:31:07,923 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_10cric_20260726_143107.png
+2026-07-26 14:31:08,106 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:31:08,107 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:31:08,107 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:31:08,123 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:31:09,769 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:31:09,791 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:31:09,792 - scraper.main - ERROR - Gracefully skipped site '10cric' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:31:09,792 - scraper.main - INFO - --- Starting scraping run for site: 22xbet ---
+2026-07-26 14:31:09,793 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:31:09,794 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:31:10,797 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:31:10,799 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:31:10,799 - scraper.core.session - INFO - Session check for 22xbet: exists=False
+2026-07-26 14:31:10,799 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:31:10,827 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:31:11,050 - scraper.adapters.factory - INFO - Factory resolving adapter for: 22xbet
+2026-07-26 14:31:11,051 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 22xbet
+2026-07-26 14:31:11,051 - scraper.adapters.base_adapter - INFO - Opening home page for 22xbet: https://22play.com
+2026-07-26 14:31:12,763 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '22xbet': Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:31:12,764 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_22xbet_20260726_143112.html
+2026-07-26 14:31:12,774 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:31:12,774 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_22xbet_20260726_143112.png
+2026-07-26 14:31:12,947 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:31:12,947 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:31:12,947 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:31:12,965 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:31:13,952 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:31:13,978 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:31:13,979 - scraper.main - ERROR - Gracefully skipped site '22xbet' due to fatal execution failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:31:13,980 - scraper.core.reporter - INFO - Generating reports for execution: 2026-07-26/14-29
+2026-07-26 14:31:13,981 - scraper.core.reporter - INFO - Saved dataset statistics report: output\reports\2026-07-26\14-29\dataset_stats_report.md
+2026-07-26 14:31:13,982 - scraper.core.reporter - INFO - Saved data quality report: output\reports\2026-07-26\14-29\data_quality_report.md
+2026-07-26 14:31:13,983 - scraper.main - INFO - Reports successfully generated:
+Stats: output\reports\2026-07-26\14-29\dataset_stats_report.md
+Quality: output\reports\2026-07-26\14-29\data_quality_report.md
+2026-07-26 14:31:13,983 - scraper.main - INFO - Pipeline execution sequence finished.
+2026-07-26 14:48:53,442 - scraper - INFO - Logging initialized. Level=INFO, File=logs\scraper.log
+2026-07-26 14:48:53,442 - scraper.main - INFO - Starting SentinelX Trust AI Data Acquisition Pipeline...
+2026-07-26 14:48:53,443 - scraper.main - INFO - --- Starting scraping run for site: onexbet ---
+2026-07-26 14:48:53,446 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:48:53,446 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:48:54,633 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:48:54,634 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:48:54,635 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 14:48:54,635 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:48:54,666 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:48:54,890 - scraper.adapters.factory - INFO - Factory resolving adapter for: onexbet
+2026-07-26 14:48:54,890 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: onexbet
+2026-07-26 14:48:54,890 - scraper.adapters.base_adapter - INFO - Opening home page for onexbet: https://1xlite-12947.pro/en
+2026-07-26 14:48:56,806 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: homepage
+2026-07-26 14:48:56,807 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_homepage_20260726_144856.png
+2026-07-26 14:48:57,203 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:48:57,204 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_homepage_20260726_144857.html
+2026-07-26 14:48:57,560 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:48:57,561 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:48:57,562 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 14:48:59,669 - scraper.adapters.onexbet.adapter - INFO - [Session Audit] No session state found. New login required.
+2026-07-26 14:48:59,670 - scraper.adapters.onexbet.adapter - INFO - Triggering automated login sequence...
+2026-07-26 14:48:59,670 - scraper.core.navigation - INFO - Initialized Resilient NavigationManager.
+2026-07-26 14:48:59,670 - scraper.core.login - INFO - Initialized LoginManager.
+2026-07-26 14:48:59,670 - scraper.core.navigation - INFO - Checking if login form is already open...
+2026-07-26 14:48:59,692 - scraper.core.navigation - INFO - Login form not visible. Locating trigger button...
+2026-07-26 14:48:59,693 - scraper.core.navigation - INFO - Clicking login popup trigger: button.auth-dropdown-trigger, a.login-btn, button.login, .login-trigger
+2026-07-26 14:49:00,565 - scraper.core.navigation - INFO - Waiting for username selector '#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']' to appear...
+2026-07-26 14:49:01,806 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'onexbet': Locator.wait_for: Error: strict mode violation: locator("#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']") resolved to 2 elements:
+    1) <input value="" type="text" id="username" aria-label="" name="username" data-v-35d2baee="" data-v-f794c157="" autocomplete="username" class="auth-form-extended-fields__input ui-field__input"/> aka locator("#username")
+    2) <input value="91" type="text" maxlength="3" placeholder="xxx" data-v-9aab136c="" data-v-82557fd3="" pattern="[\d\-,.]*" inputmode="decimal" class="ui-dropdown-phone-codes__field"/> aka get_by_placeholder("xxx")
+
+Call log:
+  - waiting for locator("#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']") to be visible
+    - locator resolved to hidden <input value="" type="text" id="username" aria-label="" name="username" data-v-35d2baee="" data-v-f794c157="" autocomplete="username" class="auth-form-extended-fields__input ui-field__input"/>
+
+2026-07-26 14:49:01,807 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_onexbet_20260726_144901.html
+2026-07-26 14:49:01,897 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:49:01,898 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_onexbet_20260726_144901.png
+2026-07-26 14:49:03,027 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:49:03,028 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:49:03,028 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:49:03,119 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:49:04,165 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:49:04,194 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:49:04,194 - scraper.main - ERROR - Gracefully skipped site 'onexbet' due to fatal execution failure: Locator.wait_for: Error: strict mode violation: locator("#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']") resolved to 2 elements:
+    1) <input value="" type="text" id="username" aria-label="" name="username" data-v-35d2baee="" data-v-f794c157="" autocomplete="username" class="auth-form-extended-fields__input ui-field__input"/> aka locator("#username")
+    2) <input value="91" type="text" maxlength="3" placeholder="xxx" data-v-9aab136c="" data-v-82557fd3="" pattern="[\d\-,.]*" inputmode="decimal" class="ui-dropdown-phone-codes__field"/> aka get_by_placeholder("xxx")
+
+Call log:
+  - waiting for locator("#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']") to be visible
+    - locator resolved to hidden <input value="" type="text" id="username" aria-label="" name="username" data-v-35d2baee="" data-v-f794c157="" autocomplete="username" class="auth-form-extended-fields__input ui-field__input"/>
+
+2026-07-26 14:49:04,194 - scraper.main - INFO - --- Starting scraping run for site: melbet ---
+2026-07-26 14:49:04,196 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:49:04,196 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:49:05,233 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:49:05,234 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:49:05,234 - scraper.core.session - INFO - Session check for melbet: exists=False
+2026-07-26 14:49:05,235 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:49:05,266 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:49:05,506 - scraper.adapters.factory - INFO - Factory resolving adapter for: melbet
+2026-07-26 14:49:05,507 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: melbet
+2026-07-26 14:49:05,507 - scraper.adapters.base_adapter - INFO - Opening home page for melbet: https://melbet.com
+2026-07-26 14:49:26,908 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'melbet': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:49:26,909 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_melbet_20260726_144926.html
+2026-07-26 14:49:26,918 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:49:26,919 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_melbet_20260726_144926.png
+2026-07-26 14:49:27,094 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:49:27,094 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:49:27,094 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:49:27,113 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:49:28,731 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:49:28,762 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:49:28,762 - scraper.main - ERROR - Gracefully skipped site 'melbet' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:49:28,762 - scraper.main - INFO - --- Starting scraping run for site: 10cric ---
+2026-07-26 14:49:28,764 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:49:28,764 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:49:29,861 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:49:29,862 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:49:29,863 - scraper.core.session - INFO - Session check for 10cric: exists=False
+2026-07-26 14:49:29,863 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:49:29,906 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:49:30,146 - scraper.adapters.factory - INFO - Factory resolving adapter for: 10cric
+2026-07-26 14:49:30,147 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 10cric
+2026-07-26 14:49:30,147 - scraper.adapters.base_adapter - INFO - Opening home page for 10cric: https://10cric247.com
+2026-07-26 14:49:51,563 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '10cric': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:49:51,564 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_10cric_20260726_144951.html
+2026-07-26 14:49:51,571 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:49:51,572 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_10cric_20260726_144951.png
+2026-07-26 14:49:51,766 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:49:51,766 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:49:51,766 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:49:51,786 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:49:53,445 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:49:53,467 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:49:53,467 - scraper.main - ERROR - Gracefully skipped site '10cric' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:49:53,467 - scraper.main - INFO - --- Starting scraping run for site: 22xbet ---
+2026-07-26 14:49:53,469 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:49:53,469 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:49:54,488 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:49:54,490 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:49:54,490 - scraper.core.session - INFO - Session check for 22xbet: exists=False
+2026-07-26 14:49:54,490 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:49:54,527 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:49:54,743 - scraper.adapters.factory - INFO - Factory resolving adapter for: 22xbet
+2026-07-26 14:49:54,743 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 22xbet
+2026-07-26 14:49:54,743 - scraper.adapters.base_adapter - INFO - Opening home page for 22xbet: https://22play.com
+2026-07-26 14:49:56,870 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '22xbet': Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:49:56,871 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_22xbet_20260726_144956.html
+2026-07-26 14:49:56,880 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:49:56,881 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_22xbet_20260726_144956.png
+2026-07-26 14:49:57,053 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:49:57,054 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:49:57,054 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:49:57,071 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:49:58,055 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:49:58,084 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:49:58,084 - scraper.main - ERROR - Gracefully skipped site '22xbet' due to fatal execution failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:49:58,085 - scraper.core.reporter - INFO - Generating reports for execution: 2026-07-26/14-48
+2026-07-26 14:49:58,092 - scraper.core.metrics_manager - INFO - Appended current run telemetry to database: data\metrics\historical_metrics.json
+2026-07-26 14:49:58,114 - scraper.core.reporter - INFO - Saved dataset statistics report: output\reports\2026-07-26\14-48\dataset_stats_report.md
+2026-07-26 14:49:58,115 - scraper.core.reporter - INFO - Saved data quality report: output\reports\2026-07-26\14-48\data_quality_report.md
+2026-07-26 14:49:58,116 - scraper.main - INFO - Reports successfully generated:
+Stats: output\reports\2026-07-26\14-48\dataset_stats_report.md
+Quality: output\reports\2026-07-26\14-48\data_quality_report.md
+2026-07-26 14:49:58,116 - scraper.main - INFO - Pipeline execution sequence finished.
+2026-07-26 14:51:28,742 - scraper - INFO - Logging initialized. Level=INFO, File=logs\scraper.log
+2026-07-26 14:51:28,742 - scraper.main - INFO - Starting SentinelX Trust AI Data Acquisition Pipeline...
+2026-07-26 14:51:28,744 - scraper.main - INFO - --- Starting scraping run for site: onexbet ---
+2026-07-26 14:51:28,746 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:51:28,746 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:51:29,801 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:51:29,803 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:51:29,803 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 14:51:29,804 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:51:29,837 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:51:30,082 - scraper.adapters.factory - INFO - Factory resolving adapter for: onexbet
+2026-07-26 14:51:30,082 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: onexbet
+2026-07-26 14:51:30,082 - scraper.adapters.base_adapter - INFO - Opening home page for onexbet: https://1xlite-12947.pro/en
+2026-07-26 14:51:31,583 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: homepage
+2026-07-26 14:51:31,584 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_homepage_20260726_145131.png
+2026-07-26 14:51:32,419 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:51:32,419 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_homepage_20260726_145132.html
+2026-07-26 14:51:32,486 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:51:32,487 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:51:32,487 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 14:51:34,563 - scraper.adapters.onexbet.adapter - INFO - [Session Audit] No session state found. New login required.
+2026-07-26 14:51:34,563 - scraper.adapters.onexbet.adapter - INFO - Triggering automated login sequence...
+2026-07-26 14:51:34,563 - scraper.core.navigation - INFO - Initialized Resilient NavigationManager.
+2026-07-26 14:51:34,563 - scraper.core.login - INFO - Initialized LoginManager.
+2026-07-26 14:51:34,563 - scraper.core.navigation - INFO - Checking if login form is already open...
+2026-07-26 14:51:34,593 - scraper.core.navigation - INFO - Login form not visible. Locating trigger button...
+2026-07-26 14:51:34,594 - scraper.core.navigation - INFO - Clicking login popup trigger: button.auth-dropdown-trigger, a.login-btn, button.login, .login-trigger
+2026-07-26 14:51:36,569 - scraper.core.navigation - INFO - Waiting for username selector '#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']' to appear...
+2026-07-26 14:51:38,184 - scraper.core.navigation - INFO - Login popup activated successfully.
+2026-07-26 14:51:38,184 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: login_modal
+2026-07-26 14:51:38,185 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_login_modal_20260726_145138.png
+2026-07-26 14:51:39,304 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:51:39,305 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_login_modal_20260726_145139.html
+2026-07-26 14:51:39,585 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:51:39,585 - scraper.core.login - INFO - Initiating login sequence...
+2026-07-26 14:51:39,585 - scraper.core.login - INFO - Waiting for username field: #username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']
+2026-07-26 14:51:40,486 - scraper.core.login - ERROR - Automated login flow failed: Locator.wait_for: Error: strict mode violation: locator("#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']") resolved to 7 elements:
+    1) <input value="" type="text" maxlength="100" data-v-a647ef1c="" placeholder="Search by match" class="ui-search-default__input"/> aka get_by_role("textbox", name="Search by match").first
+    2) <input value="" type="text" maxlength="100" data-v-a647ef1c="" placeholder="Search by match" class="ui-search-default__input"/> aka get_by_role("textbox", name="Search by match").nth(1)
+    3) <input name="" value="" type="text" tabindex="0" autocomplete="nope" class="multiselect__input" placeholder="Select option"/> aka get_by_role("textbox", name="Select option").first
+    4) <input name="" value="" type="text" tabindex="0" autocomplete="nope" class="multiselect__input" placeholder="Select option"/> aka get_by_role("textbox", name="Select option").nth(1)
+    5) <input value="" type="text" hasborder="true" data-v-73206368="" autocomplete="off" hasinneroffset="true" class="input__field input-field" label="Promo code (if you have one)" placeholder="Promo code (if you have one)"/> aka get_by_role("textbox", name="Promo code (if you have one)")
+    6) <input value="" type="text" id="username" aria-label="" name="username" data-v-35d2baee="" data-v-f794c157="" autocomplete="username" class="auth-form-extended-fields__input ui-field__input"/> aka locator("#username")
+    7) <input value="91" type="text" maxlength="3" placeholder="xxx" data-v-9aab136c="" data-v-82557fd3="" pattern="[\d\-,.]*" inputmode="decimal" class="ui-dropdown-phone-codes__field"/> aka get_by_placeholder("xxx")
+
+Call log:
+  - waiting for locator("#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']") to be visible
+
+2026-07-26 14:51:40,487 - scraper.core.login - WARNING - Headed mode detected. Falling back to MANUAL login...
+2026-07-26 14:51:40,487 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'onexbet': 'charmap' codec can't encode character '\u26a0' in position 1: character maps to <undefined>
+2026-07-26 14:51:40,488 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_onexbet_20260726_145140.html
+2026-07-26 14:51:40,733 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:51:40,733 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_onexbet_20260726_145140.png
+2026-07-26 14:51:41,143 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:51:41,144 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:51:41,144 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:51:41,175 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:51:42,859 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:51:42,889 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:51:42,890 - scraper.main - ERROR - Gracefully skipped site 'onexbet' due to fatal execution failure: 'charmap' codec can't encode character '\u26a0' in position 1: character maps to <undefined>
+2026-07-26 14:51:42,890 - scraper.main - INFO - --- Starting scraping run for site: melbet ---
+2026-07-26 14:51:42,891 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:51:42,891 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:51:43,943 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:51:43,944 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:51:43,945 - scraper.core.session - INFO - Session check for melbet: exists=False
+2026-07-26 14:51:43,945 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:51:43,974 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:51:44,200 - scraper.adapters.factory - INFO - Factory resolving adapter for: melbet
+2026-07-26 14:51:44,200 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: melbet
+2026-07-26 14:51:44,200 - scraper.adapters.base_adapter - INFO - Opening home page for melbet: https://melbet.com
+2026-07-26 14:52:05,600 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'melbet': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:52:05,601 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_melbet_20260726_145205.html
+2026-07-26 14:52:05,610 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:52:05,611 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_melbet_20260726_145205.png
+2026-07-26 14:52:05,794 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:52:05,794 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:52:05,794 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:52:05,814 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:52:07,443 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:52:07,466 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:52:07,466 - scraper.main - ERROR - Gracefully skipped site 'melbet' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:52:07,466 - scraper.main - INFO - --- Starting scraping run for site: 10cric ---
+2026-07-26 14:52:07,468 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:52:07,468 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:52:08,473 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:52:08,474 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:52:08,475 - scraper.core.session - INFO - Session check for 10cric: exists=False
+2026-07-26 14:52:08,475 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:52:08,507 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:52:08,738 - scraper.adapters.factory - INFO - Factory resolving adapter for: 10cric
+2026-07-26 14:52:08,738 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 10cric
+2026-07-26 14:52:08,738 - scraper.adapters.base_adapter - INFO - Opening home page for 10cric: https://10cric247.com
+2026-07-26 14:52:30,162 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '10cric': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:52:30,163 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_10cric_20260726_145230.html
+2026-07-26 14:52:30,172 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:52:30,173 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_10cric_20260726_145230.png
+2026-07-26 14:52:30,352 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:52:30,353 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:52:30,353 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:52:30,370 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:52:32,018 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:52:32,041 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:52:32,041 - scraper.main - ERROR - Gracefully skipped site '10cric' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:52:32,041 - scraper.main - INFO - --- Starting scraping run for site: 22xbet ---
+2026-07-26 14:52:32,043 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:52:32,043 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:52:33,029 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:52:33,030 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:52:33,031 - scraper.core.session - INFO - Session check for 22xbet: exists=False
+2026-07-26 14:52:33,031 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:52:33,061 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:52:33,283 - scraper.adapters.factory - INFO - Factory resolving adapter for: 22xbet
+2026-07-26 14:52:33,283 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 22xbet
+2026-07-26 14:52:33,283 - scraper.adapters.base_adapter - INFO - Opening home page for 22xbet: https://22play.com
+2026-07-26 14:52:34,887 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '22xbet': Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:52:34,888 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_22xbet_20260726_145234.html
+2026-07-26 14:52:34,896 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:52:34,897 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_22xbet_20260726_145234.png
+2026-07-26 14:52:35,084 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:52:35,084 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:52:35,084 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:52:35,101 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:52:36,082 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:52:36,114 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:52:36,114 - scraper.main - ERROR - Gracefully skipped site '22xbet' due to fatal execution failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:52:36,115 - scraper.core.reporter - INFO - Generating reports for execution: 2026-07-26/14-51
+2026-07-26 14:52:36,119 - scraper.core.metrics_manager - INFO - Appended current run telemetry to database: data\metrics\historical_metrics.json
+2026-07-26 14:52:36,143 - scraper.core.reporter - INFO - Saved dataset statistics report: output\reports\2026-07-26\14-51\dataset_stats_report.md
+2026-07-26 14:52:36,144 - scraper.core.reporter - INFO - Saved data quality report: output\reports\2026-07-26\14-51\data_quality_report.md
+2026-07-26 14:52:36,144 - scraper.main - INFO - Reports successfully generated:
+Stats: output\reports\2026-07-26\14-51\dataset_stats_report.md
+Quality: output\reports\2026-07-26\14-51\data_quality_report.md
+2026-07-26 14:52:36,144 - scraper.main - INFO - Pipeline execution sequence finished.
+2026-07-26 14:53:39,334 - scraper - INFO - Logging initialized. Level=INFO, File=logs\scraper.log
+2026-07-26 14:53:39,335 - scraper.main - INFO - Starting SentinelX Trust AI Data Acquisition Pipeline...
+2026-07-26 14:53:39,336 - scraper.main - INFO - --- Starting scraping run for site: onexbet ---
+2026-07-26 14:53:39,338 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:53:39,338 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:53:40,380 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:53:40,381 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:53:40,382 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 14:53:40,382 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:53:40,411 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:53:40,631 - scraper.adapters.factory - INFO - Factory resolving adapter for: onexbet
+2026-07-26 14:53:40,632 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: onexbet
+2026-07-26 14:53:40,632 - scraper.adapters.base_adapter - INFO - Opening home page for onexbet: https://1xlite-12947.pro/en
+2026-07-26 14:53:42,268 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: homepage
+2026-07-26 14:53:42,268 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_homepage_20260726_145342.png
+2026-07-26 14:53:42,611 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:53:42,611 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_homepage_20260726_145342.html
+2026-07-26 14:53:42,669 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:53:42,670 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:53:42,670 - scraper.core.session - INFO - Session check for onexbet: exists=False
+2026-07-26 14:53:44,965 - scraper.adapters.onexbet.adapter - INFO - [Session Audit] No session state found. New login required.
+2026-07-26 14:53:44,966 - scraper.adapters.onexbet.adapter - INFO - Triggering automated login sequence...
+2026-07-26 14:53:44,966 - scraper.core.navigation - INFO - Initialized Resilient NavigationManager.
+2026-07-26 14:53:44,966 - scraper.core.login - INFO - Initialized LoginManager.
+2026-07-26 14:53:44,966 - scraper.core.navigation - INFO - Checking if login form is already open...
+2026-07-26 14:53:45,011 - scraper.core.navigation - INFO - Login form not visible. Locating trigger button...
+2026-07-26 14:53:45,012 - scraper.core.navigation - INFO - Clicking login popup trigger: button.auth-dropdown-trigger, a.login-btn, button.login, .login-trigger
+2026-07-26 14:53:47,722 - scraper.core.navigation - INFO - Waiting for username selector '#username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']' to appear...
+2026-07-26 14:53:48,634 - scraper.core.navigation - INFO - Login popup activated successfully.
+2026-07-26 14:53:48,634 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: login_modal
+2026-07-26 14:53:48,635 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_login_modal_20260726_145348.png
+2026-07-26 14:53:49,516 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:53:49,517 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_login_modal_20260726_145349.html
+2026-07-26 14:53:49,810 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:53:49,811 - scraper.core.login - INFO - Initiating login sequence...
+2026-07-26 14:53:49,811 - scraper.core.login - INFO - Waiting for username field: #username, input[name='username'], input[type='text'][placeholder*='ID'], input[type='text']
+2026-07-26 14:53:50,128 - scraper.core.login - INFO - Username field filled.
+2026-07-26 14:53:50,128 - scraper.core.login - INFO - Waiting for password field: #username-password, input[name='password'], input[type='password']
+2026-07-26 14:53:58,138 - scraper.core.login - ERROR - Automated login flow failed: Locator.wait_for: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("#username-password, input[name='password'], input[type='password']").first to be visible
+    18 × locator resolved to hidden <input value="" aria-label="" type="password" data-v-35d2baee="" data-v-f794c157="" id="username-password" name="username-password" autocomplete="current-password" class="auth-form-extended-fields__input auth-form-extended-fields-input ui-field__input"/>
+
+2026-07-26 14:53:58,139 - scraper.core.login - WARNING - Headed mode detected. Falling back to MANUAL login...
+2026-07-26 14:54:25,167 - scraper.core.login - INFO - Manual authentication override accepted.
+2026-07-26 14:54:25,167 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: login_success
+2026-07-26 14:54:25,169 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_login_success_20260726_145425.png
+2026-07-26 14:54:25,705 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:54:25,706 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_login_success_20260726_145425.html
+2026-07-26 14:54:25,979 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:54:25,979 - scraper.core.session - INFO - Saving browser context storage state to: auth\onexbet_state.json
+2026-07-26 14:54:26,185 - scraper.core.session - INFO - [Session Audit] New login performed and session state saved successfully.
+2026-07-26 14:54:26,185 - scraper.adapters.onexbet.adapter - INFO - Navigating to 1xBet deposit panel...
+2026-07-26 14:54:26,185 - scraper.core.navigation - INFO - Initialized Resilient NavigationManager.
+2026-07-26 14:54:26,185 - scraper.core.navigation - INFO - Locating and clicking deposit button: a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link
+2026-07-26 14:54:36,195 - scraper.core.retry_utils - WARNING - [Navigate to Deposit Panel] Attempt 1/3 failed with error: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link").first to be visible
+. Retrying in 1.0s...
+2026-07-26 14:54:47,199 - scraper.core.retry_utils - WARNING - [Navigate to Deposit Panel] Attempt 2/3 failed with error: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link").first to be visible
+. Retrying in 1.5s...
+2026-07-26 14:54:58,704 - scraper.core.retry_utils - WARNING - [Navigate to Deposit Panel] Attempt 3/3 failed with error: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link").first to be visible
+. Retrying in 2.25s...
+2026-07-26 14:54:58,704 - scraper.core.retry_utils - ERROR - [Navigate to Deposit Panel] All 3 retry attempts failed.
+2026-07-26 14:54:58,704 - scraper.core.navigation - WARNING - Failed to navigate via deposit button click: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link").first to be visible
+
+2026-07-26 14:54:58,704 - scraper.adapters.onexbet.adapter - WARNING - Interactive deposit navigation failed: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("a.deposit-button, button.deposit-btn, .deposit, a.deposit, a.deposit-link").first to be visible
+. Loading fallback URL.
+2026-07-26 14:54:58,704 - scraper.core.navigation - INFO - Navigating page to URL: https://1xlite-12947.pro/en/office/recharge/ (timeout=20000ms)
+2026-07-26 14:54:59,956 - scraper.core.navigation - INFO - Navigation complete and page loaded successfully.
+2026-07-26 14:54:59,956 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_portal_fallback
+2026-07-26 14:54:59,957 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_portal_fallback_20260726_145459.png
+2026-07-26 14:55:00,684 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:55:00,685 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_portal_fallback_20260726_145500.html
+2026-07-26 14:55:00,701 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:55:00,701 - scraper.adapters.base_adapter - INFO - Saving evidence snapshot for: deposit_page
+2026-07-26 14:55:00,702 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\onexbet_deposit_page_20260726_145500.png
+2026-07-26 14:55:01,416 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:55:01,417 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\onexbet_deposit_page_20260726_145501.html
+2026-07-26 14:55:01,447 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:55:01,447 - scraper.adapters.onexbet.adapter - INFO - Discovering payment methods...
+2026-07-26 14:55:01,447 - scraper.adapters.base_adapter - INFO - Waiting for payment container: .deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid
+2026-07-26 14:55:16,453 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'onexbet': Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid") to be visible
+
+2026-07-26 14:55:16,454 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_onexbet_20260726_145516.html
+2026-07-26 14:55:16,476 - scraper.core.utils - INFO - HTML state dump completed successfully.
+2026-07-26 14:55:16,476 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_onexbet_20260726_145516.png
+2026-07-26 14:55:17,101 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:55:17,101 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:55:17,102 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:55:17,138 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:55:18,870 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:55:18,897 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:55:18,897 - scraper.main - ERROR - Gracefully skipped site 'onexbet' due to fatal execution failure: Locator.wait_for: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".deposit-page, .deposit-page__main, .deposit__content, .payment-container, .deposit-methods-list, .payment-grid") to be visible
+
+2026-07-26 14:55:18,897 - scraper.main - INFO - --- Starting scraping run for site: melbet ---
+2026-07-26 14:55:18,899 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:55:18,899 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:55:19,941 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:55:19,942 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:55:19,943 - scraper.core.session - INFO - Session check for melbet: exists=False
+2026-07-26 14:55:19,944 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:55:19,971 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:55:20,215 - scraper.adapters.factory - INFO - Factory resolving adapter for: melbet
+2026-07-26 14:55:20,215 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: melbet
+2026-07-26 14:55:20,215 - scraper.adapters.base_adapter - INFO - Opening home page for melbet: https://melbet.com
+2026-07-26 14:55:41,625 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on 'melbet': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:55:41,626 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_melbet_20260726_145541.html
+2026-07-26 14:55:41,635 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:55:41,636 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_melbet_20260726_145541.png
+2026-07-26 14:55:41,823 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:55:41,823 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:55:41,823 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:55:41,842 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:55:43,470 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:55:43,493 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:55:43,493 - scraper.main - ERROR - Gracefully skipped site 'melbet' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://melbet.com/
+Call log:
+  - navigating to "https://melbet.com/", waiting until "load"
+
+2026-07-26 14:55:43,493 - scraper.main - INFO - --- Starting scraping run for site: 10cric ---
+2026-07-26 14:55:43,495 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:55:43,495 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:55:44,559 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:55:44,560 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:55:44,560 - scraper.core.session - INFO - Session check for 10cric: exists=False
+2026-07-26 14:55:44,560 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:55:44,589 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:55:44,806 - scraper.adapters.factory - INFO - Factory resolving adapter for: 10cric
+2026-07-26 14:55:44,806 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 10cric
+2026-07-26 14:55:44,806 - scraper.adapters.base_adapter - INFO - Opening home page for 10cric: https://10cric247.com
+2026-07-26 14:56:06,256 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '10cric': Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:56:06,257 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_10cric_20260726_145606.html
+2026-07-26 14:56:06,266 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:56:06,267 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_10cric_20260726_145606.png
+2026-07-26 14:56:06,497 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:56:06,498 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:56:06,498 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:56:06,519 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:56:08,203 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:56:08,229 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:56:08,229 - scraper.main - ERROR - Gracefully skipped site '10cric' due to fatal execution failure: Page.goto: net::ERR_CONNECTION_TIMED_OUT at https://10cric247.com/
+Call log:
+  - navigating to "https://10cric247.com/", waiting until "load"
+
+2026-07-26 14:56:08,229 - scraper.main - INFO - --- Starting scraping run for site: 22xbet ---
+2026-07-26 14:56:08,231 - scraper.core.browser - INFO - Initialized BrowserManager: headless=False, timeout=20s
+2026-07-26 14:56:08,231 - scraper.core.browser - INFO - Launching browser process via Playwright...
+2026-07-26 14:56:09,313 - scraper.core.browser - INFO - Browser process launched successfully.
+2026-07-26 14:56:09,315 - scraper.core.session - INFO - Initialized SessionManager with directory: D:\kadam\Multi-Agent-AI-Data-Lakehouse-Platform-for-Betting-App-Analysis\scraper\auth
+2026-07-26 14:56:09,315 - scraper.core.session - INFO - Session check for 22xbet: exists=False
+2026-07-26 14:56:09,315 - scraper.core.browser - INFO - Creating browser context...
+2026-07-26 14:56:09,346 - scraper.core.browser - INFO - Browser context created successfully.
+2026-07-26 14:56:09,600 - scraper.adapters.factory - INFO - Factory resolving adapter for: 22xbet
+2026-07-26 14:56:09,600 - scraper.adapters.base_adapter - INFO - Initialized BaseAdapter for: 22xbet
+2026-07-26 14:56:09,600 - scraper.adapters.base_adapter - INFO - Opening home page for 22xbet: https://22play.com
+2026-07-26 14:56:11,145 - scraper.main - CRITICAL - Acquisition pipeline crashed during run on '22xbet': Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:56:11,145 - scraper.core.utils - INFO - Saving outer HTML state to: output\html\crash_22xbet_20260726_145611.html
+2026-07-26 14:56:11,155 - scraper.core.utils - ERROR - Failed to save HTML dump: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-07-26 14:56:11,156 - scraper.core.screenshot - INFO - Capturing page screenshot to: output\screenshots\crash_22xbet_20260726_145611.png
+2026-07-26 14:56:11,342 - scraper.core.screenshot - INFO - Screenshot saved successfully.
+2026-07-26 14:56:11,342 - scraper.core.browser - INFO - Starting browser shutdown sequence...
+2026-07-26 14:56:11,342 - scraper.core.browser - INFO - Closing browser context...
+2026-07-26 14:56:11,361 - scraper.core.browser - INFO - Closing browser process...
+2026-07-26 14:56:12,411 - scraper.core.browser - INFO - Stopping Playwright context manager...
+2026-07-26 14:56:12,437 - scraper.core.browser - INFO - Browser teardown complete.
+2026-07-26 14:56:12,438 - scraper.main - ERROR - Gracefully skipped site '22xbet' due to fatal execution failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://22play.com/
+Call log:
+  - navigating to "https://22play.com/", waiting until "load"
+
+2026-07-26 14:56:12,439 - scraper.core.reporter - INFO - Generating reports for execution: 2026-07-26/14-53
+2026-07-26 14:56:12,443 - scraper.core.metrics_manager - INFO - Appended current run telemetry to database: data\metrics\historical_metrics.json
+2026-07-26 14:56:12,465 - scraper.core.reporter - INFO - Saved dataset statistics report: output\reports\2026-07-26\14-53\dataset_stats_report.md
+2026-07-26 14:56:12,466 - scraper.core.reporter - INFO - Saved data quality report: output\reports\2026-07-26\14-53\data_quality_report.md
+2026-07-26 14:56:12,466 - scraper.main - INFO - Reports successfully generated:
+Stats: output\reports\2026-07-26\14-53\dataset_stats_report.md
+Quality: output\reports\2026-07-26\14-53\data_quality_report.md
+2026-07-26 14:56:12,466 - scraper.main - INFO - Pipeline execution sequence finished.
