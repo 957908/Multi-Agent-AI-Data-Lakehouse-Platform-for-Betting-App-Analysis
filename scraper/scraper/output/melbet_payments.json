@@ -1,0 +1,30 @@
+[
+    {
+        "schema_version": "1.1",
+        "scraper_version": "1.0.0",
+        "source_platform": "melbet",
+        "extraction_status": "success",
+        "extraction_method": "playwright_sync",
+        "site": "melbet",
+        "page_type": "deposit_page",
+        "payment_type": "upi",
+        "payment_name": "PhonePe Direct",
+        "currency": "INR",
+        "country": "IN",
+        "bonus_name": null,
+        "support_type": "live_chat",
+        "support_value": null,
+        "status": "active",
+        "source_url": "https://melbet.mobi/en/office/recharge/",
+        "scraped_at": "2026-07-26T08:30:15Z",
+        "extracted_data": {
+            "upi_id": "pay.merchant@ybl",
+            "bank_account": null,
+            "ifsc_code": null,
+            "payee_name": "Melbet Recharge Solutions",
+            "min_deposit": "300",
+            "max_deposit": "20000",
+            "limit_info": "Limits: Min 300 INR / Max 20,000 INR"
+        }
+    }
+]

@@ -1,63 +1,141 @@
-# scraper/core/browser.py
+"""
+File: browser.py
+Purpose:
+    Low-level Playwright browser process and context manager.
+Author: R. Rayri Sharma
+Company: SentinelX Labs
+Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform for Betting Site Intelligence
+Created By: R. Rayri Sharma
+Reviewed By: Tech Lead & Solution Architect (HQ Chat)
+Version: 1.1
+"""
 
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium_stealth import stealth
+# Standard Library
+import logging
+from typing import Optional, Dict, Any
+
+# Third Party
+from playwright.sync_api import sync_playwright, Browser, BrowserContext, Playwright
+
+# Local Imports
+from config.settings import (
+    HEADLESS,
+    WAIT_TIMEOUT,
+    USER_AGENT,
+    VIEWPORT_WIDTH,
+    VIEWPORT_HEIGHT,
+    LOCALE,
+    TIMEZONE,
+)
+
+# Setup Logger
+logger = logging.getLogger("scraper.core.browser")
 
 
 class BrowserManager:
-    def __init__(self, headless=True, wait_timeout=15):
-        self.headless = headless
-        self.wait_timeout = wait_timeout
-        self.driver = None
-        self.wait = None
+    """
+    Manages Playwright browser instance lifecycle and browser contexts.
+    """
 
-    def start_browser(self):
-        chrome_options = Options()
+    def __init__(self, headless: Optional[bool] = None, wait_timeout: Optional[int] = None) -> None:
+        """
+        Initializes the browser manager using centralized settings.
+        """
+        self.headless: bool = headless if headless is not None else HEADLESS
+        self.wait_timeout: int = wait_timeout if wait_timeout is not None else WAIT_TIMEOUT
+        self.playwright: Optional[Playwright] = None
+        self.browser: Optional[Browser] = None
+        self.context: Optional[BrowserContext] = None
 
-        if self.headless:
-            chrome_options.add_argument("--headless")
-
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument("--window-size=1920,1080")
-        chrome_options.add_argument("--start-maximized")
-        chrome_options.add_argument(
-            "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-        )
-        chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-        chrome_options.add_argument("--disable-extensions")
-        chrome_options.add_argument("--incognito")
-
-        self.driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()),
-            options=chrome_options,
+        logger.info(
+            f"Initialized BrowserManager: headless={self.headless}, timeout={self.wait_timeout}s"
         )
 
-        stealth(
-            self.driver,
-            languages=["en-US", "en"],
-            vendor="Google Inc.",
-            platform="Win32",
-            webgl_vendor="Intel Inc.",
-            renderer="Intel Iris OpenGL",
-            fix_hairline=True,
-        )
+    def start_browser(self) -> Browser:
+        """
+        Launches the Chromium browser process with custom anti-detection arguments.
+        """
+        logger.info("Launching browser process via Playwright...")
+        try:
+            self.playwright = sync_playwright().start()
+            self.browser = self.playwright.chromium.launch(
+                headless=self.headless,
+                args=[
+                    "--no-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-gpu",
+                    "--disable-blink-features=AutomationControlled",
+                    "--disable-extensions",
+                ],
+            )
+            logger.info("Browser process launched successfully.")
+            return self.browser
+        except Exception as error:
+            logger.error(f"Failed to launch browser process: {str(error)}")
+            self.close_browser()
+            raise
 
-        self.wait = WebDriverWait(self.driver, self.wait_timeout)
+    def create_context(self, storage_state_path: Optional[str] = None) -> BrowserContext:
+        """
+        Creates an isolated browser context with anti-detection configurations.
+        """
+        if not self.browser:
+            logger.error("Attempted to create context without launching browser.")
+            raise RuntimeError("Browser process is not running. Call start_browser() first.")
 
-        return self.driver
+        logger.info("Creating browser context...")
+        
+        # Evasion parameters loaded from config/settings.py
+        context_args: Dict[str, Any] = {
+            "user_agent": USER_AGENT,
+            "viewport": {"width": VIEWPORT_WIDTH, "height": VIEWPORT_HEIGHT},
+            "locale": LOCALE,
+            "timezone_id": TIMEZONE,
+            "ignore_https_errors": True,
+        }
 
-    def get_driver(self):
-        return self.driver
+        if storage_state_path:
+            logger.info(f"Loading persistent storage state from: {storage_state_path}")
+            context_args["storage_state"] = storage_state_path
 
-    def get_wait(self):
-        return self.wait
+        try:
+            self.context = self.browser.new_context(**context_args)
+            
+            # Script injection to spoof navigator.webdriver detection
+            self.context.add_init_script(
+                "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+            )
+            
+            logger.info("Browser context created successfully.")
+            return self.context
+        except Exception as error:
+            logger.error(f"Failed to create browser context: {str(error)}")
+            raise
 
-    def close_browser(self):
-        if self.driver:
-            self.driver.quit()
+    def close_browser(self) -> None:
+        """
+        Ensures active page contexts, browser processes, and Playwright objects are cleanly terminated.
+        """
+        logger.info("Starting browser shutdown sequence...")
+        try:
+            if self.context:
+                logger.info("Closing browser context...")
+                self.context.close()
+                self.context = None
+            
+            if self.browser:
+                logger.info("Closing browser process...")
+                self.browser.close()
+                self.browser = None
+                
+            if self.playwright:
+                logger.info("Stopping Playwright context manager...")
+                self.playwright.stop()
+                self.playwright = None
+                
+            logger.info("Browser teardown complete.")
+        except Exception as error:
+            logger.critical(f"Error during browser process cleanup: {str(error)}")
+            self.context = None
+            self.browser = None
+            self.playwright = None
