@@ -17,7 +17,7 @@ import logging
 sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 from database.connection import engine, Base
-from database.models import ETLRun, PaymentRecordModel  # Ensure models are registered
+from database.models import ETLRun, PaymentRecordModel, GoldPlatformAnalytics, GoldPaymentMethodInsight  # Ensure models are registered
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("backend.database.init_db")

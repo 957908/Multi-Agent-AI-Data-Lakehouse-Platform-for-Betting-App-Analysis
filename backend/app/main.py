@@ -48,11 +48,17 @@ def main() -> None:
         action="store_true",
         help="Processes any raw scraped snapshots that have not been ingested."
     )
+    
+    parser.add_argument(
+        "--run-gold",
+        action="store_true",
+        help="Aggregates curated records to Gold layer Parquet folders and database tables."
+    )
 
     args = parser.parse_args()
 
     # Show help if no flags are provided
-    if not (args.init_db or args.run_etl):
+    if not (args.init_db or args.run_etl or args.run_gold):
         parser.print_help()
         sys.exit(0)
 
@@ -65,6 +71,17 @@ def main() -> None:
         logger.info("Checking for unprocessed scraper outputs and launching ETL pipeline...")
         run_pipeline()
         logger.info("ETL pipeline execution complete.")
+
+    if args.run_gold:
+        logger.info("Executing Gold Layer pre-aggregation job...")
+        from database.connection import get_db
+        from services.etl.gold_pipeline import GoldPipeline
+        from datetime import datetime
+        with get_db() as db:
+            pipeline = GoldPipeline(db)
+            run_path_key = datetime.now().strftime("%Y-%m-%d/%H-%M")
+            result = pipeline.run_aggregation(run_path_key)
+            logger.info(f"Gold Layer aggregation complete: {result}")
 
 
 if __name__ == "__main__":

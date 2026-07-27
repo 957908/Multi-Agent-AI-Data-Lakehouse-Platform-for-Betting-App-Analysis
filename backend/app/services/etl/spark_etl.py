@@ -48,6 +48,7 @@ from sqlalchemy.orm import Session
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, DoubleType, MapType
 from pyspark.sql.functions import col
+from services.etl.gold_pipeline import GoldPipeline
 
 # Ensure root is on sys.path
 sys.path.append(str(Path(__file__).resolve().parents[2]))
@@ -415,6 +416,15 @@ class SparkETLPipeline:
                     run_log.records_processed = inserted_count
                     run_log.records_failed = len(invalid_records)
                     db.commit()
+                
+                # Trigger Gold Layer Aggregation automatically
+                try:
+                    logger.info("Automatically triggering Gold Layer Aggregation pipeline...")
+                    gold_pipeline = GoldPipeline(db)
+                    gold_metrics = gold_pipeline.run_aggregation(run_path_key)
+                    logger.info(f"Gold Layer Aggregation completed: {gold_metrics}")
+                except Exception as ex:
+                    logger.error(f"Failed to auto-trigger Gold Layer Aggregation: {str(ex)}", exc_info=True)
             
             logger.info(f"=== ETL process for run {run_path_key} completed successfully ===")
             return True
