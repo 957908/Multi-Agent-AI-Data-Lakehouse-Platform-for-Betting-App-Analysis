@@ -23,7 +23,11 @@ import uvicorn
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from api.v1.router import api_router
-from prometheus_fastapi_instrumentator import Instrumentator
+try:
+    from prometheus_fastapi_instrumentator import Instrumentator
+    HAS_PROMETHEUS = True
+except ImportError:
+    HAS_PROMETHEUS = False
 from core.exceptions import (
     BaseAppException,
     app_exception_handler,
@@ -127,20 +131,21 @@ app.add_exception_handler(Exception, general_exception_handler)
 # Include API v1 router
 app.include_router(api_router, prefix="/api/v1")
 
-# Instrument FastAPI app for Prometheus metrics scraping
-Instrumentator(
-    should_group_status_codes=True,
-    should_ignore_untemplated=True,
-    should_respect_env_var=True,
-    env_var_name="ENABLE_METRICS",
-    excluded_handlers=[
-        "/metrics",
-        "/api/v1/health",
-        "/docs",
-        "/redoc",
-        "/api/v1/openapi.json"
-    ]
-).instrument(app).expose(app, endpoint="/metrics")
+# Instrument FastAPI app for Prometheus metrics scraping if library is available
+if HAS_PROMETHEUS:
+    Instrumentator(
+        should_group_status_codes=True,
+        should_ignore_untemplated=True,
+        should_respect_env_var=True,
+        env_var_name="ENABLE_METRICS",
+        excluded_handlers=[
+            "/metrics",
+            "/api/v1/health",
+            "/docs",
+            "/redoc",
+            "/api/v1/openapi.json"
+        ]
+    ).instrument(app).expose(app, endpoint="/metrics")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,17 @@
+{
+    "execution_date": "2026-07-29T15:53:26.350346",
+    "run_path": "2026-07-29/12-00",
+    "counts": {
+        "total_raw": 8,
+        "valid": 7,
+        "duplicates_removed": 1,
+        "inserted_curated": 6,
+        "failed_validation": 1
+    },
+    "rates": {
+        "validity_pct": 87.5,
+        "uniqueness_pct": 85.71,
+        "success_pct": 75.0
+    },
+    "overall_quality_score": 86.79
+}
