@@ -106,7 +106,9 @@ def scrape_site(site_name: str, date_str: str, time_str: str) -> Dict[str, Any]:
         "1xbet": settings.ONEXBET_URL,
         "melbet": settings.MELBET_URL,
         "10cric": settings.TENCRIC_URL,
+        "tencric": settings.TENCRIC_URL,
         "22xbet": settings.PLAY22_URL,
+        "twentytwobet": settings.PLAY22_URL,
     }
 
     target_url = url_env_map.get(site_name)
@@ -122,7 +124,9 @@ def scrape_site(site_name: str, date_str: str, time_str: str) -> Dict[str, Any]:
             "1xbet": "onexbet",
             "melbet": "melbet",
             "10cric": "tencric",
-            "22xbet": "twentytwoxbet"
+            "tencric": "tencric",
+            "22xbet": "twentytwoxbet",
+            "twentytwobet": "twentytwoxbet"
         }
         module_name = module_name_map.get(site_name, site_name)
         selector_module_path = f"config.selectors.{module_name}"
@@ -269,7 +273,14 @@ def run_pipeline() -> None:
         sites = ["onexbet", "melbet", "10cric", "22xbet"]
     else:
         # Check alias compatibility
-        sites = ["onexbet" if site_arg == "1xbet" else site_arg]
+        if site_arg == "1xbet":
+            sites = ["onexbet"]
+        elif site_arg == "tencric":
+            sites = ["10cric"]
+        elif site_arg == "twentytwobet":
+            sites = ["22xbet"]
+        else:
+            sites = [site_arg]
 
     execution_metrics: Dict[str, Dict[str, Any]] = {}
 
