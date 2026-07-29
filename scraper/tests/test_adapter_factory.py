@@ -101,6 +101,32 @@ class TestAdapterFactory(unittest.TestCase):
         self.assertIsInstance(adapter, TwentyTwoXBetAdapter)
         self.assertEqual(adapter.get_site_name(), "22xbet")
 
+    def test_factory_returns_tencric_alias(self):
+        """
+        Asserts that the factory correctly returns the TencricAdapter alias for 'tencric' site.
+        """
+        adapter = AdapterFactory.get_adapter(
+            site_name="tencric",
+            page=self.page,
+            context=self.context,
+            base_url="https://10cric.com",
+            selectors={}
+        )
+        self.assertEqual(adapter.get_site_name(), "tencric")
+
+    def test_factory_returns_twentytwobet_alias(self):
+        """
+        Asserts that the factory correctly returns the TwentyTwoBetAdapter alias for 'twentytwobet' site.
+        """
+        adapter = AdapterFactory.get_adapter(
+            site_name="twentytwobet",
+            page=self.page,
+            context=self.context,
+            base_url="https://22bet.com",
+            selectors={}
+        )
+        self.assertEqual(adapter.get_site_name(), "twentytwobet")
+
     def test_factory_invalid_site_raises_value_error(self):
         """
         Asserts that the factory raises ValueError for completely unknown site keys.

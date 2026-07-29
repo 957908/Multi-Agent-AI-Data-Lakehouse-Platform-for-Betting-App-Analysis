@@ -43,12 +43,12 @@ class PaymentDiscovery:
         self.retries_executed_count = 0
         logger.info("Initialized Resilient PaymentDiscovery module.")
 
-    def discover_methods(self, selectors: Dict[str, str], site_name: str) -> List[Dict[str, Any]]:
+    def discover_methods(self, selectors: Dict[str, str], site_name: str, page_type: str = "deposit_page") -> List[Dict[str, Any]]:
         """
-        Scans the deposit page, iterates over payment options, clicks them, and extracts raw metadata.
+        Scans the payment page, iterates over payment options, clicks them, and extracts raw metadata.
         Supports dynamic payment iframes, multi-depth confirmation click loops, new tab popups, and reload resets.
         """
-        logger.info(f"Starting payment discovery for: {site_name}")
+        logger.info(f"Starting payment discovery for: {site_name} (page_type={page_type})")
         payment_records: List[Dict[str, Any]] = []
 
         container_selector = selectors.get("payment_container", "")
@@ -59,7 +59,7 @@ class PaymentDiscovery:
             logger.error("Missing payment container or item selector in configurations.")
             return []
 
-        # Keep track of initial deposit URL for reloading SPA state
+        # Keep track of initial deposit/withdrawal URL for reloading SPA state
         deposit_url = self.page.url
 
         try:
@@ -104,9 +104,9 @@ class PaymentDiscovery:
             for index, payment_name in enumerate(method_names):
                 logger.info(f"Processing payment method [{index + 1}/{len(method_names)}]: {payment_name}")
 
-                # Reload/Reset Deposit page between operations to ensure fresh SPA state
+                # Reload/Reset SPA base page between operations to ensure fresh SPA state
                 if index > 0:
-                    logger.info(f"Reloading Deposit SPA base page: {deposit_url}")
+                    logger.info(f"Reloading SPA base page: {deposit_url}")
                     self.page.goto(deposit_url)
                     self.page.wait_for_load_state("networkidle")
                     target_root = self._get_target_root(selectors)
@@ -159,7 +159,7 @@ class PaymentDiscovery:
                     "extraction_status": "success",
                     "extraction_method": "playwright_sync",
                     "site": site_name,
-                    "page_type": "deposit_page",
+                    "page_type": page_type,
                     "payment_type": self._infer_payment_type(payment_name),
                     "payment_name": payment_name,
                     "currency": currency_code,
@@ -333,7 +333,9 @@ class PaymentDiscovery:
             "payee_name": None,
             "min_deposit": None,
             "max_deposit": None,
-            "limit_info": None
+            "limit_info": None,
+            "processing_time": "Instant",
+            "transaction_fee": "Free"
         }
 
         # 1. Scrape via configured CSS selectors (including fallbacks)
@@ -406,6 +408,16 @@ class PaymentDiscovery:
                 details["crypto_address"] = crypto_match.group(0)
                 if not details["bank_account"]:
                     details["bank_account"] = crypto_match.group(0)
+
+            # Processing time heuristics
+            time_match = re.search(r'(instant|immediate|\d+\s*(?:min|minute|hour|day|working day)s?)', body_text, re.IGNORECASE)
+            if time_match:
+                details["processing_time"] = time_match.group(0).strip().capitalize()
+
+            # Transaction fee heuristics
+            fee_match = re.search(r'(free|0%\s*commission|no\s*(?:fee|charge|commission)|\d+(?:\.\d+)?%\s*(?:fee|charge|commission))', body_text, re.IGNORECASE)
+            if fee_match:
+                details["transaction_fee"] = fee_match.group(0).strip().capitalize()
 
             # Extraction of Limits and Payees
             for line in body_text.split("\n"):

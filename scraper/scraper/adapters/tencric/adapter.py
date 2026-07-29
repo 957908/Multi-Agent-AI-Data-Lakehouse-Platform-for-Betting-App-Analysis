@@ -112,3 +112,7 @@ class TenCricAdapter(BaseAdapter):
         """
         logger.info("Payment details extraction sequence completed during discovery click-through loops.")
         return self.records
+
+
+TencricAdapter = TenCricAdapter
+

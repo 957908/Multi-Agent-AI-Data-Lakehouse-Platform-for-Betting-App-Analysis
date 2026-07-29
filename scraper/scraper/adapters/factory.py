@@ -21,8 +21,8 @@ from playwright.sync_api import Page, BrowserContext
 from adapters.base_adapter import BaseAdapter
 from adapters.onexbet.adapter import OneXBetAdapter
 from adapters.melbet.adapter import MelbetAdapter
-from adapters.tencric.adapter import TenCricAdapter
-from adapters.twentytwoxbet.adapter import TwentyTwoXBetAdapter
+from adapters.tencric.adapter import TenCricAdapter, TencricAdapter
+from adapters.twentytwoxbet.adapter import TwentyTwoXBetAdapter, TwentyTwoBetAdapter
 
 # Setup Logger
 logger = logging.getLogger("scraper.adapters.factory")
@@ -38,6 +38,9 @@ class AdapterFactory:
         "1xbet": OneXBetAdapter,
         "melbet": MelbetAdapter,
         "10cric": TenCricAdapter,
+        "tencric": TencricAdapter,
+        "twentytwobet": TwentyTwoBetAdapter,
+        "twentytwoxbet": TwentyTwoXBetAdapter,
         "22xbet": TwentyTwoXBetAdapter,
     }
 
