@@ -1,16 +1,16 @@
 """
 File: models.py
 Purpose:
-    SQLAlchemy ORM models for database schema representation.
-Author: Priya Iyer
+    SQLAlchemy ORM models for database schema representation including Gold layer models.
+Author: Priya Iyer & Arjun Mehta
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
-Version: 1.0
+Version: 5.0
 """
 
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Integer, Float, DateTime, Text, text
+from sqlalchemy import Column, String, Integer, Float, DateTime, Text, text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from database.connection import Base
 
@@ -57,4 +57,44 @@ class PaymentRecordModel(Base):
     extracted_data = Column(JSONB, default=dict, nullable=False)
     row_hash = Column(String(64), unique=True, nullable=False, index=True)
     created_at = Column(DateTime, default=datetime.utcnow, server_default=text("CURRENT_TIMESTAMP"))
+    updated_at = Column(DateTime, default=datetime.utcnow, server_default=text("CURRENT_TIMESTAMP"), onupdate=datetime.utcnow)
+
+
+class GoldPlatformAnalytics(Base):
+    """
+    Gold Layer: Pre-computed platform analytics and trust summaries.
+    """
+    __tablename__ = "gold_platform_analytics"
+
+    site = Column(String(100), primary_key=True)
+    trust_score = Column(Float, nullable=False)
+    trust_level = Column(String(50), nullable=False)
+    confidence_score = Column(Float, nullable=False)
+    total_payment_methods = Column(Integer, nullable=False)
+    active_payment_methods = Column(Integer, nullable=False)
+    supported_countries = Column(JSONB, default=list, nullable=False)
+    top_payment_methods = Column(JSONB, default=list, nullable=False)
+    risk_summary = Column(Text, nullable=False)
+    risk_flags = Column(JSONB, default=list, nullable=False)
+    last_scraped_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, server_default=text("CURRENT_TIMESTAMP"), onupdate=datetime.utcnow)
+
+
+class GoldPaymentMethodInsight(Base):
+    """
+    Gold Layer: Pre-computed payment method insights.
+    """
+    __tablename__ = "gold_payment_method_insights"
+    __table_args__ = (
+        UniqueConstraint("site", "payment_type", "payment_name", name="unique_site_method"),
+    )
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    site = Column(String(100), nullable=False)
+    payment_type = Column(String(100), nullable=False)
+    payment_name = Column(String(100), nullable=False)
+    total_records = Column(Integer, nullable=False)
+    active_count = Column(Integer, nullable=False)
+    reliability_score = Column(Float, nullable=False)
+    supported_countries = Column(JSONB, default=list, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, server_default=text("CURRENT_TIMESTAMP"), onupdate=datetime.utcnow)

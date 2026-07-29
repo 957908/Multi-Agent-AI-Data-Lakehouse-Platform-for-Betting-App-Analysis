@@ -1,16 +1,22 @@
 """
 File: exceptions.py
 Purpose:
-    Defines application-wide exception handling schemas and base classes.
+    Defines application-wide exception handling schemas and centralized global exception handlers.
 Author: Arjun Mehta
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
-Version: 1.0
+Version: 5.0
 """
 
+import logging
 from fastapi import Request, status
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from sqlalchemy.exc import SQLAlchemyError
 from schemas.response import APIResponse
+
+logger = logging.getLogger("backend.core.exceptions")
 
 
 class BaseAppException(Exception):
@@ -46,31 +52,33 @@ class ValidationException(BaseAppException):
 
 
 async def app_exception_handler(request: Request, exc: BaseAppException) -> JSONResponse:
-    """
-    Translates internal application errors to uniform APIResponse structure.
-    """
-    response_payload = APIResponse(
-        success=False,
-        message=exc.message,
-        data=None
-    )
-    return JSONResponse(
-        status_code=exc.status_code,
-        content=response_payload.model_dump()
-    )
+    """Translates custom application errors into the uniform APIResponse envelope."""
+    payload = APIResponse(success=False, message=exc.message, data=None)
+    return JSONResponse(status_code=exc.status_code, content=payload.model_dump())
+
+
+async def http_exception_handler(request: Request, exc: StarletteHTTPException) -> JSONResponse:
+    """Translates standard HTTP exceptions into the uniform APIResponse envelope."""
+    payload = APIResponse(success=False, message=str(exc.detail), data=None)
+    return JSONResponse(status_code=exc.status_code, content=payload.model_dump())
+
+
+async def validation_exception_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
+    """Translates FastAPI request validation errors into the uniform APIResponse envelope."""
+    error_msg = f"Request validation failed: {exc.errors()[0]['msg']}" if exc.errors() else "Validation error"
+    payload = APIResponse(success=False, message=error_msg, data=None)
+    return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, content=payload.model_dump())
+
+
+async def sqlalchemy_exception_handler(request: Request, exc: SQLAlchemyError) -> JSONResponse:
+    """Translates database errors safely into the uniform APIResponse envelope."""
+    logger.error(f"Database Exception on path {request.url.path}: {exc}")
+    payload = APIResponse(success=False, message="A database operation error occurred.", data=None)
+    return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=payload.model_dump())
 
 
 async def general_exception_handler(request: Request, exc: Exception) -> JSONResponse:
-    """
-    Catch-all exception handler to avoid leaking traceback to production consumers.
-    """
-    # Safe error representation
-    response_payload = APIResponse(
-        success=False,
-        message="An unexpected system error occurred.",
-        data=None
-    )
-    return JSONResponse(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        content=response_payload.model_dump()
-    )
+    """Catch-all handler translating unexpected exceptions into the uniform APIResponse envelope."""
+    logger.error(f"Unhandled Exception on path {request.url.path}: {exc}", exc_info=True)
+    payload = APIResponse(success=False, message="An unexpected system error occurred.", data=None)
+    return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=payload.model_dump())

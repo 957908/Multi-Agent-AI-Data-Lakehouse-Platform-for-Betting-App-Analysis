@@ -1,0 +1,19 @@
+[
+    {
+        "schema_version": "1.1",
+        "scraper_version": "1.0.0",
+        "source_platform": "melbet",
+        "extraction_status": "success",
+        "extraction_method": "playwright_sync",
+        "site": "melbet",
+        "page_type": "deposit_page",
+        "payment_type": "crypto",
+        "payment_name": "",
+        "currency": "USD",
+        "country": "BG",
+        "source_url": "invalid-url-schema",
+        "scraped_at": "2026-07-29T12:00:00Z",
+        "__validation_errors__": "Missing required core field: payment_name",
+        "__record_index__": 7
+    }
+]

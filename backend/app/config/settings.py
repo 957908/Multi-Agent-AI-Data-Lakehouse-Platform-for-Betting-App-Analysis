@@ -51,6 +51,13 @@ class Settings(BaseSettings):
     READER_EMAIL: str = "reader@sentinelx.com"
     READER_PASSWORD: str = "ReaderPassword123"
 
+    # AI Intelligence & Trust Engine Configuration
+    TRUST_WEIGHT_COMPLETENESS: float = 25.0
+    TRUST_WEIGHT_DIVERSITY: float = 30.0
+    TRUST_WEIGHT_QUALITY: float = 25.0
+    TRUST_WEIGHT_FOOTPRINT: float = 20.0
+    PROMPT_TEMPLATES_DIR: str = str(BASE_DIR / "backend" / "app" / "services" / "ai" / "prompts")
+
     # Load configuration from the root .env
     model_config = SettingsConfigDict(
         env_file=str(BASE_DIR / ".env"),
