@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0-alpha] - 2026-07-29
+
+### Added
+- Expose Prometheus metrics endpoint `/metrics` on FastAPI backend utilizing `prometheus-fastapi-instrumentator`.
+- Integrated Prometheus monitoring service into `docker-compose.yml` to collect FastAPI, PostgreSQL, and host metrics.
+- Integrated Grafana service into `docker-compose.yml` pre-configured with auto-provisioned Prometheus datasource and a comprehensive Operational Dashboard.
+- Configured Node Exporter service for host container system telemetry.
+- Configured Postgres Exporter service for PostgreSQL database performance metrics.
+- Added GitHub Actions workflow `.github/workflows/ci.yml` verifying linting (`ruff`/`black`), docker-compose configuration, and dry-run docker builds for backend, scraper, and ETL services.
+- Created `deployment/PRODUCTION_GUIDE.md` detailing security hardening, resource limits, network security, database isolation, log rotation, and data backups.
+- Added `ENABLE_METRICS` environment variable to backend service and documented it in `.env.example`.
+
 ## [0.2.0-alpha] - 2026-07-26
 
 ### Added

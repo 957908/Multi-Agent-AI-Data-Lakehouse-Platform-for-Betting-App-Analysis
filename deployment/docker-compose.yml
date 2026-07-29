@@ -73,8 +73,9 @@ services:
       DB_NAME: ${DB_NAME:-sentinelx_trust_ai}
       DB_USER: ${DB_USER:-postgres}
       DB_PASSWORD: ${DB_PASSWORD}
-      # Logging
+      # Logging & Observability
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      ENABLE_METRICS: ${ENABLE_METRICS:-true}
       # JWT & Auth
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
@@ -171,6 +172,87 @@ services:
     profiles:
       - etl
 
+  # ──────────────────────────────────────────────
+  # Prometheus – Metrics Collection Engine
+  # Access at http://localhost:9090
+  # ──────────────────────────────────────────────
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: sentinelx-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - sentinelx-network
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  # ──────────────────────────────────────────────
+  # Grafana – Metrics Dashboard & Visualisation
+  # Access at http://localhost:3000
+  # ──────────────────────────────────────────────
+  grafana:
+    image: grafana/grafana:10.4.1
+    container_name: sentinelx-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning/datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus.yml:ro
+      - ./monitoring/grafana/provisioning/dashboards/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml:ro
+      - ./monitoring/grafana/dashboards/sentinelx_metrics.json:/etc/grafana/dashboards/sentinelx_metrics.json:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - sentinelx-network
+    depends_on:
+      - prometheus
+
+  # ──────────────────────────────────────────────
+  # Node Exporter – Host System Metrics Collector
+  # Exposes metrics on port 9100
+  # ──────────────────────────────────────────────
+  node-exporter:
+    image: prom/node-exporter:v1.7.0
+    container_name: sentinelx-node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($|/)'
+    ports:
+      - "9100:9100"
+    networks:
+      - sentinelx-network
+
+  # ──────────────────────────────────────────────
+  # Postgres Exporter – PostgreSQL Performance Collector
+  # Exposes metrics on port 9187
+  # ──────────────────────────────────────────────
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    container_name: sentinelx-postgres-exporter
+    restart: unless-stopped
+    environment:
+      DATA_SOURCE_NAME: "postgresql://${DB_USER:-postgres}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-sentinelx_trust_ai}?sslmode=disable"
+    ports:
+      - "9187:9187"
+    networks:
+      - sentinelx-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 
 # ============================================================
 # Named Volumes – Persistent Storage
@@ -194,6 +276,10 @@ volumes:
     name: sentinelx_etl_output
   etl_logs:
     name: sentinelx_etl_logs
+  prometheus_data:
+    name: sentinelx_prometheus_data
+  grafana_data:
+    name: sentinelx_grafana_data
 
 
 # ============================================================
