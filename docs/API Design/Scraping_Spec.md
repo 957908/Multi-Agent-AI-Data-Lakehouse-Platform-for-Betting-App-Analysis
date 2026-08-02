@@ -1,415 +1,145 @@
-# SCRAPING_SPEC.md
+# SentinelX Trust AI – Web Scraping & Data Acquisition Specification
 
-# SentinelX Trust AI
-## Web Scraping Specification Document
-Version: 1.0
-Status: Approved
-Author: SentinelX Team
-Last Updated: YYYY-MM-DD
+**Version:** 2.0  
+**Status:** Approved  
+**Author:** Rayri Sharma (Senior Data Acquisition Engineer)  
+**Last Updated:** 2026-07-29  
 
 ---
 
-# 1. Purpose
+## 1. Purpose
 
-This document defines the official web scraping requirements for the SentinelX Trust AI project.
+This document defines the official design, structure, schemas, and verification rules for the SentinelX Trust AI web scraping and data acquisition engine. 
 
-The objective is to collect only the required public information from supported betting platforms in a structured format for further processing through Kafka, Apache Flink, Spark, Machine Learning, RAG, and Multi-Agent systems.
-
-This document acts as the contract between the Scraping Module and the Data Engineering Pipeline.
+The goal of the Data Acquisition module is to reliably scrape public payment gateway details (supported providers, transaction limits, processing latency, fees) from digital platform cashiers and structure them into a normalized Pydantic model format matching schema version 1.1 for downstream processing (ETL, lakehouse tiers, AI engine, and APIs).
 
 ---
 
-# 2. Project Scope
+## 2. Platform Architecture & Adapter Hierarchy
 
-The scraping module is responsible for:
+The acquisition engine relies on a unified Playwright browser execution context. It uses a factory pattern to resolve target-specific handlers dynamically at runtime:
 
-- Collecting public information
-- Extracting supported payment methods
-- Extracting currencies
-- Extracting country availability
-- Extracting bonus information (when publicly available)
-- Extracting customer support information
-- Producing standardized JSON output
+```mermaid
+classDiagram
+    class BaseAdapter {
+        <<Abstract>>
+        +page: Page
+        +context: BrowserContext
+        +selectors: Dict
+        +login_if_required()
+        +navigate_to_deposit()
+        +discover_payment_methods()
+        +extract_payment_details()
+    }
+    class OneXBetAdapter {
+        +login_if_required()
+        +navigate_to_deposit()
+    }
+    class MelbetAdapter {
+        +login_if_required()
+        +navigate_to_deposit()
+    }
+    class TenCricAdapter {
+        +login_if_required()
+        +navigate_to_deposit()
+    }
+    class TwentyTwoXBetAdapter {
+        +login_if_required()
+        +navigate_to_deposit()
+    }
 
-The scraper MUST NOT collect unnecessary information.
+    BaseAdapter <|-- OneXBetAdapter
+    BaseAdapter <|-- MelbetAdapter
+    BaseAdapter <|-- TenCricAdapter
+    BaseAdapter <|-- TwentyTwoXBetAdapter
+```
 
----
-
-# 3. Supported Websites
-
-| Website | Priority | Spider Name | Status |
-|----------|----------|-------------|--------|
-| Melbet | High | melbet.py | Pending |
-| 10Cric | High | tencric.py | Pending |
-| 22XBet | High | twentytwoxbet.py | Pending |
-| 22Crick | High | twentytwocrick.py | Pending |
-
----
-
-# 4. Scraping Objectives
-
-For every supported website, collect only the following information.
-
-## Payment Information
-
-- UPI
-- Bank Transfer
-- Net Banking
-- Debit Card
-- Credit Card
-- Cryptocurrency
-- E-Wallet
-- Other Supported Payment Methods
-
----
-
-## Country Information
-
-- Supported Countries
-- Restricted Countries (if publicly available)
+### 📋 Platform Mappings and Registry Aliases
+All concrete adapters are registered inside the centralized `AdapterFactory` mapping registry:
+* `"onexbet"`, `"1xbet"`: `OneXBetAdapter`
+* `"melbet"`: `MelbetAdapter`
+* `"10cric"`, `"tencric"`: `TencricAdapter` (pointing to `TenCricAdapter`)
+* `"22xbet"`, `"twentytwobet"`: `TwentyTwoBetAdapter` (pointing to `TwentyTwoXBetAdapter`)
 
 ---
 
-## Currency Information
+## 3. Data Acquisition Workflow
 
-Examples
+The scraping loop utilizes nested sub-managers to complete authentication, cashier navigation, lazy-load scanning, and detail extraction loops:
 
-- INR
-- USD
-- EUR
-- GBP
-- BTC
-- ETH
+```mermaid
+sequenceDiagram
+    participant Main as main.py (Runner)
+    participant Browser as BrowserManager
+    participant Session as SessionManager
+    participant Adapter as Site Adapter
+    participant Discovery as PaymentDiscovery
 
----
-
-## Bonus Information
-
-Publicly available
-
-Examples
-
-- Welcome Bonus
-- Deposit Bonus
-- Cashback
-- Free Bet
-
----
-
-## Customer Support
-
-- Live Chat
-- Email
-- Telegram
-- WhatsApp
-- Phone Number
-- Support URL
+    Main->>Browser: start_browser()
+    Main->>Session: check_session(site)
+    Session-->>Main: Return Session State (if active)
+    Main->>Adapter: Instantiate Adapter(page, context)
+    Adapter->>Session: verify_session_cookies(context)
+    Note over Session: If cookies expired, clear state
+    Adapter->>Adapter: login_if_required()
+    Adapter->>Adapter: navigate_to_deposit()
+    Adapter->>Discovery: discover_methods(selectors, site)
+    
+    loop Scrape Payments Loop
+        Discovery->>Discovery: Click payment item
+        Discovery->>Discovery: Capture screenshots & outer HTML
+        Discovery->>Discovery: Scrape modal (limits, payee, etc.)
+        Discovery->>Discovery: Parse fee & latency (heuristics)
+    end
+    
+    Discovery-->>Adapter: Return PaymentRecord dicts
+    Adapter->>Main: Validate & Save raw output JSON
+```
 
 ---
 
-# 5. Data That MUST NOT Be Collected
+## 4. Standard Output Schema (Version 1.1)
 
-The following information is outside project scope.
-
-- Images
-- Videos
-- Advertisements
-- JavaScript Files
-- CSS Files
-- Cookies
-- Analytics Data
-- User Personal Information
-- Login Credentials
-- User Accounts
-- Betting History
-- Financial Transactions
-- Private APIs
-
----
-
-# 6. Standard Output Schema
-
-Every spider MUST generate the same schema.
+All scraped options must comply with the `PaymentRecord` schema. Extra metadata elements (processing delays, commissions, payee info) are captured inside the `extracted_data` dictionary block:
 
 ```json
 {
-    "site": "",
-    "page_type": "",
-    "payment_type": "",
-    "payment_name": "",
-    "currency": "",
-    "country": "",
-    "bonus_name": "",
-    "support_type": "",
-    "support_value": "",
-    "status": "",
-    "source_url": "",
-    "scraped_at": ""
+    "schema_version": "1.1",
+    "scraper_version": "1.0.0",
+    "source_platform": "onexbet",
+    "extraction_status": "success",
+    "extraction_method": "playwright_sync",
+    "site": "onexbet",
+    "page_type": "deposit_page",
+    "payment_type": "upi",
+    "payment_name": "UPI Fast",
+    "currency": "INR",
+    "country": "IN",
+    "bonus_name": null,
+    "support_type": "live_chat",
+    "support_value": null,
+    "status": "active",
+    "source_url": "https://1xlite-12947.pro/en/office/recharge/",
+    "scraped_at": "2026-07-29T15:08:35Z",
+    "extracted_data": {
+        "upi_id": "merchant@bank",
+        "bank_account": null,
+        "ifsc_code": null,
+        "payee_name": "SentinelX Labs Payee",
+        "min_deposit": "500",
+        "max_deposit": "50000",
+        "limit_info": "Min: 500 INR / Max: 50000 INR",
+        "processing_time": "Instant",
+        "transaction_fee": "Free"
+    }
 }
 ```
 
 ---
 
-# 7. Required Fields
-
-Mandatory
-
-- site
-- source_url
-- scraped_at
-
-Optional
-
-- payment_name
-- bonus_name
-- support_value
-
----
-
-# 8. Validation Rules
-
-The pipeline must validate:
-
-- No empty site name
-- Valid URL
-- No duplicate records
-- Timestamp available
-- JSON format valid
-- UTF-8 encoding
-
-Invalid records should be rejected.
-
----
-
-# 9. Folder Structure
-
-```
-sentinelx/
-
-scraper/
-
-    spiders/
-        melbet.py
-        tencric.py
-        twentytwoxbet.py
-        twentytwocrick.py
-
-    items.py
-
-    pipelines.py
-
-    settings.py
-
-    middlewares.py
-
-    utils/
-
-    exports/
-
-docs/
-
-SCRAPING_SPEC.md
-```
-
----
-
-# 10. Spider Workflow
-
-```
-Website
-
-↓
-
-Request
-
-↓
-
-Response
-
-↓
-
-Parser
-
-↓
-
-Item Extraction
-
-↓
-
-Validation
-
-↓
-
-JSON Output
-
-↓
-
-Export
-
-↓
-
-Kafka (Next Phase)
-```
-
----
-
-# 11. Output Location
-
-All JSON files must be stored inside
-
-```
-scraper/exports/
-```
-
-Example
-
-```
-melbet.json
-
-tencric.json
-
-twentytwoxbet.json
-
-twentytwocrick.json
-```
-
----
-
-# 12. Logging
-
-Every spider must log
-
-- Spider Started
-- URL Requested
-- Records Extracted
-- Validation Passed
-- Export Completed
-- Errors
-
----
-
-# 13. Error Handling
-
-Spider should gracefully handle
-
-- Timeout
-- 404
-- 403
-- Connection Error
-- Invalid HTML
-- Empty Response
-
-Spider should never crash.
-
----
-
-# 14. Coding Standards
-
-Each spider should
-
-- Follow PEP-8
-- Use reusable methods
-- Avoid duplicate code
-- Include comments
-- Use type hints where possible
-
----
-
-# 15. Ethical Guidelines
-
-The scraper must
-
-- Respect robots.txt where applicable
-- Avoid excessive request rates
-- Collect only publicly accessible information
-- Never bypass authentication without authorization
-- Never collect personal or sensitive user data
-
----
-
-# 16. Future Integration
-
-The JSON output produced by the scraping module will be consumed by
-
-- Apache Kafka
-- Apache Flink
-- Data Lakehouse
-- Apache Spark
-- Machine Learning Pipeline
-- Vector Database
-- RAG System
-- Multi-Agent Framework
-
-No schema changes should be required in future phases.
-
----
-
-# 17. Sprint Plan
-
-## Sprint 1
-
-- Project Setup
-- Folder Structure
-- Items
-- Pipelines
-- Settings
-
----
-
-## Sprint 2
-
-Melbet Spider
-
----
-
-## Sprint 3
-
-10Cric Spider
-
----
-
-## Sprint 4
-
-22XBet Spider
-
----
-
-## Sprint 5
-
-22Crick Spider
-
----
-
-## Sprint 6
-
-Validation
-
----
-
-## Sprint 7
-
-JSON Export
-
----
-
-## Sprint 8
-
-Kafka Integration
-
----
-
-# 18. Definition of Done
-
-The scraping module is considered complete when
-
-- All four spiders work
-- JSON schema is consistent
-- Validation passes
-- No duplicate records
-- Logs generated
-- Output exported successfully
-- Ready for Kafka integration
-
----
-
-# End of Document
+## 5. Ingestion & Validation Standards
+
+The pipeline validation layers enforce the following quality audits prior to Data Lake raw export:
+1. **UTF-8 Charset Encoding:** Console logs and JSON dumps must strip non-ascii emoji characters to prevent encoding exceptions on Windows shells.
+2. **Schema Compliance:** The exporter verifies records via the `PaymentRecord` Pydantic model. Invalid records fail validation and are skipped.
+3. **Data Lake Organization:** Verified outputs are exported directly to historical directories: `data/raw/YYYY-MM-DD/HH-MM/`.

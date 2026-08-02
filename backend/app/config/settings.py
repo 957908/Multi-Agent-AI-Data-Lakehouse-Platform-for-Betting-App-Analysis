@@ -2,10 +2,10 @@
 File: settings.py
 Purpose:
     Centralized configuration management for the SentinelX Trust AI backend and ETL pipeline.
-Author: Priya Iyer
+Author: Priya Iyer & Arjun Mehta
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
-Version: 1.0
+Version: 1.1 (merged: DevOps integration – Radhika Patil)
 """
 
 import os
@@ -20,6 +20,7 @@ BASE_DIR = Path(__file__).resolve().parents[3]
 class Settings(BaseSettings):
     """
     Configuration settings loaded from environment variables and the root .env file.
+    Covers: database, data lakehouse paths, logging, JWT authentication, and seeded users.
     """
     # Database Configuration
     DB_HOST: str = "localhost"
@@ -28,7 +29,7 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = ""  # Default to empty, must be supplied in .env for production
     DB_NAME: str = "sentinelx_trust_ai"
 
-    # Data Lakehouse Layer Paths
+    # Data Lakehouse Layer Paths (used by Priya's ETL pipeline)
     RAW_DATA_DIR: str = str(BASE_DIR / "data" / "raw")
     BRONZE_DATA_DIR: str = str(BASE_DIR / "data" / "bronze")
     SILVER_DATA_DIR: str = str(BASE_DIR / "data" / "silver")
@@ -37,6 +38,25 @@ class Settings(BaseSettings):
 
     # Logging
     LOG_LEVEL: str = "INFO"
+
+    # JWT & Role Authentication Configuration (used by Arjun's backend)
+    JWT_SECRET_KEY: str = "sentinelx_super_secure_jwt_secret_key_123"
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+
+    ADMIN_EMAIL: str = "admin@sentinelx.com"
+    ADMIN_PASSWORD: str = "AdminPassword123"
+    ANALYST_EMAIL: str = "analyst@sentinelx.com"
+    ANALYST_PASSWORD: str = "AnalystPassword123"
+    READER_EMAIL: str = "reader@sentinelx.com"
+    READER_PASSWORD: str = "ReaderPassword123"
+
+    # AI Intelligence & Trust Engine Configuration
+    TRUST_WEIGHT_COMPLETENESS: float = 25.0
+    TRUST_WEIGHT_DIVERSITY: float = 30.0
+    TRUST_WEIGHT_QUALITY: float = 25.0
+    TRUST_WEIGHT_FOOTPRINT: float = 20.0
+    PROMPT_TEMPLATES_DIR: str = str(BASE_DIR / "backend" / "app" / "services" / "ai" / "prompts")
 
     # Load configuration from the root .env
     model_config = SettingsConfigDict(

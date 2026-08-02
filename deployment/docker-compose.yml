@@ -1,0 +1,321 @@
+# ============================================================
+# docker-compose.yml – SentinelX Trust AI
+# Orchestrates all platform services for local development
+# Author: Radhika Patil – DevOps & Engineering Operations
+# Version: 1.0
+# ============================================================
+
+services:
+
+  # ──────────────────────────────────────────────
+  # PostgreSQL Database
+  # ──────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: sentinelx-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-sentinelx_trust_ai}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      # Persistent data storage – survives container restarts
+      - postgres_data:/var/lib/postgresql/data
+      # Schema initialization script – runs on first start only
+      - ./deployment/docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "127.0.0.1:${DB_PORT:-5434}:5432"
+    networks:
+      - sentinelx-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-sentinelx_trust_ai}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # ──────────────────────────────────────────────
+  # pgAdmin – Database Administration UI (optional)
+  # Access at http://localhost:5050
+  # ──────────────────────────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: sentinelx-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@sentinelx.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "127.0.0.1:5050:80"
+    networks:
+      - sentinelx-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ──────────────────────────────────────────────
+  # FastAPI Backend (Arjun Mehta)
+  # Access at http://localhost:8000
+  # Swagger docs: http://localhost:8000/docs
+  # ──────────────────────────────────────────────
+  backend:
+    build:
+      context: ..
+      dockerfile: deployment/docker/backend/Dockerfile
+    container_name: sentinelx-backend
+    restart: unless-stopped
+    environment:
+      # Database – override host to use Docker service name
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-sentinelx_trust_ai}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD}
+      # Logging & Observability
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      ENABLE_METRICS: ${ENABLE_METRICS:-true}
+      # JWT & Auth
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ANALYST_EMAIL: ${ANALYST_EMAIL}
+      ANALYST_PASSWORD: ${ANALYST_PASSWORD}
+      READER_EMAIL: ${READER_EMAIL}
+      READER_PASSWORD: ${READER_PASSWORD}
+    volumes:
+      # Application logs persist on host
+      - app_logs:/app/logs
+    ports:
+      - "127.0.0.1:8000:8000"
+    networks:
+      - sentinelx-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # ──────────────────────────────────────────────
+  # Data Acquisition Scraper (Rayri Sharma)
+  # Runs on-demand; does not expose ports
+  # ──────────────────────────────────────────────
+  scraper:
+    build:
+      context: ..
+      dockerfile: deployment/docker/scraper/Dockerfile
+    container_name: sentinelx-scraper
+    restart: "no"
+    environment:
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
+      ONEXBET_URL: ${ONEXBET_URL}
+      MELBET_URL: ${MELBET_URL}
+      TENCRIC_URL: ${TENCRIC_URL}
+      PLAY22_URL: ${PLAY22_URL}
+      HEADLESS: ${HEADLESS:-true}
+      WAIT_TIMEOUT: ${WAIT_TIMEOUT:-20}
+      TARGET_SITE: ${TARGET_SITE:-onexbet}
+      SCREENSHOT: ${SCREENSHOT:-false}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      # Raw scraped JSON output persists on host
+      - scraper_output:/scraper/output
+      - scraper_logs:/scraper/logs
+    networks:
+      - sentinelx-network
+    profiles:
+      - scraper
+
+  # ──────────────────────────────────────────────
+  # ETL / Spark Pipeline (Priya Iyer)
+  # Runs on-demand after scraper has produced output
+  # ──────────────────────────────────────────────
+  etl:
+    build:
+      context: ..
+      dockerfile: deployment/docker/etl/Dockerfile
+    container_name: sentinelx-etl
+    restart: "no"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-sentinelx_trust_ai}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      # Lakehouse layer paths inside container
+      RAW_DATA_DIR: /data/raw
+      BRONZE_DATA_DIR: /data/bronze
+      SILVER_DATA_DIR: /data/silver
+      DLQ_DIR: /output/dlq
+      REPORTS_DIR: /output/reports/etl
+    volumes:
+      # Share raw scraper output with ETL for processing
+      - scraper_output:/data/raw:ro
+      - etl_bronze:/data/bronze
+      - etl_silver:/data/silver
+      - etl_output:/output
+      - etl_logs:/logs
+    networks:
+      - sentinelx-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - etl
+
+  # ──────────────────────────────────────────────
+  # Prometheus – Metrics Collection Engine
+  # Access at http://localhost:9090
+  # ──────────────────────────────────────────────
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: sentinelx-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - sentinelx-network
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  # ──────────────────────────────────────────────
+  # Grafana – Metrics Dashboard & Visualisation
+  # Access at http://localhost:3000
+  # ──────────────────────────────────────────────
+  grafana:
+    image: grafana/grafana:10.4.1
+    container_name: sentinelx-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=http://localhost/grafana/
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning/datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus.yml:ro
+      - ./monitoring/grafana/provisioning/dashboards/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml:ro
+      - ./monitoring/grafana/dashboards/sentinelx_metrics.json:/etc/grafana/dashboards/sentinelx_metrics.json:ro
+    networks:
+      - sentinelx-network
+    depends_on:
+      - prometheus
+
+  # ──────────────────────────────────────────────
+  # Node Exporter – Host System Metrics Collector
+  # Exposes metrics on port 9100
+  # ──────────────────────────────────────────────
+  node-exporter:
+    image: prom/node-exporter:v1.7.0
+    container_name: sentinelx-node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($|/)'
+    ports:
+      - "9100:9100"
+    networks:
+      - sentinelx-network
+
+  # ──────────────────────────────────────────────
+  # Postgres Exporter – PostgreSQL Performance Collector
+  # Exposes metrics on port 9187
+  # ──────────────────────────────────────────────
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    container_name: sentinelx-postgres-exporter
+    restart: unless-stopped
+    environment:
+      DATA_SOURCE_NAME: "postgresql://${DB_USER:-postgres}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-sentinelx_trust_ai}?sslmode=disable"
+    ports:
+      - "9187:9187"
+    networks:
+      - sentinelx-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ──────────────────────────────────────────────
+  # Nginx – SSL/TLS Secure Reverse Proxy
+  # Access at https://localhost
+  # ──────────────────────────────────────────────
+  nginx:
+    build:
+      context: ..
+      dockerfile: deployment/docker/nginx/Dockerfile
+    container_name: sentinelx-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # Optional: mount certificates directory for certificate updates
+      - ./docker/nginx/ssl:/etc/nginx/ssl:rw
+    networks:
+      - sentinelx-network
+    depends_on:
+      backend:
+        condition: service_healthy
+      grafana:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "-k", "https://localhost/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+
+# ============================================================
+# Named Volumes – Persistent Storage
+# ============================================================
+volumes:
+  postgres_data:
+    name: sentinelx_postgres_data
+  pgadmin_data:
+    name: sentinelx_pgadmin_data
+  app_logs:
+    name: sentinelx_app_logs
+  scraper_output:
+    name: sentinelx_scraper_output
+  scraper_logs:
+    name: sentinelx_scraper_logs
+  etl_bronze:
+    name: sentinelx_etl_bronze
+  etl_silver:
+    name: sentinelx_etl_silver
+  etl_output:
+    name: sentinelx_etl_output
+  etl_logs:
+    name: sentinelx_etl_logs
+  prometheus_data:
+    name: sentinelx_prometheus_data
+  grafana_data:
+    name: sentinelx_grafana_data
+
+
+# ============================================================
+# Internal Docker Network
+# ============================================================
+networks:
+  sentinelx-network:
+    name: sentinelx-network
+    driver: bridge

@@ -19,8 +19,14 @@ build/
 # Local Diagnostic Outputs (Scraper HTML/PNG dumps in root)
 /*.html
 /*.png
+# Scraper runtime-generated directories
 scraper/output/
 scraper/legacy/
+scraper/logs/
+scraper/data/
+scraper/auth/
+# Scraper per-site JSON output (committed explicitly when needed)
+scraper/scraper/output/
 
 # Environment Configurations
 .env
@@ -36,10 +42,10 @@ Thumbs.db
 # Hadoop Local Binaries
 hadoop/
 
-# ETL Local Test Data & Warehouses
+# ETL Local Test Data & Spark Warehouse
 backend/tests/test_data/
 backend/app/spark-warehouse/
 
-# JVM Logs
+# JVM Crash Logs
 hs_err_pid*.log
 replay_pid*.log

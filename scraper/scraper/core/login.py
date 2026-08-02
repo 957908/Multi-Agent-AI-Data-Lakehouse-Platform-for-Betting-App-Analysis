@@ -1,103 +1,92 @@
-# ============================================================
-# File Name : login.py
-#
-# Module    : Core
-#
-# Purpose:
-#     Automatically login into supported betting websites.
-#
-# Responsibilities:
-#     1. Find visible username field
-#     2. Find visible password field
-#     3. Enter credentials
-#     4. Click Login
-#
-# ============================================================
+"""
+File: login.py
+Purpose:
+    Handles authentication flows on target websites using Playwright with manual fallback.
+Author: R. Rayri Sharma
+Company: SentinelX Labs
+Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform for Betting Site Intelligence
+Created By: R. Rayri Sharma
+Reviewed By: Tech Lead & Solution Architect (HQ Chat)
+Version: 1.0
+"""
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+# Standard Library
+import logging
+from typing import Dict
 
-from config.settings import USERNAME, PASSWORD
-from config.selectors import ONEXBET
+# Third Party
+from playwright.sync_api import Page
+
+# Local Imports
+from config.settings import USERNAME, PASSWORD, HEADLESS
+
+# Setup Logger
+logger = logging.getLogger("scraper.core.login")
 
 
 class LoginManager:
+    """
+    Manages automated authentication and manual intervention fallbacks.
+    """
 
-    def __init__(self, driver, wait):
-        self.driver = driver
-        self.wait = wait
+    def __init__(self, page: Page, username: str = USERNAME, password: str = PASSWORD) -> None:
+        """
+        Initializes the LoginManager with standard target page and credentials.
+        """
+        self.page = page
+        self.username = username
+        self.password = password
+        logger.info("Initialized LoginManager.")
 
-    # ---------------------------------------------------------
-    # Find only the visible element
-    # ---------------------------------------------------------
-    def find_visible_element(self, selector):
+    def login(self, selectors: Dict[str, str], fallback_manual: bool = True) -> bool:
+        """
+        Executes the login workflow. Falls back to terminal-prompted manual login if automated login fails.
+        """
+        logger.info("Initiating login sequence...")
+        
+        try:
+            # 1. Fill Username
+            username_selector = selectors["username"]
+            logger.info(f"Waiting for username field: {username_selector}")
+            self.page.locator(username_selector).first.wait_for(state="visible", timeout=8000)
+            self.page.locator(username_selector).first.fill(self.username)
+            logger.info("Username field filled.")
 
-        self.wait.until(
-            EC.presence_of_all_elements_located(
-                (By.CSS_SELECTOR, selector)
-            )
-        )
+            # 2. Fill Password
+            password_selector = selectors["password"]
+            logger.info(f"Waiting for password field: {password_selector}")
+            self.page.locator(password_selector).first.wait_for(state="visible", timeout=8000)
+            self.page.locator(password_selector).first.fill(self.password)
+            logger.info("Password field filled.")
 
-        elements = self.driver.find_elements(By.CSS_SELECTOR, selector)
+            # 3. Click Login Submit Button
+            login_btn_selector = selectors["login_button"]
+            logger.info(f"Clicking login submit button: {login_btn_selector}")
+            self.page.locator(login_btn_selector).first.wait_for(state="visible", timeout=8000)
+            self.page.locator(login_btn_selector).first.click()
+            
+            # Wait for network idle state to let redirection occur
+            self.page.wait_for_load_state("networkidle", timeout=10000)
+            logger.info("Login form submitted successfully.")
+            return True
 
-        print(f"\nSearching visible element: {selector}")
-        print(f"Found {len(elements)} matching element(s)")
-
-        for i, element in enumerate(elements):
-            print(
-                f"Element {i+1}: displayed={element.is_displayed()}"
-            )
-
-            if element.is_displayed():
-                return element
-
-        raise TimeoutException(
-            f"No visible element found for selector: {selector}"
-        )
-
-    # ---------------------------------------------------------
-    # Login
-    # ---------------------------------------------------------
-    def login(self):
-
-        print("=" * 60)
-        print("STARTING LOGIN")
-        print("=" * 60)
-
-        # ---------------- Username ----------------
-        print("Entering Username...")
-
-        username = self.find_visible_element(
-            ONEXBET["username"]
-        )
-
-        username.clear()
-        username.send_keys(USERNAME)
-
-        print("Username entered.")
-
-        # ---------------- Password ----------------
-        print("Entering Password...")
-
-        password = self.find_visible_element(
-            ONEXBET["password"]
-        )
-
-        password.clear()
-        password.send_keys(PASSWORD)
-
-        print("Password entered.")
-
-        # ---------------- Login Button ----------------
-        print("Clicking Login Button...")
-
-        login_button = self.find_visible_element(
-            ONEXBET["login_button"]
-        )
-
-        login_button.click()
-
-        print("Login submitted.")
-
-        return True
+        except Exception as error:
+            logger.error(f"Automated login flow failed: {str(error)}")
+            
+            if fallback_manual and not HEADLESS:
+                logger.warning("Headed mode detected. Falling back to MANUAL login...")
+                print("\n" + "=" * 70)
+                print(" !!!  AUTOMATED LOGIN BARRIER / CAPTCHA DETECTED  !!!")
+                print(" Please log in manually inside the opened browser window.")
+                print(" Once you are successfully logged in, return here and press [ENTER].")
+                print("=" * 70 + "\n")
+                
+                # Pauses script execution until the user manually authenticates and hits enter
+                input("Press [ENTER] to continue after manual authentication...")
+                logger.info("Manual authentication override accepted.")
+                return True
+            else:
+                logger.critical("Manual login fallback unavailable in headless execution mode.")
+                raise Exception(
+                    "Authentication failure. Automated login failed and manual fallback is disabled in headless mode."
+                )

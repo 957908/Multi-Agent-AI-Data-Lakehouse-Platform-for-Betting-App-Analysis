@@ -1,0 +1,67 @@
+[
+  {
+    "site": "melbet",
+    "payment_type": "e-wallet",
+    "payment_name": "Paytm",
+    "currency": "INR",
+    "country": "IN",
+    "bonus_name": "100% Deposit Bonus",
+    "support_type": "Live Chat",
+    "support_value": "https://melbet.com/chat",
+    "status": "active",
+    "source_url": "https://melbet.com/deposits",
+    "scraped_at": "2026-07-29T16:29:29.781153"
+  },
+  {
+    "site": "melbet",
+    "payment_type": "e-wallet",
+    "payment_name": "UPI",
+    "currency": "INR",
+    "country": "IN",
+    "bonus_name": "100% Deposit Bonus",
+    "support_type": "Email",
+    "support_value": "support@melbet.com",
+    "status": "active",
+    "source_url": "https://melbet.com/deposits",
+    "scraped_at": "2026-07-29T16:29:29.781201"
+  },
+  {
+    "site": "melbet",
+    "payment_type": "crypto",
+    "payment_name": "Bitcoin",
+    "currency": "USD",
+    "country": "BR",
+    "bonus_name": "Crypto Match",
+    "support_type": "Telegram",
+    "support_value": "@melbet_crypto",
+    "status": "active",
+    "source_url": "https://melbet.com/crypto",
+    "scraped_at": "2026-07-29T16:29:29.781228"
+  },
+  {
+    "site": "melbet",
+    "payment_type": "bank_transfer",
+    "payment_name": "IMPS",
+    "currency": "INR",
+    "country": "IN",
+    "bonus_name": null,
+    "support_type": "Live Chat",
+    "support_value": "https://melbet.com/chat",
+    "status": "active",
+    "source_url": "https://melbet.com/bank",
+    "scraped_at": "2026-07-29T16:29:29.781250"
+  },
+  {
+    "site": "10cric",
+    "payment_type": "bank_transfer",
+    "payment_name": "Net Banking",
+    "currency": "INR",
+    "country": "IN",
+    "bonus_name": "150% Deposit Match",
+    "support_type": "Phone",
+    "support_value": "+91-1800-123-456",
+    "status": "active",
+    "source_url": "https://10cric.com/banking",
+    "scraped_at": "2026-07-29T16:29:29.781271"
+  }
+]

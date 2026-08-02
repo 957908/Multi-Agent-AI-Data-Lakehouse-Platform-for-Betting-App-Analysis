@@ -2,10 +2,10 @@
 File: connection.py
 Purpose:
     Database connection management and session factory utilizing SQLAlchemy.
-Author: Priya Iyer
+Author: Priya Iyer & Arjun Mehta
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
-Version: 1.0
+Version: 1.1 (merged: DevOps integration – Radhika Patil)
 """
 
 import logging
@@ -30,15 +30,16 @@ engine = create_engine(
 # Create session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Declarative base class for models
+# Declarative base class for all ORM models
 Base = declarative_base()
 
 
 @contextmanager
 def get_db() -> Generator[Session, None, None]:
     """
-    Context manager that yields a database session and ensures it is closed 
+    Context manager that yields a database session and ensures it is closed
     safely and that transactions are rolled back in case of exceptions.
+    Used by ETL pipeline (Priya Iyer).
     """
     session = SessionLocal()
     try:
@@ -48,5 +49,18 @@ def get_db() -> Generator[Session, None, None]:
         session.rollback()
         logger.error(f"Database transaction error: {str(e)}", exc_info=True)
         raise
+    finally:
+        session.close()
+
+
+def get_db_session() -> Generator[Session, None, None]:
+    """
+    FastAPI dependency that yields a database session.
+    Used by FastAPI endpoint routers (Arjun Mehta).
+    Avoids using @contextmanager decorator directly to prevent Python 3.13 compatibility issues.
+    """
+    session = SessionLocal()
+    try:
+        yield session
     finally:
         session.close()

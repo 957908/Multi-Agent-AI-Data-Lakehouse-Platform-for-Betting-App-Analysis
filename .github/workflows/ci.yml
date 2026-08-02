@@ -1,0 +1,119 @@
+name: CI/CD Pipeline - SentinelX Trust AI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  lint-and-format:
+    name: Lint and Format Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Linting Tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff black
+
+      - name: Run Ruff Linter
+        run: ruff check .
+
+      - name: Run Black Formatter Check
+        run: black --check .
+
+  validate-docker-compose:
+    name: Docker Compose Syntax Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Validate Docker Compose Configuration
+        run: |
+          docker-compose -f deployment/docker-compose.yml config --quiet
+
+  run-tests:
+    name: Python Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r deployment/docker/backend/requirements.txt
+          pip install pytest pytest-mock
+
+      - name: Run Backend Unit Tests
+        env:
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USER: postgres
+          DB_PASSWORD: test
+          DB_NAME: sentinelx_test
+          JWT_SECRET_KEY: test_secret_key_1234567890123456
+          ENABLE_METRICS: 'true'
+        run: |
+          python -m unittest backend/tests/test_api.py backend/tests/test_ai_services.py
+
+  build-validation:
+    name: Docker Build Validation (Dry-Run)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Backend Service
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: deployment/docker/backend/Dockerfile
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build Scraper Service
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: deployment/docker/scraper/Dockerfile
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build ETL Service
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: deployment/docker/etl/Dockerfile
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
