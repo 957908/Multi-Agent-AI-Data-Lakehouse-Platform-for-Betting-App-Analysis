@@ -35,10 +35,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copy installed packages from builder stage
 COPY --from=builder /install/packages /usr/local
 
-WORKDIR /app
+# Copy backend source code to match project layout for relative pathing
+COPY backend/app/ /app/backend/app/
 
-# Copy backend source code
-COPY backend/app/ ./
+WORKDIR /app/backend/app
 
 # Create non-root user for security
 RUN addgroup --system sentinelx && adduser --system --ingroup sentinelx sentinelx

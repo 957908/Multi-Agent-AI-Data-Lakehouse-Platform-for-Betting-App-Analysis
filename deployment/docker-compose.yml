@@ -24,7 +24,7 @@ services:
       # Schema initialization script – runs on first start only
       - ./deployment/docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     ports:
-      - "127.0.0.1:${DB_PORT:-5432}:5432"
+      - "127.0.0.1:${DB_PORT:-5434}:5432"
     networks:
       - sentinelx-network
     healthcheck:
@@ -62,7 +62,7 @@ services:
   # ──────────────────────────────────────────────
   backend:
     build:
-      context: .
+      context: ..
       dockerfile: deployment/docker/backend/Dockerfile
     container_name: sentinelx-backend
     restart: unless-stopped
@@ -109,7 +109,7 @@ services:
   # ──────────────────────────────────────────────
   scraper:
     build:
-      context: .
+      context: ..
       dockerfile: deployment/docker/scraper/Dockerfile
     container_name: sentinelx-scraper
     restart: "no"
@@ -140,7 +140,7 @@ services:
   # ──────────────────────────────────────────────
   etl:
     build:
-      context: .
+      context: ..
       dockerfile: deployment/docker/etl/Dockerfile
     container_name: sentinelx-etl
     restart: "no"
@@ -259,7 +259,7 @@ services:
   # ──────────────────────────────────────────────
   nginx:
     build:
-      context: .
+      context: ..
       dockerfile: deployment/docker/nginx/Dockerfile
     container_name: sentinelx-nginx
     restart: unless-stopped
