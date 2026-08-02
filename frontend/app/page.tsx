@@ -14,6 +14,7 @@ export default function Home() {
     tencric: "idle",
     twentytwoxbet: "idle",
   });
+  const [dbPlatforms, setDbPlatforms] = useState<any[]>([]);
   const [activeLogs, setActiveLogs] = useState<string[]>([
     "System booted successfully.",
     "Database connection established.",
@@ -22,7 +23,11 @@ export default function Home() {
     "Waiting for commands..."
   ]);
 
-  // Check backend health
+  const addLog = (msg: string) => {
+    setActiveLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 15)]);
+  };
+
+  // Check backend health and fetch database records
   useEffect(() => {
     fetch("https://localhost/api/v1/health")
       .then((res) => res.json())
@@ -42,6 +47,29 @@ export default function Home() {
           })
           .catch(() => setBackendHealth("offline"));
       });
+
+    // Fetch real platforms from database
+    fetch("https://localhost/api/v1/gold/platforms")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data && data.data.items) {
+          setDbPlatforms(data.data.items);
+          addLog(`Connected to PostgreSQL! Loaded ${data.data.items.length} real platforms from Gold Layer.`);
+        }
+      })
+      .catch(() => {
+        fetch("http://localhost:8000/api/v1/gold/platforms")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.data && data.data.items) {
+              setDbPlatforms(data.data.items);
+              addLog(`Connected to PostgreSQL! Loaded ${data.data.items.length} real platforms from Gold Layer.`);
+            }
+          })
+          .catch(() => {
+            addLog("Could not connect to PostgreSQL. Displaying demo metrics instead.");
+          });
+      });
   }, []);
 
   const triggerScraper = (platform: string) => {
@@ -57,10 +85,6 @@ export default function Home() {
       addLog(`[${platform}] Scraped transaction details write out to raw data bucket.`);
       setScrapersState(prev => ({ ...prev, [platform]: "completed" }));
     }, 4000);
-  };
-
-  const addLog = (msg: string) => {
-    setActiveLogs(prev => [`[${new Date().toLocaleTimeString()}] ${msg}`, ...prev.slice(0, 15)]);
   };
 
   const handleRagSearch = (e: React.FormEvent) => {
@@ -268,6 +292,50 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Real Database Records Section */}
+            {dbPlatforms.length > 0 && (
+              <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-5 mt-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-white font-semibold text-sm text-cyan-400">Real-Time Gold Layer (PostgreSQL Database)</h3>
+                  <span className="text-[10px] text-emerald-400 font-mono px-2 py-0.5 rounded-full bg-emerald-950 border border-emerald-800/30">
+                    LOADED FROM POSTGRES
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-zinc-800 text-zinc-500 font-mono uppercase text-[10px]">
+                        <th className="py-2.5 px-3">Site Domain</th>
+                        <th className="py-2.5 px-3">Trust Score</th>
+                        <th className="py-2.5 px-3">Risk Level</th>
+                        <th className="py-2.5 px-3">Active Gateways</th>
+                        <th className="py-2.5 px-3">Risk Summary</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-800/60 text-zinc-300">
+                      {dbPlatforms.map((platform) => (
+                        <tr key={platform.site} className="hover:bg-zinc-900/20">
+                          <td className="py-3 px-3 font-bold text-white font-mono">{platform.site}</td>
+                          <td className="py-3 px-3 font-semibold text-cyan-400 font-mono">{platform.trust_score}%</td>
+                          <td className="py-3 px-3">
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                              platform.trust_level === "HIGH" ? "bg-emerald-950 text-emerald-400" :
+                              platform.trust_level === "MEDIUM" ? "bg-amber-950 text-amber-400" :
+                              "bg-rose-950 text-rose-400"
+                            }`}>
+                              {platform.trust_level}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 font-mono">{platform.active_payment_methods} / {platform.total_payment_methods}</td>
+                          <td className="py-3 px-3 text-zinc-400 italic max-w-xs truncate">{platform.risk_summary}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

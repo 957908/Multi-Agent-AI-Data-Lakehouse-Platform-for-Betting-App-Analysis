@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent))
 
 from database.init_db import init_database
-from services.etl.spark_etl import run_pipeline
+# run_pipeline is imported dynamically inside the run-etl CLI branch to prevent PySpark dependency errors on API containers.
 
 # Setup logging configuration
 logging.basicConfig(
@@ -63,6 +63,7 @@ def main() -> None:
 
     if args.run_etl:
         logger.info("Checking for unprocessed scraper outputs and launching ETL pipeline...")
+        from services.etl.spark_etl import run_pipeline
         run_pipeline()
         logger.info("ETL pipeline execution complete.")
 
