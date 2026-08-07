@@ -8,12 +8,24 @@ export default function Home() {
   const [ragResult, setRagResult] = useState<any>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [backendHealth, setBackendHealth] = useState<string>("checking");
-  const [scrapersState, setScrapersState] = useState({
+  const [scrapersList, setScrapersList] = useState([
+    { name: "OneXBet Adapter", key: "onexbet", desc: "Monitors deposit pages & wallet endpoints." },
+    { name: "Melbet Adapter", key: "melbet", desc: "Scrapes transactional receipt listings." },
+    { name: "TenCric Adapter", key: "tencric", desc: "Polls UPI gateway configurations." },
+    { name: "TwentyTwoXBet Adapter", key: "twentytwoxbet", desc: "Crypto address destination validator." },
+  ]);
+  const [scrapersState, setScrapersState] = useState<Record<string, string>>({
     onexbet: "idle",
     melbet: "idle",
     tencric: "idle",
     twentytwoxbet: "idle",
   });
+  const [newAgentName, setNewAgentName] = useState("");
+  const [newAgentUrl, setNewAgentUrl] = useState("");
+  const [newAgentUsername, setNewAgentUsername] = useState("");
+  const [newAgentPassword, setNewAgentPassword] = useState("");
+  const [newAgentMode, setNewAgentMode] = useState("autonomous");
+  const [isProvisioning, setIsProvisioning] = useState(false);
   const [dbPlatforms, setDbPlatforms] = useState<any[]>([]);
   const [activeLogs, setActiveLogs] = useState<string[]>([
     "System booted successfully.",
@@ -85,6 +97,51 @@ export default function Home() {
       addLog(`[${platform}] Scraped transaction details write out to raw data bucket.`);
       setScrapersState(prev => ({ ...prev, [platform]: "completed" }));
     }, 4000);
+  };
+
+  const handleDeployAgent = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newAgentName || !newAgentUrl || !newAgentUsername || !newAgentPassword) return;
+
+    setIsProvisioning(true);
+    const key = newAgentName.toLowerCase().replace(/[^a-z0-9]/g, "");
+    addLog(`Initiating deployment for AI Agent: [${newAgentName}]...`);
+
+    setTimeout(() => {
+      addLog(`[AI Agent] Connecting to host container environment...`);
+    }, 1000);
+
+    setTimeout(() => {
+      addLog(`[AI Agent] Setting up credentials for ${newAgentUsername} on target URL: ${newAgentUrl}...`);
+    }, 2000);
+
+    setTimeout(() => {
+      addLog(`[AI Agent] Bypassing Cloudflare protections using Anti-Detection adapter...`);
+    }, 3500);
+
+    setTimeout(() => {
+      addLog(`[AI Agent] AI Agent successfully deployed and registered into active scraper pool.`);
+      
+      setScrapersList(prev => [
+        ...prev,
+        {
+          name: `${newAgentName} AI Agent`,
+          key: key,
+          desc: `AI-guided scraper navigating cashier endpoints on ${newAgentUrl}.`
+        }
+      ]);
+      setScrapersState(prev => ({
+        ...prev,
+        [key]: "idle"
+      }));
+
+      setIsProvisioning(false);
+      // Reset form
+      setNewAgentName("");
+      setNewAgentUrl("");
+      setNewAgentUsername("");
+      setNewAgentPassword("");
+    }, 5000);
   };
 
   const handleRagSearch = (e: React.FormEvent) => {
@@ -348,13 +405,8 @@ export default function Home() {
                 SentinelX scrapers run under Playwright with anti-fingerprint emulation to acquire payment layouts and receipts dynamically.
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {[
-                  { name: "OneXBet Adapter", key: "onexbet", desc: "Monitors deposit pages & wallet endpoints." },
-                  { name: "Melbet Adapter", key: "melbet", desc: "Scrapes transactional receipt listings." },
-                  { name: "TenCric Adapter", key: "tencric", desc: "Polls UPI gateway configurations." },
-                  { name: "TwentyTwoXBet Adapter", key: "twentytwoxbet", desc: "Crypto address destination validator." },
-                ].map((scraper) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+                {scrapersList.map((scraper) => (
                   <div key={scraper.key} className="bg-zinc-900/60 border border-zinc-800/60 rounded-xl p-4 flex items-center justify-between">
                     <div>
                       <h4 className="text-white font-medium text-sm mb-1">{scraper.name}</h4>
@@ -362,23 +414,115 @@ export default function Home() {
                       <div className="mt-3 flex items-center gap-2">
                         <span className="text-[10px] text-zinc-400 font-mono">Status:</span>
                         <span className={`text-[10px] uppercase font-bold font-mono px-1.5 py-0.5 rounded ${
-                          scrapersState[scraper.key as keyof typeof scrapersState] === "idle" ? "bg-zinc-800 text-zinc-400" :
-                          scrapersState[scraper.key as keyof typeof scrapersState] === "running" ? "bg-cyan-950 text-cyan-400 animate-pulse" :
+                          scrapersState[scraper.key] === "idle" ? "bg-zinc-800 text-zinc-400" :
+                          scrapersState[scraper.key] === "running" ? "bg-cyan-950 text-cyan-400 animate-pulse" :
                           "bg-emerald-950 text-emerald-400"
                         }`}>
-                          {scrapersState[scraper.key as keyof typeof scrapersState]}
+                          {scrapersState[scraper.key] || "idle"}
                         </span>
                       </div>
                     </div>
                     <button
                       onClick={() => triggerScraper(scraper.key)}
-                      disabled={scrapersState[scraper.key as keyof typeof scrapersState] === "running"}
+                      disabled={scrapersState[scraper.key] === "running"}
                       className="px-3.5 py-1.5 bg-cyan-500 hover:bg-cyan-400 disabled:bg-zinc-800 disabled:text-zinc-600 text-black text-xs font-bold rounded-lg transition-colors cursor-pointer"
                     >
                       Trigger
                     </button>
                   </div>
                 ))}
+              </div>
+
+              {/* Provision New AI Scraper Agent Form */}
+              <div className="bg-zinc-950/60 border border-zinc-800/80 rounded-xl p-6 mt-6">
+                <h4 className="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
+                  Provision New AI Scraper Agent
+                </h4>
+                <p className="text-zinc-400 text-xs mb-6">
+                  Add a dynamic AI browser agent workflow to target a new betting platform cashier gateway.
+                </p>
+
+                <form onSubmit={handleDeployAgent} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-zinc-400 text-xs font-mono mb-1.5">Site/Platform Name</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. 10Cric, Melbet, custom domain"
+                        value={newAgentName}
+                        onChange={(e) => setNewAgentName(e.target.value)}
+                        required
+                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-cyan-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-zinc-400 text-xs font-mono mb-1.5">Target Cashier URL</label>
+                      <input
+                        type="url"
+                        placeholder="https://platform.com/cashier"
+                        value={newAgentUrl}
+                        onChange={(e) => setNewAgentUrl(e.target.value)}
+                        required
+                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-cyan-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-zinc-400 text-xs font-mono mb-1.5">Username / Login ID</label>
+                      <input
+                        type="text"
+                        placeholder="Scraper account login ID"
+                        value={newAgentUsername}
+                        onChange={(e) => setNewAgentUsername(e.target.value)}
+                        required
+                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-cyan-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-zinc-400 text-xs font-mono mb-1.5">Password</label>
+                      <input
+                        type="password"
+                        placeholder="••••••••••••"
+                        value={newAgentPassword}
+                        onChange={(e) => setNewAgentPassword(e.target.value)}
+                        required
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-cyan-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-zinc-400 text-xs font-mono mb-1.5">Navigation AI Model Mode</label>
+                      <select
+                        value={newAgentMode}
+                        onChange={(e) => setNewAgentMode(e.target.value)}
+                        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-cyan-500"
+                      >
+                        <option value="autonomous">Autonomous Selector Discovery</option>
+                        <option value="visual">AI Computer Vision (GPT-4V)</option>
+                        <option value="static">Static Selector Config</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end pt-2">
+                    <button
+                      type="submit"
+                      disabled={isProvisioning}
+                      className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 disabled:from-zinc-800 disabled:to-zinc-800 disabled:text-zinc-500 text-black font-bold text-xs rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/10"
+                    >
+                      {isProvisioning ? (
+                        <>
+                          <span className="w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                          Deploying Agent...
+                        </>
+                      ) : (
+                        "Deploy AI Scraper Agent"
+                      )}
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
