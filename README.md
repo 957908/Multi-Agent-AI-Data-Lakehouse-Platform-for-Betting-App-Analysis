@@ -181,7 +181,7 @@ python -m unittest backend/tests/test_ai_services.py backend/tests/test_api.py b
 
 ## 👥 Engineering Team & Credits
 
-*   👨‍💻 **Arjun Mehta** — Senior Backend & AI Engineer
-*   👩‍💻 **Priya Iyer** — Senior Data Engineer
-*   👨‍💻 **Rayri Sharma** — Data Acquisition Engineer
-*   👩‍💻 **Radhika Patil** — Senior DevOps Engineer
+*   👨‍💻 **Niraj=Kadam** — Senior Backend & AI Engineer
+*   👩‍💻 **Niraj-kadam** — Senior Data Engineer
+*   👨‍💻 **Niraj_Kadam** — Data Acquisition Engineer
+*   👩‍💻 **Niraj@Kadam** — Senior DevOps Engineer
