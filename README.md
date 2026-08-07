@@ -23,7 +23,7 @@
 **SentinelX Trust AI** is an enterprise-grade, open-source-ready Multi-Agent AI Data Lakehouse Platform designed for automated browser telemetry acquisition, medallion data lakehouse processing, dynamic risk profiling, and trust score intelligence of betting app payment gateways.
 
 It provides a complete end-to-end framework to:
-1. **Scrape** hidden payment endpoints of betting sites (e.g. 1xBet, Melbet) using automated Playwright sessions.
+1. **Scrape** payment endpoints using automated Playwright sessions.
 2. **Process** raw data using PySpark into Bronze, Silver, and Gold Medallion Lakehouse structures.
 3. **Analyze** risk profiles with Random Forest, Isolation Forest, and K-Means models.
 4. **Index & Query** anomalies using Semantic FAISS vector indexes and Retrieval-Augmented Generation (RAG).
@@ -35,34 +35,50 @@ It provides a complete end-to-end framework to:
 
 ```mermaid
 flowchart TD
-    subgraph Data Acquisition ["1. Data Acquisition Layer (Rayri Sharma)"]
-        Scrapers["Playwright Scrapers"] --> |Raw JSON| RawData["data/raw/"]
-    end
+    %% Styling Definitions
+    classDef acquisition fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#090d16;
+    classDef lakehouse fill:#a855f7,stroke:#7e22ce,stroke-width:2px,color:#fff;
+    classDef aiEngine fill:#ec4899,stroke:#be185d,stroke-width:2px,color:#fff;
+    classDef apiLayer fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff;
+    classDef monitor fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff;
 
-    subgraph Data Lakehouse ["2. Data Engineering & Lakehouse (Priya Iyer)"]
-        RawData --> Bronze["Bronze Layer (Raw Backups)"]
-        Bronze --> Spark["PySpark Ingestion Engine"]
-        Spark --> |Validation Failures| DLQ["output/dlq/ (Dead Letter Queue)"]
-        Spark --> |Cleaned & Deduplicated| Silver["Silver Layer (payment_records)"]
-        Silver --> |Pre-Aggregation| Gold["Gold Layer (gold_platform_analytics & insights)"]
+    %% Data Acquisition Layer
+    subgraph Layer1 ["1. Telemetry Acquisition (Rayri Sharma)"]
+        ScraperAdapter["Playwright Cashier Adapters"] --> |JSON Data| BronzeBucket["Bronze Raw Storage (MinIO)"]
     end
+    class ScraperAdapter,BronzeBucket acquisition;
 
-    subgraph AI Engine ["3. AI Intelligence Layer (Arjun Mehta)"]
-        Gold --> TrustEngine["Rule-Based Trust Engine (0-100)"]
-        Gold --> AIAnalysis["AI Risk & Report Generator"]
-        Gold --> RAG["Provider-Agnostic RAG Search"]
+    %% Data Lakehouse Layer
+    subgraph Layer2 ["2. Medallion Lakehouse Ingestion (Priya Iyer)"]
+        BronzeBucket --> |Load Schema| SparkETL["PySpark Engine (Validation)"]
+        SparkETL --> |Validation Failures| DLQ["Dead Letter Queue (DLQ)"]
+        SparkETL --> |Cleaned & Deduplicated| SilverBucket["Silver payment_records (Parquet)"]
+        SilverBucket --> |Incremental Aggregations| GoldBucket["Gold platform_analytics (Tables)"]
     end
+    class SparkETL,DLQ,SilverBucket,GoldBucket lakehouse;
 
-    subgraph Backend API ["4. FastAPI REST API (Arjun Mehta)"]
-        TrustEngine & AIAnalysis & RAG & Silver & Gold --> API["FastAPI REST Server"]
-        API --> Auth["JWT & Role-Based Security (RBAC)"]
-        API --> Cache["In-Memory TTL Cache (<15ms)"]
+    %% AI & Intelligence Layer
+    subgraph Layer3 ["3. AI trust & RAG Engine (Arjun Mehta)"]
+        GoldBucket --> |Metrics Sync| TrustEngine["Explainable Trust Engine (0-100)"]
+        GoldBucket --> |Generate Context| DocumentIngest["RAG Chunk Ingestor"]
+        DocumentIngest --> |Sentence Embeddings| FAISSDB["FAISS Vector Storage"]
+        FAISSDB --> |Retrieval Context| RAGSearch["LangChain RAG Query Analyzer"]
     end
+    class TrustEngine,DocumentIngest,FAISSDB,RAGSearch aiEngine;
 
-    subgraph Observability ["5. DevOps & Telemetry (Radhika Patil)"]
-        API --> Metrics["/metrics (Prometheus Instrumentation)"]
-        API --> Health["/api/v1/health (Uptime Monitoring)"]
+    %% REST API Layer
+    subgraph Layer4 ["4. Secure API Gateway & Console"]
+        TrustEngine & RAGSearch --> |REST Handlers| FastAPIServer["FastAPI Application Server"]
+        FastAPIServer --> |JWT / RBAC Security| GatewayProxy["Nginx SSL Gateway"]
     end
+    class FastAPIServer,GatewayProxy apiLayer;
+
+    %% Observability Layer
+    subgraph Layer5 ["5. Telemetry & DevOps (Radhika Patil)"]
+        GatewayProxy --> |Scrape API Metrics| Prometheus["Prometheus Server"]
+        Prometheus --> |Visualize Telemetry| Grafana["Grafana Dashboard Console"]
+    end
+    class Prometheus,Grafana monitor;
 ```
 
 ---
@@ -70,6 +86,7 @@ flowchart TD
 ## ⚡ Core Platform Capabilities
 
 *   **🛡️ Resilient Browser Scrapers:** Automated sessions built with Playwright and Scrapy. Bypasses cloudflare verification and scans payment gateways dynamically.
+*   **🤖 AI Scraper Agent Provisioner:** Modern form interface on the dashboard to deploy new scraper agents on-demand with custom credentials, target URL, and AI navigation models.
 *   **📐 Medallion Data Lakehouse:** PySpark & Parquet/Delta Lake pipeline managing **Bronze** (raw ingestion), **Silver** (cleaned and deduplicated payment records), and **Gold** (pre-computed analytics) layers.
 *   **🧠 Explainable Risk Scoring Engine:** Rule-based AI evaluates site reliability scores (0-100), risk flags, and confidence ratings, categorizing risks into `LOW`, `MEDIUM`, or `HIGH`.
 *   **🔍 Semantic Vector Search & RAG:** Embeddings generated using `all-MiniLM-L6-v2` indexed in a FAISS vector database to answer natural language queries using a local LLM.
@@ -78,59 +95,58 @@ flowchart TD
 
 ---
 
-## 📁 Repository Directory Structure
+## 🤖 Smart AI Scraper Agent Workflow
 
-```text
-.
-├── backend/
-│   ├── app/
-│   │   ├── api/v1/          # REST API Route Controllers & Endpoints
-│   │   ├── config/          # Centralized Pydantic Settings & Environment Loaders
-│   │   ├── core/            # Security (JWT/RBAC), Caching & Exception Handlers
-│   │   ├── database/        # PostgreSQL Connection, Schemas & Seed Scripts
-│   │   ├── repositories/    # Data Access Layer (PaymentRepository, GoldRepository)
-│   │   ├── schemas/         # Pydantic Input/Output Schemas & Generic Envelopes
-│   │   ├── services/        # AI Services (TrustEngine, RAGService, AIAnalysisService)
-│   │   └── server.py        # Main FastAPI Application Server Entrypoint
-│   └── tests/               # Unit, Integration, E2E Simulation & Benchmark Suites
-├── etl/                     # PySpark Medallion Lakehouse Pipeline Jobs (Priya)
-├── scrapers/                # Playwright Web Scraping Adapters & Controllers (Rayri)
-├── frontend/                # Next.js 15 Tailwind Dashboard UI Console (Radhika)
-├── docs/                    # Architectural & Operational Technical Documentation
-├── RUN_GUIDE.md             # Consolidated Master Run & Operational Guide
-├── docker-compose.yml       # Production Docker Container Orchestration
-└── README.md                # Project Landing Page Documentation
+The platform features an **AI Scraper Agent Orchestrator** enabling users to dynamically add new targets to the active ingestion pipeline:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    User->>Dashboard: Input Target URL, Credentials & Mode
+    Dashboard->>Dashboard: Trigger provisioning animation & logs
+    Dashboard->>Backend: Request Deployment of AI Browser Agent
+    Backend->>Browser: Spin up Playwright headless instance
+    Browser->>Cloudflare: Bypass anti-bot detection gates
+    Browser->>Target Cashier: Login using Username/Password
+    Browser->>Target Cashier: Scrape active payment layouts
+    Browser->>Bronze Storage: Save raw JSON payloads
+    Dashboard->>Dashboard: Dynamically register and display adapter in UI grid
 ```
 
 ---
 
 ## 🚀 Quick Start Guide
 
-### 1. Launch Docker Infrastructure
-Spin up PostgreSQL, FastAPI, Nginx Gateway, and Observability containers:
-```bash
-docker-compose -f deployment/docker-compose.yml up -d --build
-```
+The application supports both **Containerized Production** and **Hybrid Development** runtime models.
 
-### 2. Initialize PostgreSQL Schemas & Seed Data
-Initialize database tables and populate records from the local environment:
+### Option A: Containerized Production Mode
+All services (Database, Backend API, Gateway Proxy, Observability stack) run inside Docker:
 ```bash
-# Create database tables
+# 1. Start all container services
+docker-compose -f deployment/docker-compose.yml up -d --build
+
+# 2. Initialize PostgreSQL schemas metadata
 docker-compose -f deployment/docker-compose.yml exec backend python main.py --init-db
 
-# Seed sample transactions & platform analytics
+# 3. Seed sample transactions & platform analytics records
 .\.venv\Scripts\python backend/app/database/seed_db.py
 ```
 
-### 3. Launch Frontend Dashboard
-Build and run the Next.js production console:
+### Option B: Hybrid Development Mode (Recommended for testing)
+Run PostgreSQL in Docker, while running the Backend API and Next.js Frontend directly on your local host for maximum performance:
 ```bash
+# 1. Start PostgreSQL Database container
+docker-compose -f deployment/docker-compose.yml up -d postgres
+
+# 2. Run backend server locally (Listening on http://localhost:8000)
+.\.venv\Scripts\python backend/app/server.py
+
+# 3. Launch Frontend console locally (Listening on http://localhost:3000)
 cd frontend
 npm install
 npm run build
 npm run start
 ```
-*The dashboard is now online at **[http://localhost:3000](http://localhost:3000)**.*
 
 ---
 
@@ -149,8 +165,8 @@ npm run start
 | **AI** | `POST` | `/api/v1/rag/query` | Provider-agnostic RAG natural language search | Analyst |
 | **Telemetry**| `GET` | `/metrics` | Prometheus metrics scraping endpoint | Public |
 
-*   **Interactive Swagger Documentation:** [https://localhost/docs](https://localhost/docs)
-*   **ReDoc Specifications:** [https://localhost/redoc](https://localhost/redoc)
+*   **Host Development Swagger Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
+*   **Secure Gateway Swagger Docs:** [https://localhost/docs](https://localhost/docs)
 
 ---
 
