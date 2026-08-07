@@ -2,7 +2,7 @@
 
 **Version:** 2.0  
 **Status:** Approved  
-**Author:** Rayri Sharma (Senior Data Acquisition Engineer)  
+**Author:** Niraj Kadam (Senior Data Acquisition Engineer)  
 **Last Updated:** 2026-07-29  
 
 ---

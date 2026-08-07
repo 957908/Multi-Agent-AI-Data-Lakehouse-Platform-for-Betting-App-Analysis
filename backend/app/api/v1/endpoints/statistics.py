@@ -2,7 +2,7 @@
 File: statistics.py
 Purpose:
     Exposes analytical aggregation statistics and ETL pipeline ingestion metrics.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

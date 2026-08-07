@@ -1,7 +1,7 @@
 -- ============================================================
 -- PostgreSQL Initialization Script – SentinelX Trust AI
 -- Runs once on first container start (docker-entrypoint-initdb.d)
--- Author: Radhika Patil – DevOps (sourced from Priya Iyer's schema.sql)
+-- Author: Niraj Kadam – DevOps (sourced from Niraj Kadam's schema.sql)
 -- ============================================================
 
 -- Enable UUID generation extension

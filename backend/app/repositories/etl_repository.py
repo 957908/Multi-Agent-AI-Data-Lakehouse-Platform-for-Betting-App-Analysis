@@ -2,7 +2,7 @@
 File: etl_repository.py
 Purpose:
     Encapsulates database access patterns for the etl_runs tracking table.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

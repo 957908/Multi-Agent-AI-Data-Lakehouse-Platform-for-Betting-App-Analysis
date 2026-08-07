@@ -1,5 +1,5 @@
 -- Schema initialization for SentinelX Trust AI
--- Author: Priya Iyer
+-- Author: Niraj Kadam
 -- Company: SentinelX Labs
 -- Version: 1.0
 

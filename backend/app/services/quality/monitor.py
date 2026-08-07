@@ -3,7 +3,7 @@ File: monitor.py
 Purpose:
     Monitors data quality parameters (completeness, accuracy, uniqueness) 
     and generates markdown execution summaries.
-Author: Priya Iyer
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

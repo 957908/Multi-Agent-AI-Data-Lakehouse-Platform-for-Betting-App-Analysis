@@ -2,10 +2,10 @@
 File: settings.py
 Purpose:
     Centralized configuration management for the SentinelX Trust AI backend and ETL pipeline.
-Author: Priya Iyer & Arjun Mehta
+Author: Niraj Kadam & Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
-Version: 1.1 (merged: DevOps integration – Radhika Patil)
+Version: 1.1 (merged: DevOps integration – Niraj Kadam)
 """
 
 import os

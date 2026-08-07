@@ -1,8 +1,8 @@
 # ============================================================
 # Scraper Dockerfile – SentinelX Trust AI
-# Service: Data Acquisition Engine (Rayri Sharma)
+# Service: Data Acquisition Engine (Niraj Kadam)
 # Base: Python 3.11 Slim + Playwright Chromium
-# Author: Radhika Patil – DevOps & Engineering Operations
+# Author: Niraj Kadam – DevOps & Engineering Operations
 # ============================================================
 
 FROM python:3.11-slim

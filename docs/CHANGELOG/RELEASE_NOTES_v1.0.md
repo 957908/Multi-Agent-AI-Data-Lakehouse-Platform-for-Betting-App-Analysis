@@ -10,10 +10,10 @@
 
 **SentinelX Trust AI** is an enterprise-grade Multi-Agent AI Data Lakehouse Platform designed for automated analysis, risk rating, and trust score intelligence of betting ecosystem payment structures. Version 1.0 integrates the core engineering modules created across the platform lifecycle into a unified, high-performance solution:
 
-1. **Data Acquisition (Rayri Sharma):** Resilient playwright-based web scrapers collecting multi-platform deposit channels, payment methods, and bonus offers across betting platforms.
-2. **Data Engineering & Lakehouse Pipeline (Priya Iyer):** PySpark & Delta Lake/Parquet pipeline transforming raw ingestion into **Bronze (raw back-ups)**, **Silver (cleaned payment records)**, and **Gold (curated platform analytics & trust summaries)** layers with zero data-loss DLQ routing.
-3. **Backend & AI Intelligence (Arjun Mehta):** FastAPI backend REST architecture with JWT RBAC authentication, rule-based Trust Engine (0-100 score), provider-agnostic Retrieval-Augmented Generation (RAG) search, and pre-computed Gold Layer REST endpoints.
-4. **DevOps & Telemetry (Radhika Patil):** Containerized Docker Compose orchestration, Prometheus metrics scraping (`/metrics`), latency monitoring middleware, and automated backup validation.
+1. **Data Acquisition (Niraj Kadam):** Resilient playwright-based web scrapers collecting multi-platform deposit channels, payment methods, and bonus offers across betting platforms.
+2. **Data Engineering & Lakehouse Pipeline (Niraj Kadam):** PySpark & Delta Lake/Parquet pipeline transforming raw ingestion into **Bronze (raw back-ups)**, **Silver (cleaned payment records)**, and **Gold (curated platform analytics & trust summaries)** layers with zero data-loss DLQ routing.
+3. **Backend & AI Intelligence (Niraj Kadam):** FastAPI backend REST architecture with JWT RBAC authentication, rule-based Trust Engine (0-100 score), provider-agnostic Retrieval-Augmented Generation (RAG) search, and pre-computed Gold Layer REST endpoints.
+4. **DevOps & Telemetry (Niraj Kadam):** Containerized Docker Compose orchestration, Prometheus metrics scraping (`/metrics`), latency monitoring middleware, and automated backup validation.
 
 ---
 
@@ -113,7 +113,7 @@ docker-compose ps
 ---
 
 **Approval Sign-off:**  
-- **Lead Architect & Backend/AI:** Arjun Mehta  
-- **ETL & Data Engineering Lead:** Priya Iyer  
-- **Scraper & Acquisition Lead:** Rayri Sharma  
-- **DevOps & Reliability Lead:** Radhika Patil  
+- **Lead Architect & Backend/AI:** Niraj Kadam  
+- **ETL & Data Engineering Lead:** Niraj Kadam  
+- **Scraper & Acquisition Lead:** Niraj Kadam  
+- **DevOps & Reliability Lead:** Niraj Kadam  

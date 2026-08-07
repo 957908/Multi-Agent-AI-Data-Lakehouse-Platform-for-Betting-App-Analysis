@@ -2,7 +2,7 @@
 File: test_api.py
 Purpose:
     Unit and integration testing for the FastAPI backend REST API.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

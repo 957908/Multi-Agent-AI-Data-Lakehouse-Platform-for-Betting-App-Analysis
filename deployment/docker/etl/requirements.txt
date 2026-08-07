@@ -1,6 +1,6 @@
 # ETL Python Dependencies
 # Service: Data Engineering Pipeline – SentinelX Trust AI
-# Author: Radhika Patil (compiled from Priya Iyer's ETL sprint)
+# Author: Niraj Kadam (compiled from Niraj Kadam's ETL sprint)
 
 # Apache Spark (PySpark)
 pyspark==3.5.1

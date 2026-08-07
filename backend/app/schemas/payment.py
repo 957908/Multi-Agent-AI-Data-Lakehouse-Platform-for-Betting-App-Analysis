@@ -2,7 +2,7 @@
 File: payment.py
 Purpose:
     Pydantic validation schemas for payment record representations.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

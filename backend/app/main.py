@@ -3,7 +3,7 @@ File: main.py
 Purpose:
     Main command-line orchestrator entrypoint for the SentinelX Trust AI backend services.
     Enables database initialization and ETL pipeline execution via simple flags.
-Author: Priya Iyer
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

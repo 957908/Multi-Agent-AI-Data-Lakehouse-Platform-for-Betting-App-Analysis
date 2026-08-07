@@ -2,7 +2,7 @@
 File: search.py
 Purpose:
     REST API endpoints for multi-criteria search and platform filtering.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0

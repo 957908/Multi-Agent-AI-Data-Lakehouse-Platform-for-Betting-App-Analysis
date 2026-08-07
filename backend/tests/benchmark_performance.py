@@ -2,7 +2,7 @@
 File: benchmark_performance.py
 Purpose:
     Performance and Latency Load Benchmarking for SentinelX Trust AI Version 1.0 Release Candidate.
-Author: Arjun Mehta & Radhika Patil
+Author: Niraj Kadam & Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0 (Phase 4 RC1)

@@ -2,7 +2,7 @@
 File: cache.py
 Purpose:
     In-memory TTL performance caching utility for high-throughput API endpoints.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0

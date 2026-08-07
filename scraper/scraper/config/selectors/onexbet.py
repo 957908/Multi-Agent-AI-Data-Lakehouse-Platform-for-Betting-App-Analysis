@@ -3,10 +3,10 @@ File: onexbet.py
 Purpose:
     Define CSS/XPath selectors specifically for 1xBet based on production dump.
     Enhanced with CSS selector fallback chains (comma-separated OR rules) for high resilience.
-Author: R. Rayri Sharma
+Author: R. Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform for Betting Site Intelligence
-Created By: R. Rayri Sharma
+Created By: R. Niraj Kadam
 Reviewed By: Tech Lead & Solution Architect (HQ Chat)
 Version: 1.2
 """

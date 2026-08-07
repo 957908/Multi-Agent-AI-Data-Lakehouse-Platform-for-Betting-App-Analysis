@@ -2,7 +2,7 @@
 File: auth.py
 Purpose:
     Exposes endpoints for user authentication, session creation, and profile retrieval.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

@@ -4,10 +4,10 @@ Purpose:
     Processes raw JSON outputs to check Pydantic validations, perform duplicate detections, 
     and output execution and data quality markdown reports.
     Enhanced to parse and display structured failure reasons and performance metrics.
-Author: R. Rayri Sharma
+Author: R. Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform for Betting Site Intelligence
-Created By: R. Rayri Sharma
+Created By: R. Niraj Kadam
 Reviewed By: Tech Lead & Solution Architect (HQ Chat)
 Version: 2.0
 """

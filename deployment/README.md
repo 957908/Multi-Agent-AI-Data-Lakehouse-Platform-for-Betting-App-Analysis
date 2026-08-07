@@ -1,6 +1,6 @@
 # 🚀 SentinelX Trust AI – Deployment & Local Development Guide
 
-> **Author:** Radhika Patil – Senior DevOps & Engineering Operations  
+> **Author:** Niraj Kadam – Senior DevOps & Engineering Operations  
 > **Sprint:** DevOps Foundation (Sprint 1)  
 > **Last Updated:** 2026-07-26
 

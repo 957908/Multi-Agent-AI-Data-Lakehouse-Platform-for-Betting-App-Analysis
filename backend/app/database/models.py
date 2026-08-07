@@ -2,7 +2,7 @@
 File: models.py
 Purpose:
     SQLAlchemy ORM models for database schema representation including Gold layer models.
-Author: Priya Iyer & Arjun Mehta
+Author: Niraj Kadam & Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0

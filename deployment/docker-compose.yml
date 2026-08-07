@@ -1,7 +1,7 @@
 # ============================================================
 # docker-compose.yml – SentinelX Trust AI
 # Orchestrates all platform services for local development
-# Author: Radhika Patil – DevOps & Engineering Operations
+# Author: Niraj Kadam – DevOps & Engineering Operations
 # Version: 1.0
 # ============================================================
 
@@ -56,7 +56,7 @@ services:
         condition: service_healthy
 
   # ──────────────────────────────────────────────
-  # FastAPI Backend (Arjun Mehta)
+  # FastAPI Backend (Niraj Kadam)
   # Access at http://localhost:8000
   # Swagger docs: http://localhost:8000/docs
   # ──────────────────────────────────────────────
@@ -104,7 +104,7 @@ services:
       start_period: 20s
 
   # ──────────────────────────────────────────────
-  # Data Acquisition Scraper (Rayri Sharma)
+  # Data Acquisition Scraper (Niraj Kadam)
   # Runs on-demand; does not expose ports
   # ──────────────────────────────────────────────
   scraper:
@@ -135,7 +135,7 @@ services:
       - scraper
 
   # ──────────────────────────────────────────────
-  # ETL / Spark Pipeline (Priya Iyer)
+  # ETL / Spark Pipeline (Niraj Kadam)
   # Runs on-demand after scraper has produced output
   # ──────────────────────────────────────────────
   etl:

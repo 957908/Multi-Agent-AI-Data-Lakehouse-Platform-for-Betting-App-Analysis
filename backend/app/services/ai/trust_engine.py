@@ -2,7 +2,7 @@
 File: trust_engine.py
 Purpose:
     Rule-Based Trust Score Calculation Engine connected with live Gold Layer datasets.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0

@@ -1,8 +1,8 @@
 # ============================================================
 # ETL Dockerfile – SentinelX Trust AI
-# Service: Data Engineering / Spark ETL Pipeline (Priya Iyer)
+# Service: Data Engineering / Spark ETL Pipeline (Niraj Kadam)
 # Base: Python 3.11 + OpenJDK 17 (required by Apache Spark)
-# Author: Radhika Patil – DevOps & Engineering Operations
+# Author: Niraj Kadam – DevOps & Engineering Operations
 # ============================================================
 
 FROM python:3.11-slim

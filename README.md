@@ -43,13 +43,13 @@ flowchart TD
     classDef monitor fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff;
 
     %% Data Acquisition Layer
-    subgraph Layer1 ["1. Telemetry Acquisition (Rayri Sharma)"]
+    subgraph Layer1 ["1. Telemetry Acquisition (Niraj Kadam)"]
         ScraperAdapter["Playwright Cashier Adapters"] --> |JSON Data| BronzeBucket["Bronze Raw Storage (MinIO)"]
     end
     class ScraperAdapter,BronzeBucket acquisition;
 
     %% Data Lakehouse Layer
-    subgraph Layer2 ["2. Medallion Lakehouse Ingestion (Priya Iyer)"]
+    subgraph Layer2 ["2. Medallion Lakehouse Ingestion (Niraj Kadam)"]
         BronzeBucket --> |Load Schema| SparkETL["PySpark Engine (Validation)"]
         SparkETL --> |Validation Failures| DLQ["Dead Letter Queue (DLQ)"]
         SparkETL --> |Cleaned & Deduplicated| SilverBucket["Silver payment_records (Parquet)"]
@@ -58,7 +58,7 @@ flowchart TD
     class SparkETL,DLQ,SilverBucket,GoldBucket lakehouse;
 
     %% AI & Intelligence Layer
-    subgraph Layer3 ["3. AI trust & RAG Engine (Arjun Mehta)"]
+    subgraph Layer3 ["3. AI trust & RAG Engine (Niraj Kadam)"]
         GoldBucket --> |Metrics Sync| TrustEngine["Explainable Trust Engine (0-100)"]
         GoldBucket --> |Generate Context| DocumentIngest["RAG Chunk Ingestor"]
         DocumentIngest --> |Sentence Embeddings| FAISSDB["FAISS Vector Storage"]
@@ -74,7 +74,7 @@ flowchart TD
     class FastAPIServer,GatewayProxy apiLayer;
 
     %% Observability Layer
-    subgraph Layer5 ["5. Telemetry & DevOps (Radhika Patil)"]
+    subgraph Layer5 ["5. Telemetry & DevOps (Niraj Kadam)"]
         GatewayProxy --> |Scrape API Metrics| Prometheus["Prometheus Server"]
         Prometheus --> |Visualize Telemetry| Grafana["Grafana Dashboard Console"]
     end
@@ -181,7 +181,7 @@ python -m unittest backend/tests/test_ai_services.py backend/tests/test_api.py b
 
 ## 👥 Engineering Team & Credits
 
-*   👨‍💻 **Arjun Mehta** — Senior Backend & AI Engineer
-*   👩‍💻 **Priya Iyer** — Senior Data Engineer
-*   👨‍💻 **Rayri Sharma** — Data Acquisition Engineer
-*   👩‍💻 **Radhika Patil** — Senior DevOps Engineer
+*   👨‍💻 **Niraj Kadam** — Senior Backend & AI Engineer
+*   👩‍💻 **Niraj Kadam** — Senior Data Engineer
+*   👨‍💻 **Niraj Kadam** — Data Acquisition Engineer
+*   👩‍💻 **Niraj Kadam** — Senior DevOps Engineer

@@ -2,7 +2,7 @@
 File: rag_service.py
 Purpose:
     Provider-Agnostic Retrieval-Augmented Generation (RAG) Architecture with Gold Layer integration.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0

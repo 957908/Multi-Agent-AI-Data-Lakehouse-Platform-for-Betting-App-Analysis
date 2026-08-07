@@ -1,7 +1,7 @@
 # ADR-001: Initial Repository Structure and Branch Workflow
 
 * **Status:** Approved
-* **Decider:** Radhika Patil (DevOps), approved by Tech Lead
+* **Decider:** Niraj Kadam (DevOps), approved by Tech Lead
 * **Date:** 2026-07-26
 
 ## Context and Problem Statement

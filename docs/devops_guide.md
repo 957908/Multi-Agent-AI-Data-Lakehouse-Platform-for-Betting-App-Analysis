@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0  
 **Status:** Approved Operations Runbook  
-**Author:** Radhika Patil (Senior DevOps Engineer)  
+**Author:** Niraj Kadam (Senior DevOps Engineer)  
 **Last Updated:** 2026-08-02  
 
 ---

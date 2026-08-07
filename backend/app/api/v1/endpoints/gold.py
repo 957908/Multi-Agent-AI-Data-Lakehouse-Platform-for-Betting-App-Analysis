@@ -2,7 +2,7 @@
 File: gold.py
 Purpose:
     REST API endpoints for querying Gold Layer platform analytics and payment method insights.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0

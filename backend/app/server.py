@@ -2,7 +2,7 @@
 File: server.py
 Purpose:
     Main entry point for starting the SentinelX Trust AI backend REST API server.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0
@@ -78,8 +78,8 @@ app = FastAPI(
     title="SentinelX Trust AI – Unified Backend & AI Platform",
     description=(
         "# 🛡️ SentinelX Trust AI Platform API\n\n"
-        "Enterprise-grade backend API connecting Data Acquisition (Rayri Sharma), Data Engineering ETL (Priya Iyer), "
-        "and AI Intelligence (Arjun Mehta) into a unified intelligence platform for betting app analysis.\n\n"
+        "Enterprise-grade backend API connecting Data Acquisition (Niraj Kadam), Data Engineering ETL (Niraj Kadam), "
+        "and AI Intelligence (Niraj Kadam) into a unified intelligence platform for betting app analysis.\n\n"
         "### Key Features:\n"
         "- **Gold Layer Integration:** Pre-computed platform analytics and payment reliability metrics.\n"
         "- **Rule-Based Trust Engine:** Explainable trust score calculation (0-100) and risk flag breakdowns.\n"

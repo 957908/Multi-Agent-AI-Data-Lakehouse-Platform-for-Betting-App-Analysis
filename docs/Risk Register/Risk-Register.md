@@ -6,7 +6,7 @@ This document tracks identified project risks, their impact, likelihood, and mit
 
 | Risk ID | Description | Category | Likelihood | Impact | Mitigation Strategy | Owner | Status |
 |---|---|---|---|---|---|---|---|
-| **RSK-001** | Large Data Processing & Database Scale | Technical | Medium | High | Use Apache Iceberg, MinIO, and Spark for the lakehouse layout, and utilize PostgreSQL connection pooling. | Priya Iyer | Open |
-| **RSK-002** | AI Model Inaccuracies / Hallucinations | Technical | Medium | High | Implement strict output schema validation, prompt engineering reviews, and ground model responses using RAG with local FAISS vector stores. | Arjun Mehta | Open |
-| **RSK-003** | Web Scraper Session Expiration / IP Blocking | Technical | High | High | Implement session persistence in Playwright, randomized user agents, delay intervals, and proxy integration. | Rayri Sharma | Open |
-| **RSK-004** | Untracked Configuration / Secret Leakage | Security | Low | Critical | Enforce strict git status hooks, keep `.env` in the root `.gitignore`, and use Docker environment injection. | Radhika Patil | Closed (Mitigated) |
+| **RSK-001** | Large Data Processing & Database Scale | Technical | Medium | High | Use Apache Iceberg, MinIO, and Spark for the lakehouse layout, and utilize PostgreSQL connection pooling. | Niraj Kadam | Open |
+| **RSK-002** | AI Model Inaccuracies / Hallucinations | Technical | Medium | High | Implement strict output schema validation, prompt engineering reviews, and ground model responses using RAG with local FAISS vector stores. | Niraj Kadam | Open |
+| **RSK-003** | Web Scraper Session Expiration / IP Blocking | Technical | High | High | Implement session persistence in Playwright, randomized user agents, delay intervals, and proxy integration. | Niraj Kadam | Open |
+| **RSK-004** | Untracked Configuration / Secret Leakage | Security | Low | Critical | Enforce strict git status hooks, keep `.env` in the root `.gitignore`, and use Docker environment injection. | Niraj Kadam | Closed (Mitigated) |

@@ -3,7 +3,7 @@ File: init_db.py
 Purpose:
     Database initialization script that builds the required database schemas 
     in PostgreSQL using SQLAlchemy.
-Author: Priya Iyer
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

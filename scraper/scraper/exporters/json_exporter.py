@@ -2,10 +2,10 @@
 File: json_exporter.py
 Purpose:
     Exports extracted structured payment items to standard compliant JSON files.
-Author: R. Rayri Sharma
+Author: R. Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform for Betting Site Intelligence
-Created By: R. Rayri Sharma
+Created By: R. Niraj Kadam
 Reviewed By: Tech Lead & Solution Architect (HQ Chat)
 Version: 1.0
 """

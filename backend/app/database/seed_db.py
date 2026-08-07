@@ -3,7 +3,7 @@ File: seed_db.py
 Purpose:
     Seeds the PostgreSQL database with realistic sample payment records,
     ETL runs, and Gold Layer analytics so that the platform is ready for demonstration.
-Author: Radhika Patil & Arjun Mehta
+Author: Niraj Kadam & Niraj Kadam
 Project: SentinelX Trust AI
 """
 

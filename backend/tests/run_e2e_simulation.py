@@ -4,7 +4,7 @@ Purpose:
     Executes a complete End-to-End ETL and Gold Layer simulation,
     benchmarking execution speeds, validation checks, and generating
     production quality reports as deliverables.
-Author: Priya Iyer
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

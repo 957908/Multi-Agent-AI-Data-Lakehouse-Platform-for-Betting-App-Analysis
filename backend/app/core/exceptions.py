@@ -2,7 +2,7 @@
 File: exceptions.py
 Purpose:
     Defines application-wide exception handling schemas and centralized global exception handlers.
-Author: Arjun Mehta
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 5.0

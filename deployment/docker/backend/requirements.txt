@@ -1,6 +1,6 @@
 # Backend Python Dependencies
 # Service: FastAPI Backend – SentinelX Trust AI
-# Author: Radhika Patil (compiled from Arjun Mehta & Priya Iyer's work)
+# Author: Niraj Kadam (compiled from Niraj Kadam & Niraj Kadam's work)
 
 # Web Framework
 fastapi==0.139.2

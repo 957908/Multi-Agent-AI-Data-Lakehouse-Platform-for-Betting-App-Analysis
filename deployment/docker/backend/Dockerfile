@@ -1,8 +1,8 @@
 # ============================================================
 # Backend Dockerfile – SentinelX Trust AI
-# Service: FastAPI Backend (Arjun Mehta)
+# Service: FastAPI Backend (Niraj Kadam)
 # Base: Python 3.11 Slim
-# Author: Radhika Patil – DevOps & Engineering Operations
+# Author: Niraj Kadam – DevOps & Engineering Operations
 # ============================================================
 
 # Stage 1: Builder – install dependencies in isolated layer

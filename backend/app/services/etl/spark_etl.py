@@ -3,7 +3,7 @@ File: spark_etl.py
 Purpose:
     PySpark based ETL pipeline for ingesting, validating, transforming, 
     and staging scraper payment datasets.
-Author: Priya Iyer
+Author: Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform
 Version: 1.0

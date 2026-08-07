@@ -2,10 +2,10 @@
 File: test_payment_discovery.py
 Purpose:
     Tests the PaymentDiscovery component parsing and category inferences.
-Author: R. Rayri Sharma
+Author: R. Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform for Betting Site Intelligence
-Created By: R. Rayri Sharma
+Created By: R. Niraj Kadam
 Reviewed By: Tech Lead & Solution Architect (HQ Chat)
 Version: 1.0
 """

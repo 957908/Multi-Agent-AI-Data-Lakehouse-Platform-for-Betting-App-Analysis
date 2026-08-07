@@ -3,10 +3,10 @@ File: main.py
 Purpose:
     Integrated orchestration entrypoint for the SentinelX Trust AI scraper pipeline.
     Captures structured failure reasons and performance metrics ( rtry, dismissals, duration checks).
-Author: R. Rayri Sharma
+Author: R. Niraj Kadam
 Company: SentinelX Labs
 Project: SentinelX Trust AI – Multi-Agent AI Data Lakehouse Platform for Betting Site Intelligence
-Created By: R. Rayri Sharma
+Created By: R. Niraj Kadam
 Reviewed By: Tech Lead & Solution Architect (HQ Chat)
 Version: 2.0
 """

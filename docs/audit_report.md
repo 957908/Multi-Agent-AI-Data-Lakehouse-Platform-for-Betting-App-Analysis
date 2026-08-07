@@ -53,7 +53,7 @@ During Phase 5, the engineering team conducted a comprehensive audit of all code
 ---
 
 **Audit Sign-off:**  
-- **Lead Architect & Backend/AI:** Arjun Mehta  
-- **ETL & Data Engineering Lead:** Priya Iyer  
-- **Data Acquisition Lead:** Rayri Sharma  
-- **DevOps & Infrastructure Lead:** Radhika Patil  
+- **Lead Architect & Backend/AI:** Niraj Kadam  
+- **ETL & Data Engineering Lead:** Niraj Kadam  
+- **Data Acquisition Lead:** Niraj Kadam  
+- **DevOps & Infrastructure Lead:** Niraj Kadam  

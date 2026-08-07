@@ -1,6 +1,6 @@
 # SentinelX Trust AI – Data Acquisition & Scraper Module
 
-**Author:** Rayri Sharma (Senior Data Acquisition Engineer)  
+**Author:** Niraj Kadam (Senior Data Acquisition Engineer)  
 **Version:** 1.0.0  
 **Last Updated:** 2026-07-29  
 
